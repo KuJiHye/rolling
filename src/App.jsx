@@ -1,24 +1,22 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import MainHeader from './components/MainHeader'; 
+import MainHeader from './components/MainHeader';
 import RollingPaperDetail from './pages/RollingPaperDetail';
+import MainPage from './pages/MainPage';
 
-function App() {
+const App = () => {
   return (
     <Router>
       <MainHeader /> 
       
       <Routes>
-        <Route path="/" element={<div>메인 페이지 내용</div>} />
-
-        <Route path="/post" element={<div>만들기 페이지</div>} />
+        <Route path="/" element={<MainPage />} />
+        <Route path="/post" element={<div>롤링 페이퍼 만들기 페이지</div>} />
         <Route path="/post/:id" element={<RollingPaperDetail />} />
-
-        <Route path="/list" element={<div>목록 페이지</div>} />        
+        <Route path="/list" element={<div>롤링 페이퍼 목록 페이지</div>} />        
       </Routes>
     </Router>
   );
-}
-
+};
 
 export default App;
