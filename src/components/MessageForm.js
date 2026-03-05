@@ -58,6 +58,10 @@ function MessageForm() {
       <br />
       <br />
 
+      <TextEditor onChange={setContent} />
+      <br />
+      <br />
+
       <Selection value={font} onChange={setFont} type={"font"}>
         폰트 선택
       </Selection>
