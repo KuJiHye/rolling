@@ -1,7 +1,7 @@
-import styled from "styled-components";
 import Button from "../components/Button";
 import InputForm from "../components/InputForm";
 import SelectBackground from "../components/SelectBackgound";
+import SubmitButton from "../components/SubmitButton";
 
 function Post({ className }){
     return(
@@ -13,8 +13,5 @@ function Post({ className }){
     )
 }
 
-const SubmitButton = styled(Button)`
-    margin: 24px;
-`
 
 export default Post;
