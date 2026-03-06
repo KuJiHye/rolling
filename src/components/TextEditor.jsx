@@ -11,6 +11,13 @@ const modules = {
   ],
 };
 
+const fontMap = {
+  "Noto Sans": "Noto Sans KR",
+  Pretendard: "Pretendard",
+  나눔명조: "Nanum Myeongjo",
+  "나눔손글씨 손편지체": "Nanum Pen Script",
+};
+
 function TextEditor({ onChange, font }) {
   const { quill, quillRef } = useQuill({
     modules,
@@ -28,7 +35,7 @@ function TextEditor({ onChange, font }) {
     if (quillRef.current) {
       const editor = quillRef.current.querySelector(".ql-editor");
       if (editor) {
-        editor.style.fontFamily = font;
+        editor.style.fontFamily = fontMap[font] || font;
       }
     }
   }, [font]);

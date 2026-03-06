@@ -12,8 +12,8 @@ function MessageForm() {
     "https://fastly.picsum.photos/id/311/200/200.jpg?hmac=CHiYGYQ3Xpesshw5eYWH7U0Kyl9zMTZLQuRDU4OtyH8",
   );
   const [relationship, setRelationship] = useState("친구");
-  const [content, setContent] = useState("열심히 일하는 모습 멋있습니다");
-  const [font, setFont] = useState("Noto Sans");
+  const [content, setContent] = useState("");
+  const [font, setFont] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
