@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import DetailCardList from "../components/DetailCardList";
 import axios from "../api/axios";
 import DetailButton from "../components/DetailButton";
+import DetailHeader from "../components/DetailHeader";
 
 function DetailPage() {
   const { id } = useParams();
@@ -13,12 +14,15 @@ function DetailPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const editMode = location.pathname.includes("/edit");
+  const [cards, setCards] = useState(null);
 
   useEffect(() => {
     const backgroundData = async () => {
       try {
         const response = await axios.get(`recipients/${id}/`);
         const data = response.data;
+
+        setCards(data);
 
         if (data.backgroundImageURL) {
           setBackground({
@@ -65,7 +69,7 @@ function DetailPage() {
   return (
     <>
       {/* 헤더 컴포넌트 */}
-      {/* 미니 헤더 컴포넌트 */}
+      <DetailHeader card={cards} />
 
       <div
         style={
