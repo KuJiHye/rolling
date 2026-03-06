@@ -14,7 +14,7 @@ const StyledCarouselWindow = styled.div`
 `;
 
 const NavButton = styled.button`
-  visibility: ${(props) => (props.isHidden ? "hidden" : "visible")};
+  visibility: ${(props) => (props.$isHidden ? "hidden" : "visible")};
 `;
 
 function RollingPaperList({ title, sort }) {
@@ -87,7 +87,7 @@ function RollingPaperList({ title, sort }) {
         {title} (전체: {totalCount}개 / 로드됨: {allLists.length}개)
       </h1>
       <StyledCarouselWindow>
-        <NavButton onClick={handlePrev} isHidden={isNoPrevData}>
+        <NavButton onClick={handlePrev} $isHidden={isNoPrevData}>
           <span>&lt;</span>
         </NavButton>
         <StyledCardList>
@@ -97,7 +97,7 @@ function RollingPaperList({ title, sort }) {
             </li>
           ))}
         </StyledCardList>
-        <NavButton onClick={handleNext} isHidden={isNoNextData}>
+        <NavButton onClick={handleNext} $isHidden={isNoNextData}>
           <span>&gt;</span>
         </NavButton>
       </StyledCarouselWindow>
