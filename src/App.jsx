@@ -1,14 +1,23 @@
-import { Route, Routes } from "react-router-dom";
-import DetailPage from "./pages/DetailPage";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MainHeader from './components/MainHeader';
+import RollingPaperDetail from './pages/RollingPaperDetail';
+import MainPage from './pages/MainPage';
+import Post from './pages/Post';
+import ListPage from './pages/ListPage';
 
-function App() {
+const App = () => {
   return (
-    <>
+    <Router>
+      <MainHeader /> 
       <Routes>
-        <Route path="/post/:id" element={<DetailPage />} />
+        <Route path="/" element={<MainPage />} />
+        <Route path="/post" element={<Post />} />
+        <Route path="/post/:id" element={<RollingPaperDetail />} />
+        <Route path="/list" element={<ListPage />} />        
       </Routes>
-    </>
+    </Router>
   );
-}
+};
 
 export default App;
