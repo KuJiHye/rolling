@@ -52,6 +52,17 @@ function DetailPage() {
     }
   };
 
+  // 편집하기 / 저장하기 버튼 클릭 시 URL 변경
+  const handleEditToggle = () => {
+    if (editMode) {
+      navigate(`/post/${id}`);
+    } else {
+      navigate(`/post/${id}/edit`);
+    }
+
+    setEditMode((prev) => !prev);
+  };
+
   return (
     <>
       {/* 헤더 컴포넌트 */}
@@ -68,7 +79,7 @@ function DetailPage() {
               }
         }
       >
-        <DetailButton onClick={() => setEditMode((prev) => !prev)}>
+        <DetailButton onClick={handleEditToggle}>
           {editMode ? "저장하기" : "편집하기"}
         </DetailButton>
 
