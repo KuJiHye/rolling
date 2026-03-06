@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import RollingPaperCard from "./RollingPaperCard";
 import styled from "styled-components";
+import { getRecipients } from "../api/index";
 
 const CardList = styled.ul`
   display: flex;
@@ -21,18 +21,13 @@ function RollingPaperList({ title, sort }) {
   useEffect(() => {
     const loadLists = async (offsetIndex) => {
       try {
-        const response = await axios.get(
-          "https://rolling-api.vercel.app/23-5/recipients/",
-          {
-            params: {
-              limit: 4,
-              offset: offsetIndex,
-              sort: sort,
-            },
-          },
-        );
-        setLists(response.data.results);
-        setTotalCount(response.data.count);
+        const data = await getRecipients({
+          limit: 4,
+          offset: offsetIndex,
+          sort: sort,
+        });
+        setLists(data.results);
+        setTotalCount(data.count);
       } catch (error) {
         console.error("데이터 로딩 중 오류 발생:", error);
       }
