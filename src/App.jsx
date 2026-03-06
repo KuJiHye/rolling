@@ -4,6 +4,7 @@ import MainPage from "./pages/MainPage";
 import Post from "./pages/Post";
 import ListPage from "./pages/ListPage";
 import DetailPage from "./pages/DetailPage";
+import MessagePage from "./pages/MessagePage";
 
 const App = () => {
   return (
@@ -13,7 +14,7 @@ const App = () => {
         <Route path="/" element={<MainPage />} />
         <Route path="/post" element={<Post />} />
         <Route path="/post/:id" element={<DetailPage />} />
-        <Route path="/post/:id/messsage" elemment={<DetailPage />} />
+        <Route path="/post/:id/message" element={<MessagePage />} />
         <Route path="/list" element={<ListPage />} />
       </Routes>
     </Router>

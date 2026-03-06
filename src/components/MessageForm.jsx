@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "./Button";
 import Selection from "./Selection";
+import TextEditor from "./TextEditor";
 import axios from "axios";
 
 const RECIPIENT_ID = 16538; //예시 ID
