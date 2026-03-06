@@ -3,10 +3,10 @@ import Button from "./Button";
 import Selection from "./Selection";
 import TextEditor from "./TextEditor";
 import axios from "axios";
-
-const RECIPIENT_ID = 16538; //예시 ID
+import { useParams } from "react-router-dom";
 
 function MessageForm() {
+  const { id } = useParams();
   const [sender, setSender] = useState("김하은");
   const [profileImageURL, setProfileImageURL] = useState(
     "https://fastly.picsum.photos/id/311/200/200.jpg?hmac=CHiYGYQ3Xpesshw5eYWH7U0Kyl9zMTZLQuRDU4OtyH8",
@@ -34,7 +34,7 @@ function MessageForm() {
 
     try {
       const response = await axios.post(
-        `https://rolling-api.vercel.app/23-5/recipients/${RECIPIENT_ID}/messages/`,
+        `https://rolling-api.vercel.app/23-5/recipients/${id}/messages/`,
         { sender, profileImageURL, relationship, content, font },
       );
       console.log(response.data);
@@ -59,7 +59,7 @@ function MessageForm() {
       <br />
       <br />
 
-      <TextEditor onChange={setContent} />
+      <TextEditor onChange={setContent} font={font} />
       <br />
       <br />
 

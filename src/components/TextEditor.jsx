@@ -11,7 +11,7 @@ const modules = {
   ],
 };
 
-function TextEditor({ onChange }) {
+function TextEditor({ onChange, font }) {
   const { quill, quillRef } = useQuill({
     modules,
   });
@@ -23,6 +23,15 @@ function TextEditor({ onChange }) {
       });
     }
   }, [quill, onChange]);
+
+  useEffect(() => {
+    if (quillRef.current) {
+      const editor = quillRef.current.querySelector(".ql-editor");
+      if (editor) {
+        editor.style.fontFamily = font;
+      }
+    }
+  }, [font]);
 
   return (
     <>
