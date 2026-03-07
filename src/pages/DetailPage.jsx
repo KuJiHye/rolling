@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import DetailCardList from "../components/DetailCardList";
 import axios from "../api/axios";
 import DetailButton from "../components/DetailButton";
+import DetailHeader from "../components/DetailHeader";
 import EmojiReaction from '../components/EmojiReaction';
 import ShareDropdown from "../components/ShareDropdown";
 
@@ -12,8 +13,10 @@ function DetailPage() {
     type: "color",
     value: "#FFFFFF",
   });
-  const [editMode, setEditMode] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const editMode = location.pathname.includes("/edit");
+  const [cards, setCards] = useState(null);
   const [recipientData, setRecipientData] = useState(null);
 
   useEffect(() => {
@@ -21,6 +24,8 @@ function DetailPage() {
       try {
         const response = await axios.get(`recipients/${id}/`);
         const data = response.data;
+
+        setCards(data);
 
         if (data.backgroundImageURL) {
           setBackground({
@@ -56,10 +61,19 @@ function DetailPage() {
     }
   };
 
+  // 편집하기 / 저장하기 버튼 클릭 시 URL 변경
+  const handleEditToggle = () => {
+    if (editMode) {
+      navigate(`/post/${id}`);
+    } else {
+      navigate(`/post/${id}/edit`);
+    }
+  };
+
   return (
     <>
       {/* 헤더 컴포넌트 */}
-      {/* 미니 헤더 컴포넌트 */}
+      <DetailHeader card={cards} />
 
       <div
         style={
@@ -76,7 +90,7 @@ function DetailPage() {
 
         <ShareDropdown postData={recipientData} />
 
-        <DetailButton onClick={() => setEditMode((prev) => !prev)}>
+        <DetailButton onClick={handleEditToggle}>
           {editMode ? "저장하기" : "편집하기"}
         </DetailButton>
 

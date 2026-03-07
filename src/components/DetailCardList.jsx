@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import DetailCardListItemAdd from "./DetailCardListItemAdd";
 import DetailCardListItem from "./DetailCardListItem";
+import DetailCardModal from "./DetailCardModal";
 import axios from "../api/axios";
 
 function DetailCardList({ editMode }) {
   const { id } = useParams();
   const [cards, setCards] = useState([]);
+  const [cardModal, setCardModal] = useState(null);
 
   useEffect(() => {
     const recentMessagesData = async () => {
@@ -47,8 +49,16 @@ function DetailCardList({ editMode }) {
           card={card}
           editMode={editMode}
           onDelete={handleDeleteCard}
+          onClick={() => setCardModal(card)}
         />
       ))}
+
+      {cardModal && (
+        <DetailCardModal
+          card={cardModal}
+          onClose={() => setCardModal(null)}
+        />
+      )}
     </div>
   );
 }
