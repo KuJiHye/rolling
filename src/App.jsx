@@ -7,10 +7,12 @@ import ListPage from "./pages/ListPage";
 import DetailPage from "./pages/DetailPage";
 import MessagePage from "./pages/MessagePage";
 import BackButton from "./components/BackButton";
+import GlobalStyle from "./styles/GlobalStyle";
 
 const App = () => {
   return (
     <>
+      <GlobalStyle />
       <Router>
         <MainHeader />
         <BackButton />
