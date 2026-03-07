@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BackgroundToggle from "./BackgroundToggle";
 import ColorbackgroundList from "./ColorbackgroundList";
 import ImgbackgroundList from "./ImgbackgroundList";
+import axios from "axios";
 
 function SelectBackground(){
     const [backgroundMode, setBackgroundMode] = useState('color')
+    const [bgImgList, setBgImgList] = useState([]);
+    
+
+    useEffect(()=>{
+        axios.get('https://rolling-api.vercel.app/background-images/')
+        .then( response => setBgImgList(response.data.imageUrls) )
+    },[]);
 
     const handleToggleClick = (mode) => {
         setBackgroundMode(mode);
@@ -16,7 +24,7 @@ function SelectBackground(){
             <div>
                 <BackgroundToggle backgroundMode={backgroundMode} handleToggleClick={handleToggleClick}/>
                 {/*color값이 true이면 ColorbackgroundList, false이면 ImgbackgroundList */}
-                {backgroundMode === 'color' ? <ColorbackgroundList /> : <ImgbackgroundList />}
+                {backgroundMode === 'color' ? <ColorbackgroundList /> : <ImgbackgroundList bgImgList={bgImgList}/>}
             </div>
         </div>
     )
