@@ -6,12 +6,14 @@ import Post from "./pages/Post";
 import ListPage from "./pages/ListPage";
 import DetailPage from "./pages/DetailPage";
 import MessagePage from "./pages/MessagePage";
+import BackButton from "./components/BackButton";
 
 const App = () => {
   return (
     <>
       <Router>
         <MainHeader />
+        <BackButton />
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/post" element={<Post />} />
