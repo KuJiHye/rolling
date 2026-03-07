@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import DetailCardList from "../components/DetailCardList";
 import axios from "../api/axios";
 import DetailButton from "../components/DetailButton";
+import EmojiReaction from '../components/EmojiReaction';
+import ShareDropdown from "../components/ShareDropdown";
 
 function DetailPage() {
   const { id } = useParams();
@@ -12,6 +14,7 @@ function DetailPage() {
   });
   const [editMode, setEditMode] = useState(false);
   const navigate = useNavigate();
+  const [recipientData, setRecipientData] = useState(null);
 
   useEffect(() => {
     const backgroundData = async () => {
@@ -30,6 +33,7 @@ function DetailPage() {
             value: data.backgroundColor,
           });
         }
+        setRecipientData(data);
       } catch (error) {
         console.error(error);
       }
@@ -68,6 +72,10 @@ function DetailPage() {
               }
         }
       >
+        <EmojiReaction recipientId={id} />
+
+        <ShareDropdown postData={recipientData} />
+
         <DetailButton onClick={() => setEditMode((prev) => !prev)}>
           {editMode ? "저장하기" : "편집하기"}
         </DetailButton>

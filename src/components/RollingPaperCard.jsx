@@ -1,6 +1,19 @@
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
+const CardWrapper = styled.div`
+  cursor: pointer;
+`;
+
 function RollingPaperCard({ list }) {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/post/${list.id}`);
+  };
+
   return (
-    <div>
+    <CardWrapper onClick={handleCardClick}>
       <h2>{list.name}</h2>
       <span>{list.messageCount}</span>
       <ul>
@@ -18,7 +31,7 @@ function RollingPaperCard({ list }) {
           </li>
         ))}
       </ul>
-    </div>
+    </CardWrapper>
   );
 }
 
