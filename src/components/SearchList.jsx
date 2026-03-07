@@ -31,14 +31,22 @@ function SearchList() {
     const fetchData = async () => {
       setIsLoading(true);
       try {
+        // 1. 우선 서버에서 데이터를 가져옵니다 (search 파라미터는 제외하거나 그대로 둠)
         const response = await getRecipients({
-          limit: 12,
+          limit: 100, // 검색을 위해 평소보다 넉넉하게 데이터를 가져옵니다.
           sort: sort === "like" ? "like" : "",
-          search: keywordFromUrl,
         });
-        setAllData(response.results);
+
+        // 2. 가져온 데이터에서 keyword가 포함된 항목만 필터링합니다.
+        const filteredData = response.results.filter((item) =>
+          // 이름(name) 필드가 있다면 검색어와 비교 (대소문자 구분 없이)
+          item.name.toLowerCase().includes(keywordFromUrl.toLowerCase()),
+        );
+
+        console.log("필터링된 결과:", filteredData);
+        setAllData(filteredData); // 필터링된 데이터만 상태에 저장
       } catch (error) {
-        console.error(error);
+        console.error("데이터 불러오기 실패:", error);
       } finally {
         setIsLoading(false);
       }

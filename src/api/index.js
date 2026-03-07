@@ -6,12 +6,18 @@ const instance = axios.create({
 });
 
 //롤링페이퍼 List 불러오기
-export const getRecipients = async ({ limit = 4, offset = 0, sort = "" }) => {
+export const getRecipients = async ({
+  limit = 4,
+  offset = 0,
+  sort = "",
+  search = "",
+}) => {
   const response = await instance.get("/recipients/", {
     params: {
       limit,
       offset,
       sort,
+      search,
     },
   });
   return response.data;
