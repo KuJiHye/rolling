@@ -1,4 +1,4 @@
-import SearchList from "../components/Searchlist";
+import SearchList from "../components/SearchList";
 
 function SearchPage() {
   return <SearchList />;

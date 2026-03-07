@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { getRecipients } from "../api/index";
-import RollingPaperCard from "../components/RollingPaperCard";
+import RollingPaperCard from "./RollingPaperCard";
 import styled from "styled-components";
 
 const CardGrid = styled.ul`
@@ -32,7 +32,7 @@ function SearchList() {
       setIsLoading(true);
       try {
         const response = await getRecipients({
-          limit: 12, // 세로 3줄을 위해 12개 요청 (4개 * 3줄)
+          limit: 12,
           sort: sort === "like" ? "like" : "",
           search: keywordFromUrl,
         });
