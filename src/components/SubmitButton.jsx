@@ -7,6 +7,8 @@ function SubmitButton(){
 
     // 롤링 페이퍼 생성하기 페이지에서 생성 버튼 클릭 시 작동하는 함수
     const handleClickCreatePaperButton = () =>{
+        //롤링페이퍼 생성
+        
         //페이지 이동
         nevigate('/post/${id}')
     }
