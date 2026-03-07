@@ -1,4 +1,6 @@
 import MessageCount from "./messageCount";
+import EmojiReaction from "./EmojiReaction";
+import ShareDropdown from "./ShareDropdown";
 
 function DetailHeader({ card }) {
   if (!card) return null;
@@ -7,9 +9,8 @@ function DetailHeader({ card }) {
     <div>
       <h1>To. {card.name}</h1>
       <MessageCount card={card} />
-
-      {/* 이모지 컴포넌트 */}
-      {/* 공유 컴포넌트 */}
+      <EmojiReaction recipientId={card.id} />
+      <ShareDropdown postData={card.recipientData} />
     </div>
   );
 }
