@@ -1,20 +1,22 @@
 import { useState } from "react";
 import Button from "./Button";
 import Selection from "./Selection";
+import TextEditor from "./TextEditor";
 import axios from "axios";
-
-const RECIPIENT_ID = 16538; //예시 ID
+import { useNavigate, useParams } from "react-router-dom";
 
 function MessageForm() {
+  const { id } = useParams();
   const [sender, setSender] = useState("김하은");
   const [profileImageURL, setProfileImageURL] = useState(
     "https://fastly.picsum.photos/id/311/200/200.jpg?hmac=CHiYGYQ3Xpesshw5eYWH7U0Kyl9zMTZLQuRDU4OtyH8",
   );
   const [relationship, setRelationship] = useState("친구");
-  const [content, setContent] = useState("열심히 일하는 모습 멋있습니다");
+  const [content, setContent] = useState("");
   const [font, setFont] = useState("Noto Sans");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   //필수 입력값이 없으면 버튼 비활성화
   const isDisabled = false;
@@ -33,10 +35,10 @@ function MessageForm() {
 
     try {
       const response = await axios.post(
-        `https://rolling-api.vercel.app/23-5/recipients/${RECIPIENT_ID}/messages/`,
+        `https://rolling-api.vercel.app/23-5/recipients/${id}/messages/`,
         { sender, profileImageURL, relationship, content, font },
       );
-      console.log(response.data);
+      navigate(`/post/${id}`);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -58,7 +60,7 @@ function MessageForm() {
       <br />
       <br />
 
-      <TextEditor onChange={setContent} />
+      <TextEditor onChange={setContent} font={font} />
       <br />
       <br />
 

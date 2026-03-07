@@ -3,14 +3,18 @@ import RollingPaperCard from "./RollingPaperCard";
 import styled from "styled-components";
 import { getRecipients } from "../api/index";
 
-const CardList = styled.ul`
+const StyledCardList = styled.ul`
   display: flex;
   gap: 40px;
   flex-direction: row;
 `;
+const StyledCarouselWindow = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 const NavButton = styled.button`
-  visibility: ${(props) => (props.isHidden ? "hidden" : "visible")};
+  visibility: ${(props) => (props.$isHidden ? "hidden" : "visible")};
 `;
 
 function RollingPaperList({ title, sort }) {
@@ -82,21 +86,21 @@ function RollingPaperList({ title, sort }) {
       <h1>
         {title} (전체: {totalCount}개 / 로드됨: {allLists.length}개)
       </h1>
-      <CardList>
-        <NavButton onClick={handlePrev} isHidden={isNoPrevData}>
+      <StyledCarouselWindow>
+        <NavButton onClick={handlePrev} $isHidden={isNoPrevData}>
           <span>&lt;</span>
         </NavButton>
-
-        {visibleLists.map((list) => (
-          <li key={list.id}>
-            <RollingPaperCard list={list} />
-          </li>
-        ))}
-
-        <NavButton onClick={handleNext} isHidden={isNoNextData}>
+        <StyledCardList>
+          {visibleLists.map((list) => (
+            <li key={list.id}>
+              <RollingPaperCard list={list} />
+            </li>
+          ))}
+        </StyledCardList>
+        <NavButton onClick={handleNext} $isHidden={isNoNextData}>
           <span>&gt;</span>
         </NavButton>
-      </CardList>
+      </StyledCarouselWindow>
     </div>
   );
 }

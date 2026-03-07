@@ -11,7 +11,14 @@ const modules = {
   ],
 };
 
-function TextEditor({ onChange }) {
+const fontMap = {
+  "Noto Sans": "Noto Sans KR",
+  Pretendard: "Pretendard",
+  나눔명조: "Nanum Myeongjo",
+  "나눔손글씨 손편지체": "Nanum Pen Script",
+};
+
+function TextEditor({ onChange, font }) {
   const { quill, quillRef } = useQuill({
     modules,
   });
@@ -19,10 +26,19 @@ function TextEditor({ onChange }) {
   useEffect(() => {
     if (quill) {
       quill.on("text-change", () => {
-        onChange(quill.getText());
+        onChange(quill.getSemanticHTML());
       });
     }
   }, [quill, onChange]);
+
+  useEffect(() => {
+    if (quillRef.current) {
+      const editor = quillRef.current.querySelector(".ql-editor");
+      if (editor) {
+        editor.style.fontFamily = fontMap[font] || font;
+      }
+    }
+  }, [font]);
 
   return (
     <>
