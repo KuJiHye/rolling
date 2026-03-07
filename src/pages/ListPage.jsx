@@ -1,3 +1,4 @@
+import ExploreButton from "../components/ExploreButton";
 import RollingPaperList from "../components/RollingPaperList";
 
 function ListPage() {
@@ -5,6 +6,7 @@ function ListPage() {
     <>
       <RollingPaperList title="인기 롤링 페이퍼🔥" sort="like" />
       <RollingPaperList title="최근에 만든 롤링 페이퍼 ⭐️️" />
+      <ExploreButton to="/post">롤링 페이퍼 만들러 가기</ExploreButton>
     </>
   );
 }

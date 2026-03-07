@@ -5,7 +5,7 @@ import ExploreButton from '../components/ExploreButton';
 const MainPage = () => {
   return (
     <div>
-      <ExploreButton /> 
+      <ExploreButton to="/list">구경해보기</ExploreButton>
     </div>
   );
 };
