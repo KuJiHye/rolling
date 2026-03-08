@@ -51,6 +51,16 @@ table {
 	border-spacing: 0;
 }
 
+button {
+    background: none;
+    margin: 0;
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+
 :root {
     --purple-100: #F8F0FF;
     --purple-200: #ECD9FF;
