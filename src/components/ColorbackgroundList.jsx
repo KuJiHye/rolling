@@ -8,8 +8,8 @@ function ColorbgList({ className, onClickColor, userSelectedColor }){
             <ColorbackgroundItem
                 value='yellow'
                 $hexColorCode='#FFE2AD'
-                onClick={()=>onClickColor('yellow')}>
-                {userSelectedColor === 'yellow' ? <BackgroundCheck/> :''}
+                onClick={()=>onClickColor('beige')}>
+                {userSelectedColor === 'beige' ? <BackgroundCheck/> :''}
             </ColorbackgroundItem>
             <ColorbackgroundItem
                 value ='purple'

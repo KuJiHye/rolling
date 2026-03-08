@@ -1,15 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import BackgroundToggle from "./BackgroundToggle";
 import ColorbackgroundList from "./ColorbackgroundList";
 import ImgbackgroundList from "./ImgbackgroundList";
 import axios from "axios";
+import MyContext from "./MyContext";
 
-function SelectBackground(){
-    const [backgroundMode, setBackgroundMode] = useState('color')
+function SelectBackground({ backgroundMode, setBackgroundMode }){
     const [bgImgList, setBgImgList] = useState([]);
-    const [userSelectedColor, setUserSelectedColor] = useState('yellow');
-    const [userSelectedImg, setUserSelectedImg] = useState(0);
-    //selected 된 컴포넌트에만 check표시 렌더링, 변수가 true인지 false인지 검사하는 조건부 렌더링 사용?
+    const { userSelectedColor, userSelectedImg, setUserSelectedImg, setUserSelectedColor} = useContext(MyContext);
 
     //사용자가 색깔을 누르면 userSelectedImg 바꾸는 함수
     const handleClickImg = (imgNumber)=> {
@@ -20,7 +18,6 @@ function SelectBackground(){
     const handleClickColor = (color)=> {
         setUserSelectedColor(color);
     }
-
 
     useEffect(()=>{
         axios.get('https://rolling-api.vercel.app/background-images/')
