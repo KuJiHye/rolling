@@ -1,9 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-function Input({ placeholder }){
-
+function Input({ placeholder, receiverName, setReceiverName }){
     const [isNull, setIsNull] = useState(false);
+
+    const handleChange = (e) => { 
+		const nextValue = e.target.value;
+		setReceiverName(nextValue);
+    };
 
     //focusout 될 때 비어있는지를 검사 
     const handleInputFocusout = (e) => {
@@ -15,11 +19,14 @@ function Input({ placeholder }){
     }
 
     return(
-        <InputBox placeholder={isNull? '값을 입력해주세요.':placeholder} onBlur={handleInputFocusout} $isNull={isNull} />
+        <InputBox
+            value={receiverName}
+            onChange={handleChange}
+            placeholder={isNull? '값을 입력해주세요.':placeholder} 
+            onBlur={handleInputFocusout}
+            $isNull={isNull} />
     )
 }
-
-
 
 const InputBox = styled.input`
     width: 720px;
