@@ -1,9 +1,24 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
 import DetailCardListItemAdd from "./DetailCardListItemAdd";
 import DetailCardListItem from "./DetailCardListItem";
 import DetailCardModal from "./DetailCardModal";
 import axios from "../api/axios";
+
+const DetailCardListDiv = styled.div`
+  display: flex;
+  flex-flow: wrap;
+  gap: 28px 24px;
+
+  & > div {
+    width: 384px;
+    height: 280px;
+    background-color: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 2px 12px 0 #00000014;
+  }
+`;
 
 function DetailCardList({ editMode }) {
   const { id } = useParams();
@@ -27,7 +42,7 @@ function DetailCardList({ editMode }) {
 
   // 카드 삭제
   const handleDeleteCard = async (cardId) => {
-    const confirmDelete = window.confirm("정말 삭제하시겠습니까?");
+    const confirmDelete = window.confirm("메세지를 정말 삭제하시겠습니까?");
 
     if (!confirmDelete) return;
 
@@ -40,7 +55,7 @@ function DetailCardList({ editMode }) {
   };
 
   return (
-    <div>
+    <DetailCardListDiv>
       {!editMode && <DetailCardListItemAdd id={id} />}
 
       {cards.map((card) => (
@@ -54,12 +69,9 @@ function DetailCardList({ editMode }) {
       ))}
 
       {cardModal && (
-        <DetailCardModal
-          card={cardModal}
-          onClose={() => setCardModal(null)}
-        />
+        <DetailCardModal card={cardModal} onClose={() => setCardModal(null)} />
       )}
-    </div>
+    </DetailCardListDiv>
   );
 }
 

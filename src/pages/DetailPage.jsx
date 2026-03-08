@@ -1,9 +1,52 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import styled from "styled-components";
 import DetailCardList from "../components/DetailCardList";
-import axios from "../api/axios";
 import DetailButton from "../components/DetailButton";
 import DetailHeader from "../components/DetailHeader";
+import axios from "../api/axios";
+
+const BackgroundDiv = styled.div`
+  background-size: cover;
+  background-position: center;
+
+  ${({ background }) =>
+    background.type === "color"
+      ? `background-color: ${background.value};`
+      : `background-image: url(${background.value});`}
+`;
+const DetailBodyDiv = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 0 110px;
+`;
+const ButtonDiv = styled.div`
+  margin: 0 0 12px;
+  text-align: right;
+`;
+const EditButtonStyle = styled(DetailButton)`
+  background-color: var(--purple-600);
+  padding: 7px 17px;
+  border-radius: 6px;
+  color: var(--white);
+  line-height: 26px;
+
+  &:hover {
+    background-color: var(--purple-700);
+  }
+`;
+const DeleteButtonStyle = styled(DetailButton)`
+  background-color: var(--gray-600);
+  margin: 0 5px 0 0;
+  padding: 7px 17px;
+  border-radius: 6px;
+  color: var(--white);
+  line-height: 26px;
+
+  &:hover {
+    background-color: var(--gray-700);
+  }
+`;
 
 function DetailPage() {
   const { id } = useParams();
@@ -45,7 +88,7 @@ function DetailPage() {
 
   // 페이지 삭제
   const handleDeletePage = async () => {
-    const confirmDelete = window.confirm("정말 삭제하시겠습니까?");
+    const confirmDelete = window.confirm("롤링페이퍼를 정말 삭제하시겠습니까?");
 
     if (!confirmDelete) return;
 
@@ -68,31 +111,25 @@ function DetailPage() {
 
   return (
     <>
-      {/* 헤더 컴포넌트 */}
       <DetailHeader card={cards} />
 
-      <div
-        style={
-          background.type === "color"
-            ? { backgroundColor: background.value }
-            : {
-                backgroundImage: `url(${background.value})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }
-        }
-      >
+      <BackgroundDiv background={background}>
+        <DetailBodyDiv>
+          <ButtonDiv>
+            {editMode && (
+              <DeleteButtonStyle onClick={handleDeletePage}>
+                롤링페이퍼 삭제하기
+              </DeleteButtonStyle>
+            )}
 
-        <DetailButton onClick={handleEditToggle}>
-          {editMode ? "저장하기" : "편집하기"}
-        </DetailButton>
+            <EditButtonStyle onClick={handleEditToggle}>
+              {editMode ? "돌아가기" : "편집하기"}
+            </EditButtonStyle>
+          </ButtonDiv>
 
-        {editMode && (
-          <DetailButton onClick={handleDeletePage}>삭제하기</DetailButton>
-        )}
-
-        <DetailCardList editMode={editMode} />
-      </div>
+          <DetailCardList editMode={editMode} />
+        </DetailBodyDiv>
+      </BackgroundDiv>
     </>
   );
 }
