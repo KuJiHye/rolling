@@ -7,7 +7,13 @@ import axios from "axios";
 function SelectBackground(){
     const [backgroundMode, setBackgroundMode] = useState('color')
     const [bgImgList, setBgImgList] = useState([]);
-    
+    const [userSelectedColor, setUserSelectedColor] = useState('yellow');
+
+    //사용자가 색깔을 누르면 userSelectedColor 바꾸는 함수
+    const handleClickColor = (color)=> {
+        setUserSelectedColor(color);
+    }
+
 
     useEffect(()=>{
         axios.get('https://rolling-api.vercel.app/background-images/')
@@ -24,7 +30,7 @@ function SelectBackground(){
             <div>
                 <BackgroundToggle backgroundMode={backgroundMode} handleToggleClick={handleToggleClick}/>
                 {/*color값이 true이면 ColorbackgroundList, false이면 ImgbackgroundList */}
-                {backgroundMode === 'color' ? <ColorbackgroundList /> : <ImgbackgroundList bgImgList={bgImgList}/>}
+                {backgroundMode === 'color' ? <ColorbackgroundList onClickColor={handleClickColor}/> : <ImgbackgroundList bgImgList={bgImgList}/>}
             </div>
         </div>
     )

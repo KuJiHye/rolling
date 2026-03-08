@@ -15,9 +15,11 @@ function Input({ placeholder }){
     }
 
     return(
-        <InputBox placeholder={placeholder} onBlur={handleInputFocusout} $isNull={isNull} />
+        <InputBox placeholder={isNull? '값을 입력해주세요.':placeholder} onBlur={handleInputFocusout} $isNull={isNull} />
     )
 }
+
+
 
 const InputBox = styled.input`
     width: 720px;
@@ -26,4 +28,4 @@ const InputBox = styled.input`
     padding: 12px 16px;
 `
 
-export default Input; 
+export default Input;
