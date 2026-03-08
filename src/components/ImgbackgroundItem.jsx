@@ -1,12 +1,17 @@
 import styled from "styled-components";
 
-function ImgBackgroundItem({ data, onClick }) { 
+function ImgBackgroundItem({ data, onClick, children }) { 
     return (
-        <StyledItem onClick={onClick} $bgUrl={data} />
+        <StyledItem onClick={onClick} $bgUrl={data} children={children}>
+            {children}
+        </StyledItem>
     );
 }
 
 const StyledItem = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 168px;
     height: 168px;
     border-radius: 16px;

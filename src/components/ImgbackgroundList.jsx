@@ -1,20 +1,14 @@
-import { useState } from "react";
+import BackgroundCheck from "./BackgroundCheck";
 import ImgBackgroundItem from "./ImgbackgroundItem";
 import styled from "styled-components";
 
-function Imgbackgrounds({ className, bgImgList }){
-    const [userSelectedImg, setUserSelectedImg] = useState(0);
-
-    //사용자가 색깔을 누르면 userSelectedImg 바꾸는 함수
-    const handleClickImg = (imgNumber)=> {
-        setUserSelectedImg(imgNumber);
-    }
-
+function Imgbackgrounds({ className, bgImgList, onClickImg, userSelectedImg}){
     return (
-
         <div className={className}>
             {bgImgList.map((item, index)=> (
-                <ImgBackgroundItem key={index} data={item} onClick={()=>handleClickImg(index)}/>
+                <ImgBackgroundItem key={index} data={item} onClick={()=>onClickImg(index)}>
+                    {index===userSelectedImg? <BackgroundCheck /> : ''}
+                </ImgBackgroundItem>
             ))}
         </div>
     )

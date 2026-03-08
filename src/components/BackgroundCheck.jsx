@@ -11,10 +11,15 @@ function BackgroundCheck(){
 }
 
 const Div = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width:34px;
     height: 34px;
-    background-color: #7c7c7c;
+    background-color: #555555;
     border-radius: 100px;
+    position: relative; 
+    z-index: 10;
 `
 
 export default BackgroundCheck;

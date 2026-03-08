@@ -2,27 +2,33 @@ import styled from "styled-components";
 import ColorbackgroundItem from "./ColorbackgroundItem";
 import BackgroundCheck from "./BackgroundCheck";
 
-function ColorbgList({ className, onClickColor }){
+function ColorbgList({ className, onClickColor, userSelectedColor }){
     return(
         <div className={className}>
             <ColorbackgroundItem
                 value='yellow'
                 $hexColorCode='#FFE2AD'
                 onClick={()=>onClickColor('yellow')}>
-                    {<BackgroundCheck />}
+                {userSelectedColor === 'yellow' ? <BackgroundCheck/> :''}
             </ColorbackgroundItem>
             <ColorbackgroundItem
                 value ='purple'
                 $hexColorCode='#ECD9FF'
-                onClick={()=>onClickColor('purple')} />
+                onClick={()=>onClickColor('purple')}>
+                {userSelectedColor === 'purple'? <BackgroundCheck/> :''}
+            </ColorbackgroundItem>
             <ColorbackgroundItem
                 value='blue'
                 $hexColorCode='#B1E4FF'
-                onClick={()=>onClickColor('blue')} />
+                onClick={()=>onClickColor('blue')}>
+                {userSelectedColor === 'blue'? <BackgroundCheck/> :''}
+            </ColorbackgroundItem>
             <ColorbackgroundItem 
                 value='green'
                 $hexColorCode='#D0F5C3'
-                onClick={()=>onClickColor('green')} />
+                onClick={()=>onClickColor('green')}>
+                {userSelectedColor === 'green'? <BackgroundCheck /> :''} 
+            </ColorbackgroundItem>
         </div>
     )
 }

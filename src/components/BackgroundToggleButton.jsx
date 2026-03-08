@@ -1,6 +1,6 @@
-function BackgroundToggleButton({ text, isActive, onClick }){
+function BackgroundToggleButton({ text, onClick }){
     return(
-        <button onClick={onClick}>{text}{isActive ? "v" : " "}</button>
+        <button onClick={onClick}>{text}</button>
     )
 }
 
