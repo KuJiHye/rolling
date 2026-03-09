@@ -1,9 +1,9 @@
 import Button from "./Button";
 import styled from "styled-components";
 
-function SubmitButton({ receiverName, onSubmit }){
+function SubmitButton({ value, onSubmit }){
    
-    const isButtonDisabled = receiverName.trim().length === 0;
+    const isButtonDisabled = value.trim().length === 0;
 
     return(
         <CreateButton
@@ -18,7 +18,7 @@ const CreateButton = styled(Button)`
         background-color: #CCCCCC;
         color: #999999;
         cursor: not-allowed;
-   }
+    }
 `
 
 export default SubmitButton;

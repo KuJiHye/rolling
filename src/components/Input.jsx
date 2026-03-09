@@ -1,15 +1,15 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-function Input({ placeholder, receiverName, setReceiverName }){
+function Input({ placeholder, value, onChange }){
     const [isNull, setIsNull] = useState(false);
 
     const handleChange = (e) => { 
 		const nextValue = e.target.value;
-		setReceiverName(nextValue);
+		onChange(nextValue);
     };
 
-    //focusout 될 때 비어있는지를 검사 
+    //focusout 될 때 비어있는지를 검사
     const handleInputFocusout = (e) => {
         if (e.target.value ===''){
             setIsNull(true);
@@ -20,7 +20,7 @@ function Input({ placeholder, receiverName, setReceiverName }){
 
     return(
         <InputBox
-            value={receiverName}
+            value={value}
             onChange={handleChange}
             placeholder={isNull? '값을 입력해주세요.':placeholder} 
             onBlur={handleInputFocusout}
