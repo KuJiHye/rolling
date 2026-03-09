@@ -3,13 +3,13 @@ import Input from "./Input";
 
 function InputForm({ label, placeholder, value, onChange}){
     return(
-        <div>
+        <InputFormLayout>
             <Label>{label}</Label>
             <Input
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}/>
-        </div>
+        </InputFormLayout>
     )   
 }
 
@@ -21,6 +21,14 @@ const Label = styled.div`
     font-weight: 700;
     line-height: 42px; /* 175% */
     letter-spacing: -0.24px; 
+`
+
+const InputFormLayout = styled.div`
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+
 `
 
 export default InputForm;

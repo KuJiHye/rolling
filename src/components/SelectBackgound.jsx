@@ -5,7 +5,7 @@ import ImgbackgroundList from "./ImgbackgroundList";
 import MyContext from "./MyContext";
 import styled from "styled-components";
 
-function SelectBackground({ backgroundMode, setBackgroundMode}){
+function SelectBackground({ backgroundMode, setBackgroundMode, className }){
     
     const { userSelectedColor, userSelectedImg, setUserSelectedImg, setUserSelectedColor, bgImgList } = useContext(MyContext);
 
@@ -24,10 +24,10 @@ function SelectBackground({ backgroundMode, setBackgroundMode}){
     }
 
     return(
-        <div>
+        <div className={className}>
             <PlzSelectbg> 배경화면을 선택해 주세요.</PlzSelectbg>
             <SubPlzSelectbg>컬러를 선택하거나, 이미지를 선택하실 수 있습니다.</SubPlzSelectbg>
-            <div>
+            {/* <BackgroundSelector> */}
                 <BackgroundToggle
                     backgroundMode={backgroundMode}
                     handleToggleClick={handleToggleClick} />
@@ -35,7 +35,7 @@ function SelectBackground({ backgroundMode, setBackgroundMode}){
                 {backgroundMode === 'color' ? 
                 <ColorbackgroundList onClickColor={handleClickColor} userSelectedColor={userSelectedColor}/> 
                 : <ImgbackgroundList onClickImg={handleClickImg} userSelectedImg={userSelectedImg}/>}
-            </div>
+            {/* </BackgroundSelector> */}
         </div>
     )
 }

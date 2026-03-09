@@ -5,6 +5,7 @@ import SubmitButton from "../components/SubmitButton";
 import MyContext from "../components/MyContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 function Post({ className }){
     const [receiverName, setReceiverName] = useState('');
@@ -16,9 +17,7 @@ function Post({ className }){
 
     useEffect(()=>{
         axios.get('https://rolling-api.vercel.app/background-images/')
-        .then( response => {setBgImgList(response.data.imageUrls)
-            console.log("이미지 리스트 데이터:", response.data.imageUrls);
-        } )
+        .then( response => {setBgImgList(response.data.imageUrls)} )
     },[]);
 
 
@@ -37,7 +36,6 @@ function Post({ className }){
                 `https://rolling-api.vercel.app/23-5/recipients/`,
                 postData
             );
-            console.log(response.data.backgroundImageURL)
 
             if (response.status === 201) {
                 alert("성공적으로 생성되었습니다!");
@@ -49,7 +47,7 @@ function Post({ className }){
 }
 
     return(
-        <div>
+        <>
             <MyContext.Provider value={{
                 userSelectedColor,
                 userSelectedImg,
@@ -58,21 +56,40 @@ function Post({ className }){
                 bgImgList,
             }}
             >
-                <InputForm
+            <PostPageLayout>
+                <InputFormLayout
                     label='To.'
                     placeholder='받는 사람 이름을 입력해 주세요.'
                     value={receiverName}
                     onChange={setReceiverName} />
-                <SelectBackground 
+                <SelectBackgroundLayout
+                    className={className}
                     backgroundMode={backgroundMode}
                     setBackgroundMode={setBackgroundMode} />
                 <SubmitButton
-                    className={className}
                     value={receiverName}
                     onSubmit={handleSubmit}/>
+                </PostPageLayout>
             </MyContext.Provider>
-        </div>
+        </>
     )
 }
+
+const PostPageLayout = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 57px;
+`
+const InputFormLayout = styled(InputForm)`
+    max-width: 720px;
+    padding-top: 20px
+`
+
+const SelectBackgroundLayout = styled(SelectBackground)`
+    max-width: 720px;
+    padding-top: 50px;
+`
 
 export default Post;
