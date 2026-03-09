@@ -1,13 +1,13 @@
 import Input from "./Input";
 
-function InputForm({ label, placeholder, receiverName, setReceiverName}){
+function InputForm({ label, placeholder, value, onChange}){
     return(
         <div>
             <div>{label}</div>
             <Input
                 placeholder={placeholder}
-                receiverName={receiverName}
-                setReceiverName={setReceiverName}/>
+                value={value}
+                onChange={onChange}/>
         </div>
     )   
 }

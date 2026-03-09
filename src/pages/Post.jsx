@@ -15,7 +15,7 @@ function Post({ className }){
 
     const handleSubmit = async () => {
         //데이터 객체
-        const postData ={
+        const postData = {
             team: '23-5',
             name: receiverName,
             backgroundColor: userSelectedColor || 'beige',
@@ -49,19 +49,18 @@ function Post({ className }){
                 <InputForm
                     label='To.'
                     placeholder='받는 사람 이름을 입력해 주세요.'
-                    receiverName={receiverName}
-                    setReceiverName={setReceiverName}/>
+                    value={receiverName}
+                    onChange={setReceiverName}/>
                 <SelectBackground 
                     backgroundMode={backgroundMode}
                     setBackgroundMode={setBackgroundMode}/>
                 <SubmitButton
                     className={className}
-                    receiverName={receiverName}
+                    value={receiverName}
                     onSubmit={handleSubmit}/>
             </MyContext.Provider>
         </div>
     )
 }
-
 
 export default Post;

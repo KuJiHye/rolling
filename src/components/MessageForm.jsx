@@ -4,10 +4,12 @@ import Selection from "./Selection";
 import TextEditor from "./TextEditor";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import InputForm from "./InputForm";
+import ProfileImgContainer from "./ProfileImgContainer";
 
 function MessageForm() {
   const { id } = useParams();
-  const [sender, setSender] = useState("김하은");
+  const [sender, setSender] = useState("");
   const [profileImageURL, setProfileImageURL] = useState(
     "https://fastly.picsum.photos/id/311/200/200.jpg?hmac=CHiYGYQ3Xpesshw5eYWH7U0Kyl9zMTZLQuRDU4OtyH8",
   );
@@ -49,6 +51,18 @@ function MessageForm() {
   return (
     <div>
       {/*폼 필드들 ...*/}
+      <InputForm
+        onChange={setSender}
+        label="FROM"
+        placeholder="이름을 입력해주세요"
+        value={sender}
+      />
+      <br />
+      <br />
+
+      <ProfileImgContainer label="프로필 이미지" />
+      <br />
+      <br />
 
       <Selection
         value={relationship}
