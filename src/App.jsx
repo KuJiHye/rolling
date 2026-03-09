@@ -5,13 +5,17 @@ import Post from "./pages/Post";
 import ListPage from "./pages/ListPage";
 import DetailPage from "./pages/DetailPage";
 import MessagePage from "./pages/MessagePage";
+import BackButton from "./components/BackButton";
+import GlobalStyle from "./styles/GlobalStyle";
 import SearchPage from "./pages/SearchPage";
 
 const App = () => {
   return (
     <>
+      <GlobalStyle />
       <Router>
         <MainHeader />
+        <BackButton />
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/post" element={<Post />} />

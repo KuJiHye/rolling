@@ -1,6 +1,6 @@
-function DetailButton({ children, onClick }) {
+function DetailButton({ children, className, onClick }) {
   return (
-    <button onClick={onClick}>
+    <button className={className} onClick={onClick}>
       {children}
     </button>
   );
