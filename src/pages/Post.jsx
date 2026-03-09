@@ -63,5 +63,4 @@ function Post({ className }){
     )
 }
 
-
 export default Post;
