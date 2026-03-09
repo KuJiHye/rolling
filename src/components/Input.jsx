@@ -17,7 +17,6 @@ function Input({ placeholder, value, onChange }){
             setIsNull(false);
         }
     }
-  };
 
     return(
         <InputBox
@@ -27,7 +26,7 @@ function Input({ placeholder, value, onChange }){
             onBlur={handleInputFocusout}
             $isNull={isNull} />
     )
-}
+};
 
 const InputBox = styled.input`
     width: 720px;
