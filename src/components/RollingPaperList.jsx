@@ -18,7 +18,7 @@ function RollingPaperList({ title, sort }) {
   const navigate = useNavigate();
 
   const loadMoreLists = useCallback(
-    async (FETCH_LIMIT, offset, isReset = false) => {
+    async (offset, isReset = false) => {
       try {
         const data = await getRecipients({
           limit: FETCH_LIMIT,
