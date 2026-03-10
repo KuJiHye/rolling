@@ -31,7 +31,7 @@ function MessageForm() {
         { sender, profileImageURL, relationship, content, font },
       );
       navigate(`/post/${id}`);
-    } catch (_) {
+    } catch {
       alert("메세지 작성에 실패하였습니다");
     }
   };
