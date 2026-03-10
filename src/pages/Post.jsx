@@ -18,6 +18,9 @@ function Post({ className }){
     useEffect(()=>{
         axios.get('https://rolling-api.vercel.app/background-images/')
         .then( response => {setBgImgList(response.data.imageUrls)} )
+        .catch( err => {
+            alert('이미지를 가져오지 못했습니다. 다시 시도해주세요');
+        })
     },[]);
 
 
