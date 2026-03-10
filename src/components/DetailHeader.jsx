@@ -1,4 +1,4 @@
-import MessageCount from "./messageCount";
+import MessageCount from "./MessageCount";
 import EmojiReaction from "./EmojiReaction";
 import ShareDropdown from "./ShareDropdown";
 import styled from "styled-components";

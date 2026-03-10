@@ -106,9 +106,9 @@ function RollingPaperList({ title, sort }) {
           </span>
         </StyledLeftButton>
         <StyledCardList>
-          {visibleLists.map((list) => (
-            <li key={list.id}>
-              <RollingPaperCard list={list} />
+          {visibleLists.map((card) => (
+            <li key={card.id}>
+              <RollingPaperCard card={card} />
             </li>
           ))}
         </StyledCardList>
