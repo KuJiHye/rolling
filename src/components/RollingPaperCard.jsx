@@ -6,6 +6,7 @@ import { useEmojiReaction } from "../hooks/useEmojiReaction";
 
 function RollingPaperCard({ card }) {
   const navigate = useNavigate();
+
   const { emojis } = useEmojiReaction(card.id);
   const sortedEmojis = [...emojis].sort((a, b) => b.count - a.count);
 
@@ -69,6 +70,7 @@ const StyledCardContent = styled.div`
 const StyledEmojiContent = styled.div`
   border-top: 1px solid rgba(0, 0, 0, 0.12);
   width: 100%;
+  padding-top: 16px;
 `;
 
 const colorMatching = {
