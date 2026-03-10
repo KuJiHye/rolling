@@ -7,21 +7,29 @@ const useKakaoShare = () => {
     }
   }, []);
 
-// 카카오톡 공유 실행 함수
-const handleShare = () => {
+  const handleShare = (shareConfig) => {
     if (!window.Kakao || !window.Kakao.isInitialized()) return;
 
     window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
-        title: '', // 어떤 메시지를 보낼지는 비워둠
-        description: '', 
-        imageUrl: '', 
+        title: shareConfig?.title || '',
+        description: shareConfig?.description || '',
+        imageUrl: shareConfig?.imageUrl || '',
         link: {
           mobileWebUrl: window.location.href,
           webUrl: window.location.href,
         },
       },
+      buttons: [
+        {
+          title: '보러 가기',
+          link: {
+            mobileWebUrl: window.location.href,
+            webUrl: window.location.href,
+          },
+        },
+      ],
     });
   };
 
