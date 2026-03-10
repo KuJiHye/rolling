@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-function Input({ placeholder, value, onChange }) {
+function Input({ placeholder, value, onChange, onEnterPress }) {
   const [isNull, setIsNull] = useState(false);
 
   const handleChange = (e) => {
@@ -25,6 +25,7 @@ function Input({ placeholder, value, onChange }) {
       placeholder={isNull ? "값을 입력해주세요." : placeholder}
       onBlur={handleInputFocusout}
       $isNull={isNull}
+      onKeyDown={onEnterPress}
     />
   );
 }

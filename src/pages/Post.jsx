@@ -47,7 +47,14 @@ function Post({ className }){
         } catch (err) {
             alert('생성에 실패했습니다.');
         }
-}
+    }
+
+    //enterkey가 눌렸을 때 작동할 함수
+    const handleEnterPress = (e) => {
+        if (e.key === 'Enter'){
+            handleSubmit()
+        } 
+    }
 
     return(
         <>
@@ -64,7 +71,8 @@ function Post({ className }){
                     label='To.'
                     placeholder='받는 사람 이름을 입력해 주세요.'
                     value={receiverName}
-                    onChange={setReceiverName} />
+                    onChange={setReceiverName}
+                    onEnterPress={handleEnterPress} />
                 <SelectBackgroundLayout
                     className={className}
                     backgroundMode={backgroundMode}
