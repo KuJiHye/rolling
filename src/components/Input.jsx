@@ -22,7 +22,7 @@ function Input({ placeholder, value, onChange }){
         <InputBox
             value={value}
             onChange={handleChange}
-            placeholder={isNull? '값을 입력해주세요.':placeholder} 
+            placeholder={isNull? '값을 입력해주세요.': placeholder}
             onBlur={handleInputFocusout}
             $isNull={isNull} />
     )

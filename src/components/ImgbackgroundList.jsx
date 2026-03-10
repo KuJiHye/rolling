@@ -1,8 +1,11 @@
+import { useContext } from "react";
 import BackgroundCheck from "./BackgroundCheck";
 import ImgBackgroundItem from "./ImgbackgroundItem";
 import styled from "styled-components";
+import MyContext from "./MyContext";
 
-function Imgbackgrounds({ className, bgImgList, onClickImg, userSelectedImg}){
+function Imgbackgrounds({ className, onClickImg, userSelectedImg}){
+    const { bgImgList } = useContext(MyContext);
     return (
         <div className={className}>
             {bgImgList.map((item, index)=> (

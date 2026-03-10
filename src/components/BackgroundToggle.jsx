@@ -1,17 +1,30 @@
+import styled from "styled-components";
 import ToggleButton from "./BackgroundToggleButton";
 
-function BackgroundToggle({ handleToggleClick }){
+function BackgroundToggle({ handleToggleClick, className, backgroundMode }){
 
     return(
-        <div>
+        <ToggleList className={className}>
             <ToggleButton
                 text='컬러'
-                onClick={()=>handleToggleClick('color')}  />
+                className={className}
+                onClick={()=>handleToggleClick('color')}
+                isActive={backgroundMode === 'color'} />
             <ToggleButton
                 text='이미지'
-                onClick={()=>handleToggleClick('img')}  />
-        </div>
+                className={className}
+                onClick={()=>handleToggleClick('img')}
+                isActive={backgroundMode === 'img'} />
+        </ToggleList>
     )
 }
+
+const ToggleList = styled.div`
+    display: flex;
+    width: 244px;
+    height: 40px;
+    margin-top: 24px;
+    
+`
 
 export default BackgroundToggle;
