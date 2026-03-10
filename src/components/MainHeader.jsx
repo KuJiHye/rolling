@@ -10,13 +10,13 @@ import CreateButton from './CreateButton';
 
 const MainHeader = () => {
   const location = useLocation();
-  
-  const isMainPage = location.pathname === '/';
+
+  const showCreateButton = location.pathname === '/' || location.pathname === '/list';
 
   return (
     <header>
       <Logo />
-      {isMainPage && <CreateButton />}
+      {showCreateButton && <CreateButton />}
     </header>
   );
 };
