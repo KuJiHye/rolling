@@ -39,7 +39,7 @@ function TextEditor({ onChange, font }) {
         editor.style.fontFamily = fontMap[font] || font;
       }
     }
-  }, [font]);
+  }, [font, quillRef]);
 
   return (
     <>
