@@ -164,6 +164,8 @@ const StyledCardList = styled.ul`
   display: flex;
   gap: 20px;
   flex-direction: row;
+  min-width: 1160px;
+  min-height: 260px;
 `;
 const StyledCarouselWindow = styled.div`
   display: flex;
