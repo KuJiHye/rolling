@@ -16,6 +16,7 @@ function Input({ placeholder, value, onChange }) {
     } else {
       setIsNull(false);
     }
+  };
 
   return (
     <InputBox
