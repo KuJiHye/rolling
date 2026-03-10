@@ -3,25 +3,56 @@ import { useNavigate } from "react-router-dom";
 import RollingPaperCard from "./RollingPaperCard";
 import styled from "styled-components";
 import { getRecipients } from "../api/index";
+import ArrowRight from "../assets/arrow_right.svg";
+import ArrowLeft from "../assets/arrow_left.svg";
+
+const StyledSection = styled.div`
+  margin-top: 50px;
+`;
 
 const StyledCardList = styled.ul`
   display: flex;
-  gap: 40px;
+  gap: 20px;
   flex-direction: row;
 `;
 const StyledCarouselWindow = styled.div`
   display: flex;
   flex-direction: row;
+  position: relative;
 `;
 
-const StyledListTitle=styled.h1`
-font:var(--font-24-bold);
-`
+const StyledListTitle = styled.h1`
+  font: var(--font-24-bold);
+`;
 
-const StyledNavButton = styled.button`
+const StyledLeftButton = styled.button`
+  position: absolute;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  right: 100%;
+  top: 50%;
+  transform: translate(50%, -50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: var(--white);
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
+
   visibility: ${(props) => (props.$isHidden ? "hidden" : "visible")};
 `;
+const StyledRightButton = styled.button`
+  position: absolute;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  left: 100%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: var(--white);
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
 
+  visibility: ${(props) => (props.$isHidden ? "hidden" : "visible")};
+`;
 
 function RollingPaperList({ title, sort }) {
   const [allLists, setAllLists] = useState([]); // 전체 데이터를 담는 저장소
@@ -96,11 +127,9 @@ function RollingPaperList({ title, sort }) {
   const isNoNextData = currentIndex >= totalCount - VIEW_COUNT;
 
   return (
-    <div>
+    <StyledSection>
       <div>
-        <StyledListTitle>
-          {title}
-        </StyledListTitle>
+        <StyledListTitle>{title}</StyledListTitle>
         {title === "인기 롤링 페이퍼🔥" && (
           <input
             type="text"
@@ -112,9 +141,11 @@ function RollingPaperList({ title, sort }) {
         )}
       </div>
       <StyledCarouselWindow>
-        <StyledNavButton onClick={handlePrev} $isHidden={isNoPrevData}>
-          <span>&lt;</span>
-        </StyledNavButton>
+        <StyledLeftButton onClick={handlePrev} $isHidden={isNoPrevData}>
+          <span>
+            <img src={ArrowLeft} alt="왼쪽 버튼" />
+          </span>
+        </StyledLeftButton>
         <StyledCardList>
           {visibleLists.map((list) => (
             <li key={list.id}>
@@ -122,11 +153,13 @@ function RollingPaperList({ title, sort }) {
             </li>
           ))}
         </StyledCardList>
-        <StyledNavButton onClick={handleNext} $isHidden={isNoNextData}>
-          <span>&gt;</span>
-        </StyledNavButton>
+        <StyledRightButton onClick={handleNext} $isHidden={isNoNextData}>
+          <span>
+            <img src={ArrowRight} alt="오른쪽 버튼" />
+          </span>
+        </StyledRightButton>
       </StyledCarouselWindow>
-    </div>
+    </StyledSection>
   );
 }
 
