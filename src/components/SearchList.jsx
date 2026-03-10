@@ -35,7 +35,7 @@ function SearchList() {
         // 1. 최대한 많은 데이터를 가져오기 위해 limit을 크게 설정합니다.
         // sort가 'like'라면 서버가 인기순으로 정렬된 데이터를 줍니다.
         const response = await getRecipients({
-          limit: 1000, // 전체 데이터를 가져오기 위해 충분히 큰 값 설정
+          limit: 500, // 전체 데이터를 가져오기 위해 충분히 큰 값 설정
           sort: sort === "like" ? "like" : "",
         });
 
@@ -66,8 +66,9 @@ function SearchList() {
 
   const handleSearch = (e) => {
     if (e.key === "Enter" && inputValue.trim() !== "") {
-      setSort("");
-      navigate(`/search?keyword=${encodeURIComponent(inputValue)}`);
+      setSort("none");
+      setCurrentPage(1);
+      navigate(`/search?keyword=${encodeURIComponent(inputValue.trim())}`);
     }
   };
 
