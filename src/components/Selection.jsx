@@ -3,8 +3,8 @@ function Selection({ children, type, value, onChange }) {
 
   if (type === "relation") {
     options = [
-      { label: "친구", value: "친구" },
       { label: "지인", value: "지인" },
+      { label: "친구", value: "친구" },
       { label: "동료", value: "동료" },
       { label: "가족", value: "가족" },
     ];

@@ -1,6 +1,19 @@
 import { useEffect } from "react";
 import { useQuill } from "react-quilljs";
+import styled from "styled-components";
 import "quill/dist/quill.snow.css";
+
+const EditorWrapper = styled.div`
+  & .ql-editor strong {
+    font-weight: bold;
+  }
+  & .ql-editor em {
+    font-style: italic;
+  }
+  & .ql-editor u {
+    text-decoration: underline;
+  }
+`;
 
 const modules = {
   toolbar: [
@@ -26,7 +39,7 @@ function TextEditor({ onChange, font }) {
   useEffect(() => {
     if (quill) {
       quill.on("text-change", () => {
-        onChange(quill.getSemanticHTML());
+        onChange(quill.root.innerHTML);
       });
     }
   }, [quill, onChange]);
@@ -43,7 +56,9 @@ function TextEditor({ onChange, font }) {
   return (
     <>
       <label>내용을 입력해 주세요</label>
-      <div ref={quillRef} />
+      <EditorWrapper>
+        <div ref={quillRef} />
+      </EditorWrapper>
     </>
   );
 }

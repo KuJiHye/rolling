@@ -71,6 +71,16 @@ const Content = styled.div`
   color: var(--gray-600);
   line-height: 28px;
   overflow: hidden;
+
+  & strong {
+    font-weight: bold;
+  }
+  & em {
+    font-style: italic;
+  }
+  & u {
+    text-decoration: underline;
+  }
 `;
 const CreatedAt = styled.p`
   margin-top: auto;

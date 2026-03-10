@@ -76,6 +76,16 @@ const Content = styled.div`
   line-height: 28px;
   overflow-y: auto;
 
+  & strong {
+    font-weight: bold;
+  }
+  & em {
+    font-style: italic;
+  }
+  & u {
+    text-decoration: underline;
+  }
+
   &::-webkit-scrollbar {
     width: 4px;
   }
@@ -174,7 +184,7 @@ function DetailCardModal({ card, onClose }) {
         </ButtonDiv>
       </Modal>
     </ModalBg>,
-    document.getElementById("modal-root")
+    document.getElementById("modal-root"),
   );
 }
 

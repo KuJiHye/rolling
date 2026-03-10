@@ -11,46 +11,33 @@ function MessageForm() {
   const { id } = useParams();
   const [sender, setSender] = useState("");
   const [profileImageURL, setProfileImageURL] = useState(
-    "https://fastly.picsum.photos/id/311/200/200.jpg?hmac=CHiYGYQ3Xpesshw5eYWH7U0Kyl9zMTZLQuRDU4OtyH8",
+    "https://www.civictheatre.ie/wp-content/uploads/2016/05/blank-profile-picture-973460_960_720-400x400.png",
   );
-  const [relationship, setRelationship] = useState("친구");
+  const [relationship, setRelationship] = useState("지인");
   const [content, setContent] = useState("");
   const [font, setFont] = useState("Noto Sans");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   //필수 입력값이 없으면 버튼 비활성화
-  const isDisabled = false;
-  // !sender.trim() ||
-  // !profileImageURL ||
-  // !relationship ||
-  // !content.trim() ||
-  // !font;
+  const isDisabled = !sender.trim() || content === "<p><br></p>" || !content;
 
   //POST 요청 함수 (버튼 클릭시 발생)
   const handleSubmit = async () => {
     if (isDisabled) return;
 
-    setIsLoading(true);
-    setError(null);
-
     try {
-      const response = await axios.post(
+      await axios.post(
         `https://rolling-api.vercel.app/23-5/recipients/${id}/messages/`,
         { sender, profileImageURL, relationship, content, font },
       );
       navigate(`/post/${id}`);
     } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsLoading(false);
+      console.error(err);
     }
   };
 
   return (
     <div>
-      {/*폼 필드들 ...*/}
       <InputForm
         onChange={setSender}
         label="FROM"
@@ -60,7 +47,11 @@ function MessageForm() {
       <br />
       <br />
 
-      <ProfileImgContainer label="프로필 이미지" />
+      <ProfileImgContainer
+        label="프로필 이미지"
+        value={profileImageURL}
+        changeImg={setProfileImageURL}
+      />
       <br />
       <br />
 
@@ -81,12 +72,10 @@ function MessageForm() {
       <Selection value={font} onChange={setFont} type={"font"}>
         폰트 선택
       </Selection>
+      <br />
+      <br />
 
-      <Button
-        onClick={handleSubmit}
-        disabled={isDisabled}
-        isLoading={isLoading}
-      />
+      <Button onClick={handleSubmit} disabled={isDisabled} />
     </div>
   );
 }
