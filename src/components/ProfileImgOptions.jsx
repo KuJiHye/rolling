@@ -9,6 +9,7 @@ function ProfileImgOptions({ changeImg }) {
   ];
 
   const handleChange = (e) => {
+    console.log("호출됨", e.target.src);
     changeImg(e.target.src);
   };
 

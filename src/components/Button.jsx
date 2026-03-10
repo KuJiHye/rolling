@@ -15,7 +15,11 @@ const Button = styled(CreateMessageButton)`
   background-color: ${({ disabled }) => (disabled ? "grey" : "#9935ff")};
   border-radius: 12px;
   border: none;
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 
   &:hover:not(:disabled),
   &:active:not(:disabled) {
