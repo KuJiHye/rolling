@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -24,16 +23,13 @@ const StyledButton = styled(Link)`
   height: 56px;
   padding: 14px 24px;
   
-  /* 배경 및 테두리 */
   background-color: var(--purple-600);
   border-radius: 12px;
   
-  /* 텍스트 스타일 */
   font: var(--font-18-bold);
   color: var(--white);
   text-decoration: none; // Link 태그의 기본 밑줄 제거
   
-  /* 상호작용 */
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 
