@@ -21,6 +21,12 @@ const Button = styled(CreateMessageButton)`
   &:active:not(:disabled) {
     background-color: #7615d6;
   }
+
+  &:disabled {
+    background-color: #CCCCCC;
+     color: #999999;
+    cursor: not-allowed;
+  }
 `;
 
 export default Button;
