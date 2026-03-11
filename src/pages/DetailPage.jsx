@@ -4,12 +4,13 @@ import styled from "styled-components";
 import DetailCardList from "../components/DetailCardList";
 import DetailButton from "../components/DetailButton";
 import DetailHeader from "../components/DetailHeader";
+import useConfirm from "../hooks/useConfirm";
 import axios from "../api/axios";
 
 const BackgroundDiv = styled.div`
   background-size: cover;
   background-position: center;
-  
+
   // backgound를 받아서 color인지 검사하고 분기
   ${({ background }) =>
     background.type === "color"
@@ -50,11 +51,11 @@ const DeleteButtonStyle = styled(DetailButton)`
 `;
 
 const colorMatching = {
-  'beige' : '#FFE2AD',
-  'purple' : '#ECD9FF',
-  'blue' : '#B1E4FF',
-  'green' : 'D0F5C3',
-}
+  beige: "#FFE2AD",
+  purple: "#ECD9FF",
+  blue: "#B1E4FF",
+  green: "#D0F5C3",
+};
 
 function DetailPage() {
   const { id } = useParams();
@@ -66,6 +67,7 @@ function DetailPage() {
   const location = useLocation();
   const editMode = location.pathname.includes("/edit");
   const [cards, setCards] = useState(null);
+  const { confirm, ConfirmComponent } = useConfirm();
 
   useEffect(() => {
     const backgroundData = async () => {
@@ -75,7 +77,6 @@ function DetailPage() {
 
         setCards(data);
 
-        //
         if (data.backgroundImageURL) {
           setBackground({
             type: "image",
@@ -97,7 +98,7 @@ function DetailPage() {
 
   // 페이지 삭제
   const handleDeletePage = async () => {
-    const confirmDelete = window.confirm("롤링페이퍼를 정말 삭제하시겠습니까?");
+    const confirmDelete = await confirm("롤링페이퍼를 정말 삭제하시겠습니까?");
 
     if (!confirmDelete) return;
 
@@ -139,6 +140,8 @@ function DetailPage() {
           <DetailCardList editMode={editMode} />
         </DetailBodyDiv>
       </BackgroundDiv>
+
+      {ConfirmComponent}
     </>
   );
 }

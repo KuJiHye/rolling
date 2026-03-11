@@ -2,6 +2,7 @@ import styled from "styled-components";
 import DOMPurify from "dompurify";
 import DetailButton from "./DetailButton";
 import DeleteIcon from "../assets/deleted-icon.svg";
+import ContentWrapper from "./ContentWrapper";
 
 const Card = styled.div`
   display: flex;
@@ -62,7 +63,7 @@ const DeleteButtonStyle = styled(DetailButton)`
     background-color: var(--gray-100);
   }
 `;
-const Content = styled.div`
+const Content = styled(ContentWrapper)`
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -71,16 +72,6 @@ const Content = styled.div`
   color: var(--gray-600);
   line-height: 28px;
   overflow: hidden;
-
-  & strong {
-    font-weight: bold;
-  }
-  & em {
-    font-style: italic;
-  }
-  & u {
-    text-decoration: underline;
-  }
 `;
 const CreatedAt = styled.p`
   margin-top: auto;

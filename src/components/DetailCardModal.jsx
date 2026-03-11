@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import styled from "styled-components";
 import DOMPurify from "dompurify";
 import DetailButton from "./DetailButton";
+import ContentWrapper from "./ContentWrapper";
 
 const ModalBg = styled.div`
   position: fixed;
@@ -67,7 +68,7 @@ const CreatedAt = styled.p`
   color: var(--gray-400);
   line-height: 20px;
 `;
-const Content = styled.div`
+const Content = styled(ContentWrapper)`
   height: 240px;
   padding: 0 20px 0;
   word-break: break-word;
@@ -75,16 +76,6 @@ const Content = styled.div`
   color: #5a5a5a;
   line-height: 28px;
   overflow-y: auto;
-
-  & strong {
-    font-weight: bold;
-  }
-  & em {
-    font-style: italic;
-  }
-  & u {
-    text-decoration: underline;
-  }
 
   &::-webkit-scrollbar {
     width: 4px;

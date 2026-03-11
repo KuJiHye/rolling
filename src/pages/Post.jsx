@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import InputForm from "../components/InputForm";
 import SelectBackground from "../components/SelectBackgound";
 import SubmitButton from "../components/SubmitButton";
@@ -6,6 +6,7 @@ import MyContext from "../components/MyContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import ToastBox from "../components/ToastBox";
 
 function Post({ className }){
     const [receiverName, setReceiverName] = useState('');
@@ -13,13 +14,16 @@ function Post({ className }){
     const [userSelectedImg, setUserSelectedImg] = useState(0);
     const [backgroundMode, setBackgroundMode] = useState('color')
     const [bgImgList, setBgImgList] = useState([]);
+    const [shouldShowToastMessage, setShouldShowToastMessage] = useState(false);
+    const [toastMessage, setToastMessage] = useState('');
+
     const navigate = useNavigate();
 
     useEffect(()=>{
         axios.get('https://rolling-api.vercel.app/background-images/')
         .then( response => {setBgImgList(response.data.imageUrls)} )
         .catch( err => {
-            alert('이미지를 가져오지 못했습니다. 다시 시도해주세요');
+            makeToast('이미지를 가져오지 못했습니다. 새로고침을 해주세요.')
         })
     },[]);
 
@@ -40,14 +44,28 @@ function Post({ className }){
                 postData
             );
 
-            if (response.status === 201) {
-                alert("성공적으로 생성되었습니다!");
-                receiverName ? navigate(`/post/${response.data.id}`) : ''
+            if (response.status === 201) {                
+                receiverName ? navigate(`/post/${response.data.id}`) : '';
+                makeToast('생성에 성공했습니다!!')
+                // 위에 코드는 상세 페이지에 구현해야 한다.
             } 
         } catch (err) {
-            alert('생성에 실패했습니다.');
+            makeToast('생성에 실패했습니다. 다시 시도해주세요.');
         }
-}
+    }
+
+    //enterkey가 눌렸을 때 작동할 함수
+    const handleEnterPress = (e) => {
+        if (e.key === 'Enter'){
+            handleSubmit()
+        } 
+    }
+
+    //토스트를 활성화하고 메세지를 받는 함수 -> 밖으로 빼야할 것 같다
+    const makeToast = (message) =>{
+        setShouldShowToastMessage(true);
+        setToastMessage(message)
+    }
 
     return(
         <>
@@ -57,6 +75,9 @@ function Post({ className }){
                 setUserSelectedColor,
                 setUserSelectedImg,
                 bgImgList,
+                shouldShowToastMessage,
+                setShouldShowToastMessage,
+                makeToast,
             }}
             >
             <PostPageLayout>
@@ -64,7 +85,8 @@ function Post({ className }){
                     label='To.'
                     placeholder='받는 사람 이름을 입력해 주세요.'
                     value={receiverName}
-                    onChange={setReceiverName} />
+                    onChange={setReceiverName}
+                    onEnterPress={handleEnterPress} />
                 <SelectBackgroundLayout
                     className={className}
                     backgroundMode={backgroundMode}
@@ -72,6 +94,9 @@ function Post({ className }){
                 <SubmitButton
                     value={receiverName}
                     onSubmit={handleSubmit}/>
+                {shouldShowToastMessage && (
+                    <ToastBox toastMessage={toastMessage} setShowToastMessage={setShouldShowToastMessage} />
+                )}
                 </PostPageLayout>
             </MyContext.Provider>
         </>

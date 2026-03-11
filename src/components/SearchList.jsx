@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import { getRecipients } from "../api/index";
 import RollingPaperCard from "./RollingPaperCard";
 import Pagination from "./Pagination";
-import styled from "styled-components";
+import SearchIc from "../assets/ic_search.svg";
 
 function SearchList() {
   const [searchParams] = useSearchParams();
@@ -32,30 +33,37 @@ function SearchList() {
       setIsLoading(true);
       try {
         const response = await getRecipients({
-          limit: 100,
+          limit: 500,
           sort: sort === "like" ? "like" : "",
         });
 
-        let finalData = response.results;
-        if (!sort && keywordFromUrl) {
-          finalData = response.results.filter((item) =>
+        let fetchedData = response.results;
+
+        if (keywordFromUrl) {
+          fetchedData = fetchedData.filter((item) =>
             item.name.toLowerCase().includes(keywordFromUrl.toLowerCase()),
           );
         }
-        setAllData(finalData);
+        if (sort === "") {
+          fetchedData = [...fetchedData].sort((a, b) => b.id - a.id);
+        }
+
+        setAllData(fetchedData);
       } catch (error) {
         console.error("데이터 불러오기 실패:", error);
       } finally {
         setIsLoading(false);
       }
     };
+
     fetchData();
   }, [sort, keywordFromUrl]);
 
   const handleSearch = (e) => {
     if (e.key === "Enter" && inputValue.trim() !== "") {
-      setSort("");
-      navigate(`/search?keyword=${encodeURIComponent(inputValue)}`);
+      setSort("none");
+      setCurrentPage(1);
+      navigate(`/search?keyword=${encodeURIComponent(inputValue.trim())}`);
     }
   };
 
@@ -69,38 +77,44 @@ function SearchList() {
   const currentItems = allData.slice(offset, offset + LIMIT);
 
   return (
-    <div>
-      <div>
-        <input
+    <StyledSearchContainer>
+      <StyledInputContainer>
+        <StyledSearchIcon src={SearchIc} alt="검색 돋보기" />
+        <StyledSearchInput
           type="text"
           placeholder="이름을 입력하고 엔터를 누르세요"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleSearch}
         />
-      </div>
+      </StyledInputContainer>
 
-      <div>
-        <button onClick={() => handleSortChange("")}>최신순</button>
-        <button onClick={() => handleSortChange("like")}>인기순</button>
-      </div>
-
-      <h2>
-        {keywordFromUrl ? `"${keywordFromUrl}" 검색 결과: ` : "전체 목록: "}
-        {allData.length}개 ({sort === "like" ? "인기순" : "최신순"})
-      </h2>
+      <StyledSortFilterBox>
+        <StyledFilterButton
+          onClick={() => handleSortChange("")}
+          $isActive={sort === ""}
+        >
+          최신순
+        </StyledFilterButton>
+        <StyledFilterButton
+          onClick={() => handleSortChange("like")}
+          $isActive={sort === "like"}
+        >
+          인기순
+        </StyledFilterButton>
+      </StyledSortFilterBox>
 
       {isLoading ? (
         <div>로딩 중...</div>
       ) : (
         <>
-          <CardGrid>
-            {currentItems.map((list) => (
-              <li key={list.id}>
-                <RollingPaperCard list={list} />
+          <StyledCardGrid>
+            {currentItems.map((card) => (
+              <li key={card.id}>
+                <RollingPaperCard card={card} />
               </li>
             ))}
-          </CardGrid>
+          </StyledCardGrid>
 
           <Pagination
             totalCount={allData.length}
@@ -112,17 +126,81 @@ function SearchList() {
       )}
 
       {!isLoading && allData.length === 0 && <p>검색 결과가 없습니다.</p>}
-    </div>
+    </StyledSearchContainer>
   );
 }
 
-const CardGrid = styled.ul`
+const StyledSearchContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StyledCardGrid = styled.ul`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   list-style: none;
   padding: 0;
   margin: 20px 0;
+`;
+
+const StyledInputContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+`;
+
+const StyledSearchInput = styled.input`
+  width: 1160px;
+  height: 48px;
+  border-radius: 16px;
+  border: none;
+  background-color: var(--purple-100);
+  padding: 12px 40px;
+  margin-top: 16px;
+  margin-bottom: 12px;
+  font: var(--font-16-regular);
+
+  &:focus {
+    outline: 1px solid var(--purple-600);
+  }
+`;
+
+const StyledSearchIcon = styled.img`
+  position: absolute;
+  top: 50%;
+  transform: translate(50%, -50%);
+`;
+
+const StyledSortFilterBox = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 4px;
+`;
+
+const StyledFilterButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 74px;
+  height: 42px;
+  border: 1px solid var(--gray-200);
+  border-radius: 28px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  background-color: ${(props) =>
+    props.$isActive ? "var(--purple-600)" : "var(--white)"};
+  color: ${(props) => (props.$isActive ? "var(--white)" : "var(--gray-900)")};
+  border-color: ${(props) =>
+    props.$isActive ? "var(--purple-600)" : "var(--gray-200)"};
+
+  &:hover {
+    background-color: ${(props) =>
+      props.$isActive ? "var(--purple-700)" : "var(--gray-100)"};
+  }
 `;
 
 export default SearchList;

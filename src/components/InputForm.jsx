@@ -1,14 +1,16 @@
 import styled from "styled-components";
 import Input from "./Input";
 
-function InputForm({ label, placeholder, value, onChange}){
+function InputForm({ label, placeholder, value, onChange, onEnterPress, className}){
     return(
-        <InputFormLayout>
+        <InputFormLayout className={className}>
             <Label>{label}</Label>
             <Input
                 placeholder={placeholder}
                 value={value}
-                onChange={onChange}/>
+                onChange={onChange}
+                onEnterPress={onEnterPress}
+                />
         </InputFormLayout>
     )   
 }

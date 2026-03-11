@@ -22,7 +22,7 @@ function Selection({ children, type, value, onChange }) {
   };
 
   return (
-    <>
+    <div>
       <label>{children}</label>
       <select value={value} onChange={handleChange}>
         {options.map((option) => {
@@ -33,7 +33,7 @@ function Selection({ children, type, value, onChange }) {
           );
         })}
       </select>
-    </>
+    </div>
   );
 }
 

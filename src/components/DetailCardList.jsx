@@ -5,6 +5,7 @@ import DetailCardListItemAdd from "./DetailCardListItemAdd";
 import DetailCardListItem from "./DetailCardListItem";
 import DetailCardModal from "./DetailCardModal";
 import DetailButton from "./DetailButton";
+import useConfirm from "../hooks/useConfirm";
 import axios from "../api/axios";
 
 const DetailCardListDiv = styled.div`
@@ -43,6 +44,7 @@ function DetailCardList({ editMode }) {
   const [cardModal, setCardModal] = useState(null);
   const [hasNext, setHasNext] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { confirm, ConfirmComponent } = useConfirm();
 
   const loadCards = async () => {
     const response = await axios.get(`recipients/${id}/messages/`, {
@@ -89,7 +91,7 @@ function DetailCardList({ editMode }) {
 
   // 카드 삭제
   const handleDeleteCard = async (cardId) => {
-    const confirmDelete = window.confirm("메세지를 정말 삭제하시겠습니까?");
+    const confirmDelete = await confirm("메세지를 정말 삭제하시겠습니까?");
 
     if (!confirmDelete) return;
 
@@ -129,6 +131,8 @@ function DetailCardList({ editMode }) {
           더보기
         </MoreButtonStyle>
       )}
+
+      {ConfirmComponent}
     </>
   );
 }

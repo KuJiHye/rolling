@@ -106,9 +106,9 @@ function RollingPaperList({ title, sort }) {
           </span>
         </StyledLeftButton>
         <StyledCardList>
-          {visibleLists.map((list) => (
-            <li key={list.id}>
-              <RollingPaperCard list={list} />
+          {visibleLists.map((card) => (
+            <li key={card.id}>
+              <RollingPaperCard card={card} />
             </li>
           ))}
         </StyledCardList>
@@ -164,6 +164,8 @@ const StyledCardList = styled.ul`
   display: flex;
   gap: 20px;
   flex-direction: row;
+  min-width: 1160px;
+  min-height: 260px;
 `;
 const StyledCarouselWindow = styled.div`
   display: flex;
