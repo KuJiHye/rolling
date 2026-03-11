@@ -16,17 +16,31 @@ function RollingPaperCard({ card }) {
     navigate(`/post/${card.id}`);
   };
 
+  const background = card.backgroundImageURL
+    ? {
+        type: "image",
+        value: card.backgroundImageURL,
+      }
+    : {
+        type: "color",
+        value: colorMatching[card.backgroundColor] || "#ee3131",
+      };
+
   return (
     <StyledCardWrapper
       onClick={handleCardClick}
       $colorName={card.backgroundColor}
+      $background={background}
     >
       <StyledCardContent>
         <StyledCardText>
-          <StyledNameTitle>{card.name}</StyledNameTitle>
+          <StyledNameTitle $isImage={background.type === "image"}>
+            {card.name}
+          </StyledNameTitle>
+
           <MessageCount card={card} />
         </StyledCardText>
-        <StyledEmojiContent>
+        <StyledEmojiContent $isImage={background.type === "image"}>
           <EmojiBadgeList emojiData={topThree} />
         </StyledEmojiContent>
       </StyledCardContent>
@@ -51,19 +65,36 @@ const StyledCardWrapper = styled.div`
   background-color: ${({ $colorName }) =>
     colorMatching[$colorName] || "#ee3131"};
 
-  &::before {
-    content: "";
-    position: absolute;
-    bottom: -20px; /* 우측 하단에 걸치도록 배치 */
-    right: -20px;
+  ${({ $background }) =>
+    $background.type === "color"
+      ? css`
+          background-color: ${$background.value};
+        `
+      : css`
+          background-image:
+            linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+            url(${$background.value});
+        `}
 
-    /* 전달된 색상 이름에 따라 도형 스타일 적용 */
-    ${({ $colorName }) => shapeStyles[$colorName] || ""}
+  /* --- 배경이 color일 때만 도형 출력 --- */
+  &::before {
+    ${({ $background, $colorName }) =>
+      $background.type === "color"
+        ? css`
+            content: "";
+            position: absolute;
+            z-index: 0;
+            ${shapeStyles[$colorName] || ""}
+          `
+        : css`
+            display: none;
+          `}
   }
 `;
 
 const StyledNameTitle = styled.h2`
   font: var(--font-24-bold);
+  color: ${({ $isImage }) => ($isImage ? "white" : "black")};
 `;
 
 const StyledCardText = styled.div`
@@ -81,7 +112,9 @@ const StyledCardContent = styled.div`
 `;
 
 const StyledEmojiContent = styled.div`
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  border-top: 1px solid
+    ${({ $isImage }) =>
+      $isImage ? "rgba(255,255,255,0.5)" : "rgba(0, 0, 0, 0.12)"};
   width: 100%;
   padding-top: 16px;
 `;
@@ -92,6 +125,7 @@ const colorMatching = {
   blue: "#B1E4FF",
   green: "#D0F5C3",
 };
+
 const shapeStyles = {
   beige: css`
     width: 332px;
