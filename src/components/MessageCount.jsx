@@ -1,36 +1,5 @@
 import styled from "styled-components";
-import MessageCountText from './MessageCountText';
-
-const ProfileList = styled.ul`
-  display: flex;
-`;
-const ProfileListLi = styled.li`
-  width: 28px;
-  height: 28px;
-  border: 1.4px solid var(--white);
-  border-radius: 50%;
-  font-size: var(--font-12);
-  font-weight: var(--medium);
-  color: #484848;
-  overflow: hidden;
-
-  &:nth-child(2),
-  &:nth-child(3) {
-    margin-left: -14px;
-  }
-
-  &:last-child {
-    margin-left: -14px;
-    border: 1px solid #e3e3e3;
-    background-color: var(--white);
-    text-align: center;
-    line-height: 28px;
-  }
-`;
-const ProfileImg = styled.img`
-  width: 100%;
-  height: 100%;
-`;
+import MessageCountText from "./MessageCountText";
 
 function MessageCount({ card }) {
   const maxCount = 3;
@@ -39,17 +8,51 @@ function MessageCount({ card }) {
 
   return (
     <>
-      <ProfileList>
+      <StyledAvatarList>
         {visibleCount.map((card) => (
-          <ProfileListLi key={card.id}>
-            <ProfileImg src={card.profileImageURL} />
-          </ProfileListLi>
+          <StyledAvatarListItem key={card.id}>
+            <StyledAvatar src={card.profileImageURL} />
+          </StyledAvatarListItem>
         ))}
-        {remainingCount > 0 && <ProfileListLi>+{remainingCount}</ProfileListLi>}
-      </ProfileList>
-      <MessageCountText card={card}/>
+        {remainingCount > 0 && <StyledAvatarListItem>+{remainingCount}</StyledAvatarListItem>}
+      </StyledAvatarList>
+
+      <MessageCountText card={card} />
     </>
   );
 }
 
 export default MessageCount;
+
+/* ==================== styled ==================== */
+
+const StyledAvatarList = styled.ul`
+  display: flex;
+`;
+
+const StyledAvatarListItem = styled.li`
+  width: 28px;
+  height: 28px;
+  border: 1.4px solid #E3E3E3;
+  border-radius: 50%;
+  background-color: var(--white);
+  font: var(--font-12-regular);
+  color: #484848;
+  overflow: hidden;
+
+  &:nth-child(2),
+  &:nth-child(3) {
+    margin-left: -13px;
+  }
+
+  &:nth-child(4) {
+    margin-left: -13px;
+    text-align: center;
+    line-height: 26px;
+  }
+`;
+
+const StyledAvatar = styled.img`
+  width: 100%;
+  height: 100%;
+`;

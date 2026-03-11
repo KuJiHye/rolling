@@ -8,35 +8,7 @@ import DetailButton from "./DetailButton";
 import useConfirm from "../hooks/useConfirm";
 import axios from "../api/axios";
 
-const DetailCardListDiv = styled.div`
-  display: flex;
-  flex-flow: wrap;
-  gap: 28px 24px;
-
-  & > div {
-    width: 384px;
-    height: 280px;
-    background-color: var(--white);
-    border-radius: 16px;
-    box-shadow: 0 2px 12px 0 #00000014;
-  }
-`;
-
-const MoreButtonStyle = styled(DetailButton)`
-  display: block;
-  background-color: var(--gray-600);
-  margin: 40px auto 0;
-  padding: 7px 17px;
-  border-radius: 6px;
-  color: var(--white);
-  line-height: 26px;
-
-  &:hover {
-    background-color: var(--gray-700);
-  }
-`;
-
-const LIMIT = 8; // 데이터를 5개씩 받아오기 위한 상수
+const LIMIT = 8; // 데이터를 8개씩 받아오기 위한 상수
 
 function DetailCardList({ editMode }) {
   const { id } = useParams();
@@ -58,6 +30,7 @@ function DetailCardList({ editMode }) {
     setHasNext(Boolean(next));
   };
 
+  // 카드 더보기
   const handleMoreCard = async () => {
     let data = null;
 
@@ -105,7 +78,7 @@ function DetailCardList({ editMode }) {
 
   return (
     <>
-      <DetailCardListDiv>
+      <StyledDetailCardList>
         {!editMode && <DetailCardListItemAdd id={id} />}
 
         {cards.map((card) => (
@@ -124,12 +97,12 @@ function DetailCardList({ editMode }) {
             onClose={() => setCardModal(null)}
           />
         )}
-      </DetailCardListDiv>
+      </StyledDetailCardList>
 
       {hasNext && (
-        <MoreButtonStyle disabled={isLoading} onClick={handleMoreCard}>
+        <StyledDetailButton disabled={isLoading} className="btn btn-gray" onClick={handleMoreCard}>
           더보기
-        </MoreButtonStyle>
+        </StyledDetailButton>
       )}
 
       {ConfirmComponent}
@@ -138,3 +111,24 @@ function DetailCardList({ editMode }) {
 }
 
 export default DetailCardList;
+
+/* ==================== styled ==================== */
+
+const StyledDetailCardList = styled.div`
+  display: flex;
+  flex-flow: wrap;
+  gap: 28px 24px;
+
+  & > div {
+    width: 384px;
+    height: 280px;
+    background-color: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08);
+  }
+`;
+
+const StyledDetailButton = styled(DetailButton)`
+  display: block;
+  margin: 40px auto 0;
+`;

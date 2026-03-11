@@ -1,19 +1,22 @@
 import styled from "styled-components";
 
-const TotalCountP = styled.p`
-  font-size: var(--font-18);
-  color: var(--gray-900);
-`;
-const TotalCount = styled.span`
-  font-weight: var(--bold);
-`;
-
 function MessageCountText({ card }) {
   return (
-    <TotalCountP>
-      <TotalCount>{card.messageCount}</TotalCount>명이 작성했어요!
-    </TotalCountP>
+    <StyledCountText>
+      <StyledCount>{card.messageCount}</StyledCount>명이 작성했어요!
+    </StyledCountText>
   );
 }
 
 export default MessageCountText;
+
+/* ==================== styled ==================== */
+
+const StyledCountText = styled.p`
+  font: var(--font-18-regular);
+  color: var(--gray-900);
+`;
+
+const StyledCount = styled.span`
+  font: var(--font-18-bold);
+`;

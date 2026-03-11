@@ -3,22 +3,6 @@ import styled from "styled-components";
 import DetailButton from "./DetailButton";
 import AddIcon from "../assets/plus-icon.svg";
 
-const AddButtonDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const AddButtonStyle = styled(DetailButton)`
-  width: 56px;
-  height: 56px;
-  background-color: var(--gray-500);
-  border-radius: 50%;
-
-  &:hover {
-    background-color: var(--gray-600);
-  }
-`;
-
 function DetailCardListItemAdd({ id }) {
   const navigate = useNavigate();
 
@@ -28,11 +12,25 @@ function DetailCardListItemAdd({ id }) {
 
   return (
     <AddButtonDiv>
-      <AddButtonStyle onClick={handleAddCard}>
+      <StyledDetailButton className="btn-gray" onClick={handleAddCard}>
         <img src={AddIcon} alt="메세지 추가하기 버튼" />
-      </AddButtonStyle>
+      </StyledDetailButton>
     </AddButtonDiv>
   );
 }
 
 export default DetailCardListItemAdd;
+
+/* ==================== styled ==================== */
+
+const AddButtonDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledDetailButton = styled(DetailButton)`
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+`;

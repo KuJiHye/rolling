@@ -1,45 +1,52 @@
+import styled from "styled-components";
 import MessageCount from "./MessageCount";
 import EmojiReaction from "./EmojiReaction";
 import ShareDropdown from "./ShareDropdown";
-import styled from "styled-components";
 
-const DetailHeaderDiv = styled.div`
+function DetailHeader({ card }) {
+  if (!card) return null;
+
+  return (
+    <StyledContainer>
+      <StyledNameText>To. {card.name}</StyledNameText>
+
+      <StyledActions>
+        <StyledMessageCountWrapper>
+          <MessageCount card={card} />
+        </StyledMessageCountWrapper>
+
+        <EmojiReaction recipientId={card.id} />
+
+        <ShareDropdown postData={card.recipientData} />
+      </StyledActions>
+    </StyledContainer>
+  );
+}
+
+export default DetailHeader;
+
+/* ==================== styled ==================== */
+
+const StyledContainer = styled.div`
   display: flex;
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
   padding: 13px 0;
 `;
-const NameH1 = styled.h1`
+
+const StyledNameText = styled.h1`
   margin-right: auto;
-  font-size: var(--font-28);
-  font-weight: var(--bold);
+  font: var(--font-28-bold);
   color: var(--gray-800);
 `;
-const CardInfo = styled.div`
+
+const StyledActions = styled.div`
   display: flex;
 `;
-const DetailMessageCount = styled.div`
+
+const StyledMessageCountWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 11px;
 `;
-
-function DetailHeader({ card }) {
-  if (!card) return null;
-
-  return (
-    <DetailHeaderDiv>
-      <NameH1>To. {card.name}</NameH1>
-      <CardInfo>
-        <DetailMessageCount>
-          <MessageCount card={card} />
-        </DetailMessageCount>
-        <EmojiReaction recipientId={card.id} />
-        <ShareDropdown postData={card.recipientData} />
-      </CardInfo>
-    </DetailHeaderDiv>
-  );
-}
-
-export default DetailHeader;
