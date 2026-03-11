@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const ExploreButton = ({ to, children, onClick }) => {
   const navigate = useNavigate();
@@ -10,7 +11,9 @@ const ExploreButton = ({ to, children, onClick }) => {
     navigate(to);
   };
 
-  return <StyledButton onClick={handleListPageNavigate}>{children}</StyledButton>;
+  return <StyledButton to={to} onClick={handleListPageNavigate}>
+    {children}
+  </StyledButton>;
 };
 
 const StyledButton = styled(Link)`
