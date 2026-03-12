@@ -14,7 +14,7 @@ function MessageForm() {
   const { id } = useParams();
   const [sender, setSender] = useState("");
   const [profileImageURL, setProfileImageURL] = useState(
-    "https://learn-codeit-kr-static.s3.ap-northeast-2.amazonaws.com/sprint-proj-image/default_avatar.png"
+    "https://learn-codeit-kr-static.s3.ap-northeast-2.amazonaws.com/sprint-proj-image/default_avatar.png",
   );
   const [relationship, setRelationship] = useState("지인");
   const [content, setContent] = useState("");
@@ -33,7 +33,7 @@ function MessageForm() {
     try {
       await axios.post(
         `https://rolling-api.vercel.app/23-5/recipients/${id}/messages/`,
-        { sender, profileImageURL, relationship, content, font }
+        { sender, profileImageURL, relationship, content, font },
       );
       navigate(`/post/${id}`);
     } catch {
@@ -97,7 +97,6 @@ function MessageForm() {
 
 const Container = styled.div`
   width: 720px;
-  height: 944px;
   margin: 47px auto;
   display: flex;
   flex-direction: column;

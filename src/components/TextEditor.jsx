@@ -1,8 +1,9 @@
+import "quill/dist/quill.snow.css";
 import { useEffect } from "react";
 import { useQuill } from "react-quilljs";
-import "quill/dist/quill.snow.css";
 import ContentWrapper from "./ContentWrapper";
-
+import StyledLabel from "./StyledLabel";
+import styled from "styled-components";
 const modules = {
   toolbar: [
     ["bold", "italic", "underline"],
@@ -43,12 +44,35 @@ function TextEditor({ onChange, font }) {
 
   return (
     <div>
-      <label>내용을 입력해 주세요</label>
-      <ContentWrapper>
+      <StyledLabel>내용을 입력해 주세요</StyledLabel>
+      <StyledContentWrapper>
         <div ref={quillRef} />
-      </ContentWrapper>
+      </StyledContentWrapper>
     </div>
   );
 }
+
+const StyledContentWrapper = styled(ContentWrapper)`
+  width: 720px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  overflow: hidden;
+
+  .ql-toolbar {
+    border: none;
+    border-bottom: 1px solid #cccccc;
+    background-color: #f9f9f9;
+  }
+
+  .ql-container {
+    border: none;
+    height: 200px;
+    font-size: 16px;
+  }
+
+  .ql-editor {
+    height: 200px;
+  }
+`;
 
 export default TextEditor;

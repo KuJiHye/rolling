@@ -1,4 +1,12 @@
+import { useState } from "react";
+import StyledLabel from "./StyledLabel";
+import styled from "styled-components";
+import SelectionUp from "../assets/SelectionUp.svg";
+import SelectionDown from "../assets/SelectionDown.svg";
+
 function Selection({ children, type, value, onChange }) {
+  const [clicked, setClicked] = useState(false);
+
   let options = [];
 
   if (type === "relation") {
@@ -23,18 +31,60 @@ function Selection({ children, type, value, onChange }) {
 
   return (
     <div>
-      <label>{children}</label>
-      <select value={value} onChange={handleChange}>
-        {options.map((option) => {
-          return (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          );
-        })}
-      </select>
+      <StyledLabel>{children}</StyledLabel>
+      <SelectWrapper>
+        <StyledSelect
+          onClick={() => setClicked((prev) => !prev)}
+          onBlur={() => setClicked(false)}
+          value={value}
+          onChange={handleChange}
+        >
+          {options.map((option) => {
+            return (
+              <StyledOption key={option.value} value={option.value}>
+                {option.label}
+              </StyledOption>
+            );
+          })}
+        </StyledSelect>
+        <ArrowIcon src={clicked ? SelectionUp : SelectionDown} />
+      </SelectWrapper>
     </div>
   );
 }
+
+const StyledOption = styled.option`
+  border-radisu: 8px;
+  padding: 10px 1px;
+  color: #cccccc;
+`;
+
+const SelectWrapper = styled.div`
+  position: relative;
+  width: 320px;
+`;
+
+const ArrowIcon = styled.img`
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+`;
+
+const StyledSelect = styled.select`
+  width: 320px;
+  height: 50px;
+  border-radius: 8px;
+  border: 1px solid #cccccc;
+  padding: 12px 16px;
+  justify-content: space-between;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 400;
+  color: #555555;
+  cursor: pointer;
+  appearance: none;
+`;
 
 export default Selection;
