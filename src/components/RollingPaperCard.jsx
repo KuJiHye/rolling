@@ -73,8 +73,10 @@ const StyledCardWrapper = styled.div`
         `
       : css`
           background-image:
-            linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+            linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
             url(${$background.value});
+          background-size: cover;
+          background-position: center;
         `}
 
   /* --- 배경이 color일 때만 도형 출력 --- */
