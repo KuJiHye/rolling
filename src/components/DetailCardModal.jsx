@@ -57,7 +57,7 @@ function DetailCardModal({ card, onClose }) {
         </StyledButtonGroup>
       </StyledModal>
     </StyledModalOverlay>,
-    document.getElementById("modal-root")
+    document.getElementById("modal-root"),
   );
 }
 
