@@ -2,20 +2,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import BackIcon from "../assets/back-icon.svg";
 
-const BackButtonStyle = styled.button`
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  width: 56px;
-  height: 56px;
-  background-color: var(--purple-600);
-  border-radius: 50%;
-
-  &:hover {
-    background-color: var(--purple-700);
-  }
-`;
-
 function BackButton() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -33,3 +19,34 @@ function BackButton() {
 }
 
 export default BackButton;
+
+/* ==================== styled ==================== */
+
+const BackButtonStyle = styled.button`
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 56px;
+  height: 56px;
+  background-color: var(--purple-600);
+  border-radius: 50%;
+  z-index: 1000;
+
+  &:hover {
+    background-color: var(--purple-700);
+  }
+
+  @media ${({ theme }) => theme.tablet} {
+    top: 13px;
+    bottom: 0;
+    width: 36px;
+    height: 36px;
+
+    & > img {
+      width: 20px;
+    }
+  }
+
+  @media ${({ theme }) => theme.mobile} {
+  }
+`;
