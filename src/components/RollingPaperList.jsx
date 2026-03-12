@@ -134,6 +134,10 @@ const StyledSection = styled.div`
     padding: 0 24px;
     overflow: visible;
   }
+  @media ${({ theme }) => theme.mobile} {
+    margin-top: 20px;
+    gap: 12px;
+  }
 `;
 const StyledListHeader = styled.div`
   display: flex;
@@ -141,10 +145,21 @@ const StyledListHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
+
+  @media ${({ theme }) => theme.mobile} {
+    /* 💡 모바일에서 세로로 배치하고, 순서를 반대로 뒤집습니다 */
+    flex-direction: column-reverse;
+    align-items: flex-start; /* 왼쪽 정렬 */
+    gap: 24px; /* 검색창과 제목 사이 간격 */
+  }
 `;
 
 const StyledSearchWrapper = styled.div`
   position: relative;
+
+  @media ${({ theme }) => theme.mobile} {
+    width: 100%;
+  }
 `;
 
 const StyledSearchIcon = styled.img`
@@ -165,6 +180,10 @@ const StyledSearchInput = styled.input`
 
   &:focus {
     outline: 1px solid var(--purple-600);
+  }
+
+  @media ${({ theme }) => theme.mobile} {
+    width: 100%;
   }
 `;
 
@@ -211,6 +230,9 @@ const StyledCarouselWindow = styled.div`
 
 const StyledListTitle = styled.h1`
   font: var(--font-24-bold);
+  @media ${({ theme }) => theme.mobile} {
+    font: var(--font-20-bold);
+  }
 `;
 
 const StyledLeftButton = styled.button`

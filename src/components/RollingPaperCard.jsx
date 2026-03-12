@@ -94,11 +94,20 @@ const StyledCardWrapper = styled.div`
             display: none;
           `}
   }
+
+  @media ${({ theme }) => theme.mobile} {
+    width: 208px;
+    height: 232px;
+  }
 `;
 
 const StyledNameTitle = styled.h2`
   font: var(--font-24-bold);
   color: ${({ $isImage }) => ($isImage ? "white" : "black")};
+
+  @media ${({ theme }) => theme.mobile} {
+    font: var(--font-18-bold);
+  }
 `;
 
 const StyledCardText = styled.div`
@@ -114,6 +123,10 @@ const StyledCardContent = styled.div`
   gap: 43px;
   width: 100%;
   z-index: 1;
+
+  @media ${({ theme }) => theme.mobile} {
+    gap: 33px;
+  }
 `;
 
 const StyledEmojiContent = styled.div`

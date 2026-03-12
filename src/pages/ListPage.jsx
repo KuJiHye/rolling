@@ -22,5 +22,9 @@ function ListPage() {
 
 const StyledMargin = styled.div`
   height: 64px;
+
+  @media ${({ theme }) => theme.mobile} {
+    height: 8px;
+  }
 `;
 export default ListPage;
