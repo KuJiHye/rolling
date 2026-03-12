@@ -19,7 +19,6 @@ const StyledItem = styled.div`
     background-size: cover;
     background-position: center;
     cursor: pointer;
-    margin: 24px 0;
 `;
 
 export default ImgBackgroundItem;

@@ -18,7 +18,12 @@ function Imgbackgrounds({ className, onClickImg, userSelectedImg}){
 }
 const ImgbackgroundList = styled(Imgbackgrounds)`
     display: flex;
-    gap: 16px;    
+    gap: 16px;
+    margin: 24px 0;
+    
+    @media (max-width:1200px) {
+        margin-top: 40px;
+    }
 `
 
 export default ImgbackgroundList;

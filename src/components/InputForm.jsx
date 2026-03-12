@@ -19,9 +19,10 @@ const StyleInputForm = styled(InputDiv)`
     width: 720px;
     padding-top: 20px;
 
-    @media screen and (max-width: 480px) {
-         width: 320px;
-     }
+    @media (max-width: 1200px) {
+        margin-bottom: 54px;
+    
+  }
 `
 const Label = styled.div`
     color: #181818;

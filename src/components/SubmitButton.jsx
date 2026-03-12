@@ -6,13 +6,13 @@ function SubmitButton({ value, onSubmit }){
     const isButtonDisabled = value.trim().length === 0;
 
     return(
-        <CreateButton
+        <StyleCreateButton
             disabled={isButtonDisabled}
             onClick={onSubmit}/>
     )
 }
 
-const CreateButton = styled(Button)`
+const StyleCreateButton = styled(Button)`
     margin: 24px;
     
     &:disabled {
@@ -21,10 +21,9 @@ const CreateButton = styled(Button)`
         cursor: not-allowed;
     }
 
-    @media screen and (max-width: 480px) {
-        // position: fixed;
-        // bottom: 0;
-        // left: 0;
+    @media (max-width:1200px) {
+        position: fixed;
+        bottom: 0;
     }
 `
 

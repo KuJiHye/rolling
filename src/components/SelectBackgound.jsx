@@ -40,6 +40,16 @@ function SelectBackground({ backgroundMode, setBackgroundMode, className }){
     )
 }
 
+const StyleSelectBackground = styled(SelectBackground)`
+    width: 720px;
+    padding-top: 50px;
+
+    @media (max-width: 1200px) {
+        padding-top: 0;
+        
+    }
+`
+
 const StylePlzSelectbg = styled.div`
     color: var(--gray-900, #181818);
     font-family: Pretendard;
@@ -48,7 +58,6 @@ const StylePlzSelectbg = styled.div`
     font-weight: 700;
     line-height: 36px;
     letter-spacing: -0.24px;
-
     
 `
 
@@ -58,8 +67,9 @@ const StyleSubPlzSelectbg = styled.span`
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    line-height: 26px; /* 162.5% */
+    line-height: 26px;
     letter-spacing: -0.16px;
 `
 
-export default SelectBackground;
+
+export default StyleSelectBackground;

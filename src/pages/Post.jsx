@@ -9,6 +9,7 @@ import styled from "styled-components";
 import ToastBox from "../components/ToastBox";
 import { device } from "../styles/media";
 import StyleInputForm from "../components/InputForm";
+import StyleSelectBackground from "../components/SelectBackgound";
 
 function Post({ className }){
     const [receiverName, setReceiverName] = useState('');
@@ -89,7 +90,7 @@ function Post({ className }){
                     value={receiverName}
                     onChange={setReceiverName}
                     onEnterPress={handleEnterPress} />
-                <SelectBackgroundLayout
+                <StyleSelectBackground
                     className={className}
                     backgroundMode={backgroundMode}
                     setBackgroundMode={setBackgroundMode} />
@@ -109,25 +110,9 @@ const PostPageLayout = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 1024px;
-    height: 1080px;
     padding: 57px;
-
-    @media screen and (max-width: 360px) {
-        width: 360px;
-        height: 836px; 
-     }
 `
 
-const SelectBackgroundLayout = styled(SelectBackground)`
-    width: 720px;
-    padding-top: 50px;
 
-    @media screen and (max-width: 480px) {
-         width: 310px;
-         height: 66px;
-         padding-top: 48px;
-     }
-`
 
 export default Post;
