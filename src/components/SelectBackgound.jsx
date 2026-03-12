@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import BackgroundToggle from "./BackgroundToggle";
-import ColorbackgroundList from "./ColorbackgroundList";
-import ImgbackgroundList from "./ImgbackgroundList";
+import StyledColorbackgroundList from "./ColorbackgroundList";
+import StyledImgBackgroundList from "./ImgbackgroundList";
 import MyContext from "./MyContext";
 import styled from "styled-components";
 
@@ -25,32 +25,31 @@ function SelectBackground({ backgroundMode, setBackgroundMode, className }){
 
     return(
         <div className={className}>
-            <StylePlzSelectbg> 배경화면을 선택해 주세요.</StylePlzSelectbg>
-            <StyleSubPlzSelectbg>컬러를 선택하거나, 이미지를 선택하실 수 있습니다.</StyleSubPlzSelectbg>
+            <StyledPlzSelectbg> 배경화면을 선택해 주세요.</StyledPlzSelectbg>
+            <StyledSubPlzSelectbg>컬러를 선택하거나, 이미지를 선택하실 수 있습니다.</StyledSubPlzSelectbg>
             {/* <BackgroundSelector> */}
                 <BackgroundToggle
                     backgroundMode={backgroundMode}
                     handleToggleClick={handleToggleClick} />
                 {/*color값이 true이면 ColorbackgroundList, false이면 ImgbackgroundList */}
                 {backgroundMode === 'color' ? 
-                <ColorbackgroundList onClickColor={handleClickColor} userSelectedColor={userSelectedColor}/> 
-                : <ImgbackgroundList onClickImg={handleClickImg} userSelectedImg={userSelectedImg}/>}
+                <StyledColorbackgroundList onClickColor={handleClickColor} userSelectedColor={userSelectedColor}/> 
+                : <StyledImgBackgroundList onClickImg={handleClickImg} userSelectedImg={userSelectedImg}/>}
             {/* </BackgroundSelector> */}
         </div>
     )
 }
 
-const StyleSelectBackground = styled(SelectBackground)`
-    width: 720px;
-    padding-top: 50px;
+const StyledSelectBackground = styled(SelectBackground)`
+    width: 100%;
+    margin-top: 50px;
 
-    @media (max-width: 1200px) {
-        padding-top: 0;
-        
+    @media ${({ theme }) => theme.tablet} {
+        margin: 54px 0 24px 0;
     }
 `
 
-const StylePlzSelectbg = styled.div`
+const StyledPlzSelectbg = styled.div`
     color: var(--gray-900, #181818);
     font-family: Pretendard;
     font-size: 24px;
@@ -61,7 +60,7 @@ const StylePlzSelectbg = styled.div`
     
 `
 
-const StyleSubPlzSelectbg = styled.span`
+const StyledSubPlzSelectbg = styled.span`
     color: var(--gray-500, #555);
     font-family: Pretendard;
     font-size: 16px;
@@ -72,4 +71,4 @@ const StyleSubPlzSelectbg = styled.span`
 `
 
 
-export default StyleSelectBackground;
+export default StyledSelectBackground;

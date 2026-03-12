@@ -14,6 +14,11 @@ const ColorbackgroundItem = styled.div`
         filter: blur(1px);
         cursor: pointer;
     }
+
+    @media ${({ theme }) => theme.moblie} {
+        width: 154px;
+        height: 154px;  
+    }
 `
 
 export default ColorbackgroundItem;

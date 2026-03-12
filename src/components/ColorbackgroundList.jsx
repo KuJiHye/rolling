@@ -33,21 +33,23 @@ function ColorbgList({ className, onClickColor, userSelectedColor }){
     )
 }
 
-const ColorbackgroundList = styled(ColorbgList)`
-    display: inline-flex;
+const StyledColorbackgroundList = styled(ColorbgList)`
+    display: flex;
     gap: 16px;
     margin: 24px 0;
+    width: 100%;
 
-    @media (max-width:1200px) {
-        margin-top: 40px;
+    @media ${({ theme }) => theme.tablet} {
+        margin-top: 40px
     }
 
-    @media screen and (max-width: 480px) {
-         display: grid;
-         grid-template-columns: repeat(2, 1fr);
-         gap: 12px;
-         height: 66px;
-     }
+    @media ${({ theme }) => theme.mobile} {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        width: 320px;
+        height: 320px;
+    }
 `
 
-export default ColorbackgroundList;
+export default StyledColorbackgroundList;

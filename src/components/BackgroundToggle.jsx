@@ -24,6 +24,11 @@ const ToggleList = styled.div`
     width: 244px;
     height: 40px;
     margin-top: 24px;
+
+    @media ${({ theme }) => theme.tablet} {
+        margin: 24px 0  40px 0;
+
+    }
     
 `
 

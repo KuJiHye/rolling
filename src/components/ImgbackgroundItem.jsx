@@ -19,6 +19,11 @@ const StyledItem = styled.div`
     background-size: cover;
     background-position: center;
     cursor: pointer;
+
+    @media ${({ theme }) => theme.moblie} {
+        width: 154px;
+        height: 154px;  
+    }
 `;
 
 export default ImgBackgroundItem;

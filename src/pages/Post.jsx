@@ -9,7 +9,7 @@ import styled from "styled-components";
 import ToastBox from "../components/ToastBox";
 import { device } from "../styles/media";
 import StyleInputForm from "../components/InputForm";
-import StyleSelectBackground from "../components/SelectBackgound";
+import StyledSelectBackground from "../components/SelectBackgound";
 
 function Post({ className }){
     const [receiverName, setReceiverName] = useState('');
@@ -83,14 +83,14 @@ function Post({ className }){
                 makeToast,
             }}
             >
-            <PostPageLayout>
+            <StyledPostPageWrapper>
                 <StyleInputForm
                     label='To.'
                     placeholder='받는 사람 이름을 입력해 주세요.'
                     value={receiverName}
                     onChange={setReceiverName}
                     onEnterPress={handleEnterPress} />
-                <StyleSelectBackground
+                <StyledSelectBackground
                     className={className}
                     backgroundMode={backgroundMode}
                     setBackgroundMode={setBackgroundMode} />
@@ -100,17 +100,30 @@ function Post({ className }){
                 {shouldShowToastMessage && (
                     <ToastBox toastMessage={toastMessage} setShowToastMessage={setShouldShowToastMessage} />
                 )}
-                </PostPageLayout>
+                </StyledPostPageWrapper>
             </MyContext.Provider>
         </>
     )
 }
 
-const PostPageLayout = styled.div`
+const StyledPostPageWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 57px;
+    width: 720px;
+    height: 1080px;
+    margin: 0 auto;
+
+    @media ${({ theme }) => theme.tablet} {
+        width: 720px;
+        height: 1024px;
+    }
+
+    @media ${({ theme }) => theme.mobile} {
+        width: 360px;
+        height: 836px;
+    }
+
 `
 
 

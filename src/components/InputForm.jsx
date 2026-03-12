@@ -16,13 +16,13 @@ function InputDiv({ label, placeholder, value, onChange, onEnterPress, className
 }
 
 const StyleInputForm = styled(InputDiv)`
-    width: 720px;
-    padding-top: 20px;
+    width: 100%;
+    margin-top: 20px;
 
-    @media (max-width: 1200px) {
-        margin-bottom: 54px;
-    
-  }
+    @media ${({ theme }) => theme.tablet} {
+        margin-top: 49px;
+
+    }
 `
 const Label = styled.div`
     color: #181818;
@@ -30,7 +30,7 @@ const Label = styled.div`
     font-size: 24px;
     font-style: normal;
     font-weight: 700;
-    line-height: 42px; /* 175% */
+    line-height: 42px;
     letter-spacing: -0.24px; 
 `
 
