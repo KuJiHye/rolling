@@ -61,6 +61,7 @@ const StyledCardWrapper = styled.div`
   height: 260px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 16px;
+  background-clip: padding-box;
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);
 
   background-color: ${({ $colorName }) =>
