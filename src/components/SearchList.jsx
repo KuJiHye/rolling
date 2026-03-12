@@ -10,41 +10,45 @@ function SearchList() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const keywordFromUrl = searchParams.get("keyword") || "";
+  const sortFromUrl = searchParams.get("sort") || "";
 
   const [inputValue, setInputValue] = useState(keywordFromUrl);
   const [allData, setAllData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [sort, setSort] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
   const LIMIT = 12;
 
+  // URL 키워드가 바뀌면 입력창과 페이지 초기화
   useEffect(() => {
     setInputValue(keywordFromUrl);
     setCurrentPage(1);
-  }, [keywordFromUrl]);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [sort]);
+  }, [keywordFromUrl, sortFromUrl]);
 
   useEffect(() => {
     const fetchData = async () => {
+      setAllData([]);
       setIsLoading(true);
+
       try {
         const response = await getRecipients({
           limit: 500,
-          sort: sort === "like" ? "like" : "",
+          sort: sortFromUrl === "like" ? "like" : "",
         });
 
         let fetchedData = response.results;
 
-        if (keywordFromUrl) {
+        if (
+          keywordFromUrl &&
+          sortFromUrl !== "like" &&
+          sortFromUrl !== "latest"
+        ) {
           fetchedData = fetchedData.filter((item) =>
             item.name.toLowerCase().includes(keywordFromUrl.toLowerCase()),
           );
         }
-        if (sort === "") {
+
+        if (sortFromUrl === "" || sortFromUrl === "latest") {
           fetchedData = [...fetchedData].sort((a, b) => b.id - a.id);
         }
 
@@ -57,20 +61,18 @@ function SearchList() {
     };
 
     fetchData();
-  }, [sort, keywordFromUrl]);
+  }, [keywordFromUrl, sortFromUrl]);
 
   const handleSearch = (e) => {
     if (e.key === "Enter" && inputValue.trim() !== "") {
-      setSort("none");
-      setCurrentPage(1);
       navigate(`/search?keyword=${encodeURIComponent(inputValue.trim())}`);
     }
   };
 
   const handleSortChange = (newSort) => {
-    setSort(newSort);
+    const sortValue = newSort === "" ? "latest" : "like";
     setInputValue("");
-    navigate("/search");
+    navigate(`/search?sort=${sortValue}`);
   };
 
   const offset = (currentPage - 1) * LIMIT;
@@ -78,31 +80,32 @@ function SearchList() {
 
   return (
     <StyledSearchContainer>
-      <StyledInputContainer>
-        <StyledSearchIcon src={SearchIc} alt="검색 돋보기" />
-        <StyledSearchInput
-          type="text"
-          placeholder="이름을 입력하고 엔터를 누르세요"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={handleSearch}
-        />
-      </StyledInputContainer>
-
-      <StyledSortFilterBox>
-        <StyledFilterButton
-          onClick={() => handleSortChange("")}
-          $isActive={sort === ""}
-        >
-          최신순
-        </StyledFilterButton>
-        <StyledFilterButton
-          onClick={() => handleSortChange("like")}
-          $isActive={sort === "like"}
-        >
-          인기순
-        </StyledFilterButton>
-      </StyledSortFilterBox>
+      <StyledSearchHeader>
+        <StyledSortFilterBox>
+          <StyledFilterButton
+            onClick={() => handleSortChange("")}
+            $isActive={sortFromUrl === "latest"}
+          >
+            최신순
+          </StyledFilterButton>
+          <StyledFilterButton
+            onClick={() => handleSortChange("like")}
+            $isActive={sortFromUrl === "like"}
+          >
+            인기순
+          </StyledFilterButton>
+        </StyledSortFilterBox>
+        <StyledInputContainer>
+          <StyledSearchIcon src={SearchIc} alt="검색 돋보기" />
+          <StyledSearchInput
+            type="text"
+            placeholder="이름을 입력하고 엔터를 누르세요"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={handleSearch}
+          />
+        </StyledInputContainer>
+      </StyledSearchHeader>
 
       {isLoading ? (
         <div>로딩 중...</div>
@@ -116,12 +119,14 @@ function SearchList() {
             ))}
           </StyledCardGrid>
 
-          <Pagination
-            totalCount={allData.length}
-            limit={LIMIT}
-            currentPage={currentPage}
-            onPageChange={setCurrentPage}
-          />
+          {allData.length > 0 && (
+            <Pagination
+              totalCount={allData.length}
+              limit={LIMIT}
+              currentPage={currentPage}
+              onPageChange={setCurrentPage}
+            />
+          )}
         </>
       )}
 
@@ -135,6 +140,16 @@ const StyledSearchContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 16px;
+`;
+
+const StyledSearchHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 1160px;
+  gap: 8px;
 `;
 
 const StyledCardGrid = styled.ul`
@@ -150,17 +165,16 @@ const StyledInputContainer = styled.div`
   position: relative;
   display: flex;
   align-items: center;
+  flex-grow: 1;
 `;
 
 const StyledSearchInput = styled.input`
-  width: 1160px;
+  width: 100%;
   height: 48px;
-  border-radius: 16px;
+  border-radius: 20px;
   border: none;
   background-color: var(--purple-100);
   padding: 12px 40px;
-  margin-top: 16px;
-  margin-bottom: 12px;
   font: var(--font-16-regular);
 
   &:focus {
@@ -175,7 +189,6 @@ const StyledSearchIcon = styled.img`
 `;
 
 const StyledSortFilterBox = styled.div`
-  width: 100%;
   display: flex;
   gap: 4px;
 `;
@@ -184,8 +197,8 @@ const StyledFilterButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 74px;
-  height: 42px;
+  width: 78px;
+  height: 48px;
   border: 1px solid var(--gray-200);
   border-radius: 28px;
   cursor: pointer;

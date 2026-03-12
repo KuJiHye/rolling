@@ -39,21 +39,23 @@ function Pagination({ totalCount, limit, currentPage, onPageChange }) {
 }
 
 const PageButton = styled.button`
-  border: 1px solid #ddd;
+  border: 1px solid var(--gray-200);
   padding: 8px 12px;
-  background: ${(props) => (props.$active ? "#007bff" : "#fff")};
-  color: ${(props) => (props.$active ? "#fff" : "#333")};
+  background: ${(props) =>
+    props.$active ? "var(--purple-600)" : "var(--white)"};
+  color: ${(props) => (props.$active ? "var(--white)" : "#333")};
   cursor: pointer;
   border-radius: 4px;
 
   &:disabled {
     background: #f5f5f5;
-    color: #ccc;
+    color: var(--gray-100);
     cursor: not-allowed;
   }
 
   &:hover:not(:disabled) {
-    background: ${(props) => (props.$active ? "#0056b3" : "#f0f0f0")};
+    background: ${(props) =>
+      props.$active ? "var(--purple-600)" : "var(--gray-100)"};
   }
 `;
 

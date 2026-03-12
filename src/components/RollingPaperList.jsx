@@ -188,6 +188,7 @@ const StyledLeftButton = styled.button`
   border-radius: 20px;
   background-color: var(--white);
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
+  z-index: 2;
 
   visibility: ${(props) => (props.$isHidden ? "hidden" : "visible")};
 `;
@@ -202,6 +203,7 @@ const StyledRightButton = styled.button`
   border-radius: 20px;
   background-color: var(--white);
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
+  z-index: 2;
 
   visibility: ${(props) => (props.$isHidden ? "hidden" : "visible")};
 `;
