@@ -105,6 +105,7 @@ const StyledCardText = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
+  min-height: 112px;
 `;
 
 const StyledCardContent = styled.div`
