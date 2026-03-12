@@ -1,4 +1,3 @@
-import React from 'react';
 import useKakaoShare from '../hooks/useShare'; 
 
 const KakaoShareButton = ({ onClose }) => {
