@@ -1,121 +1,21 @@
-import React from 'react';
 import styled from 'styled-components';
+import exampleCard from '../assets/ExampleCard.svg';
+import CURSOR_ICON from '../assets/CursorIcon.svg';
 
-const RollingPaperCard = ({ from, tag, message, date, avatarSeed }) => {
+const MainPoint1Section = ({ isReverse = false }) => {
   return (
-    <StyledCard>
-      <StyledProfileRow>
-        <StyledAvatar src={`https://picsum.photos/seed/${avatarSeed}/40/40`} referrerPolicy="no-referrer" />
-        <StyledProfileText>
-          <StyledName>From. {from}</StyledName>
-          <StyledTag>{tag}</StyledTag>
-        </StyledProfileText>
-      </StyledProfileRow>
-      <StyledMessage>{message}</StyledMessage>
-      <StyledDate>{date}</StyledDate>
-    </StyledCard>
-  );
-};
-
-const StyledCard = styled.div`
-  width: 206px;
-  height: 162px;
-  background-color: var(--white);
-  border: 1px solid var(--gray-200);
-  border-radius: 12px;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-`;
-
-const StyledProfileRow = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
-`;
-
-const StyledAvatar = styled.img`
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-`;
-
-const StyledProfileText = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const StyledName = styled.span`
-  font: var(--font-14-bold);
-  color: var(--black);
-`;
-
-const StyledTag = styled.span`
-  font: var(--font-12-regular);
-  color: var(--purple-600);
-  background-color: var(--purple-100);
-  padding: 2px 6px;
-  border-radius: 4px;
-  width: fit-content;
-`;
-
-const StyledMessage = styled.p`
-  font: var(--font-14-regular);
-  color: var(--gray-500);
-  line-height: 1.4;
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-`;
-
-const StyledDate = styled.span`
-  font: var(--font-12-regular);
-  color: var(--gray-400);
-  margin-top: 4px;
-`;
-
-const MainPoint1Section = ({ $isReverse = false }) => {
-  const handleSectionClick = () => {
-  };
-
-  return (
-    <StyledSectionContainer $isReverse={$isReverse} onClick={handleSectionClick}>
+    <StyledSectionContainer $isReverse={isReverse}>
       <StyledContentWrapper>
         <StyledBadge>Point. 01</StyledBadge>
-        <StyledTitle>
-          누구나 손쉽게, 온라인<br />
-          롤링 페이퍼를 만들 수 있어요
-        </StyledTitle>
-        <StyledDescription>로그인 없이 자유롭게 만들어요.</StyledDescription>
+        <StyledTextContainer> 
+          <StyledTitle>누구나 손쉽게, 온라인 롤링 페이퍼를 만들 수 있어요</StyledTitle>
+          <StyledDescription>로그인 없이 자유롭게 만들어요.</StyledDescription>
+        </StyledTextContainer>
       </StyledContentWrapper>
 
       <StyledImageArea>
-        <StyledCardWrapper>
-          <RollingPaperCard 
-            from="강미나" 
-            tag="친구" 
-            message="코로나가 또다시 기승을 부리는 요즘이네요. 건강, 체력 모두 조심 하세요!" 
-            date="2023.07.08" 
-            avatarSeed="user1"
-          /> 
-          <RollingPaperCard 
-            from="박대영" 
-            tag="동료" 
-            message="일교차가 큰 시기입니다. 새벽에는 겨울, 한낮에는 여름, 아침저녁으로는 가을을 느껴보는 것도 좋을 것 같아요." 
-            date="2023.07.08" 
-            avatarSeed="user2"
-          />
-          <StyledEmptyCard>
-             <StyledPlusIcon>+</StyledPlusIcon>
-          </StyledEmptyCard>
-        </StyledCardWrapper>
+        <StyledMainCardsImage src={exampleCard} alt="롤링페이퍼 예시 카드들" />
+        <StyledCursorFirst src={CURSOR_ICON} alt="마우스 커서 1" />
       </StyledImageArea>
     </StyledSectionContainer>
   );
@@ -124,97 +24,97 @@ const MainPoint1Section = ({ $isReverse = false }) => {
 const StyledSectionContainer = styled.section`
   display: flex;
   flex-direction: ${({ $isReverse }) => ($isReverse ? 'row-reverse' : 'row')};
-  align-items: center;
-  justify-content: center; 
-  
-  max-width: 1200px; 
-  width: 100%;
-  margin: 0 auto;
-  padding: 60px 40px; 
-  background-color: var(--surface);
+  align-items: flex-start; 
+  justify-content: flex-start; 
+  width: 1200px;
+  height: 324px;
   border-radius: 16px;
-  gap: 100px; 
-
-  @media (max-width: 1200px) {
-    flex-direction: column;
-    padding: 40px 24px;
-    gap: 40px;
-    text-align: center;
-  }
+  background-color: var(--surface);
+  gap: 152px;
 `;
 
 const StyledContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
-  @media (max-width: 1200px) {
-    align-items: center;
-  }
+  width: 268px;
+  height: 156px;
+  gap: 16px;
+  margin-left: 60px;
+  margin-top: 60px;
 `;
 
-const StyledImageArea = styled.div`
-  position: relative;
-  width: auto;
-  height: auto;
-`;
-
-const StyledCardWrapper = styled.div`
-  display: flex;
-  gap: 20px; 
-  overflow: hidden;
-`;
-
-const StyledEmptyCard = styled.div`
-  width: 206px;
-  height: 162px;
-  background-color: var(--white);
-  border: 1px solid var(--gray-300);
-  border-radius: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
-`;
-
-const StyledPlusIcon = styled.div`
-  width: 48px;
-  height: 48px;
-  background-color: var(--gray-700);
-  color: var(--white);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;
-`;
-
+/* --- 텍스트 영역 --- */
 const StyledBadge = styled.span`
-  display: inline-block;
-  width: fit-content;
+  width: 80px;
+  height: 32px;
   padding: 6px 12px;
+  gap: 10px;
   border-radius: 50px;
   background-color: var(--purple-600);
   color: var(--white);
   font: var(--font-14-bold); 
+  line-height: 20px;
+  letter-spacing: -0.05em;
 `;
 
 const StyledTitle = styled.h2`
+  width: 268px;
+  height: 72px;
   font: var(--font-24-bold);
-  color: var(--black);
-  line-height: 1.5;
-  margin-top: 16px;
-  text-align: left;
-
-  @media (max-width: 1200px) {
-    text-align: center;
-  }
+  color: var(--gray-900);
+  line-height: 36px;
+  letter-spacing: -0.01em;
+  margin: 0
 `;
 
 const StyledDescription = styled.p`
+  width: 218px;
+  height: 28px;
   font: var(--font-18-regular);
   color: var(--gray-500);
-  margin-top: 8px;
+  line-height: 28px;
+  letter-spacing: -0.01em;
+  margin: 0px;
+`;
+
+const StyledTextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 268px;
+  height: 108px;
+  gap: 8px;
+`;
+
+/* --- 이미지 영역 --- */
+const StyledImageArea = styled.div`
+  position: relative; 
+  width: 720px;
+  height: 204px;
+  aspect-ratio: 720 / 204; 
+  margin-top: 60px;
+  margin-bottom: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledCursorFirst = styled.img`
+  position: absolute;
+  top: 42%;
+  right: 15%;
+  width: 32px; 
+  height: 32px;
+  z-index: 10;
+  pointer-events: none;
+`;
+
+const StyledMainCardsImage = styled.img`
+  width: 100%; 
+  max-width: 650px;
+  height: auto;
+  object-fit: contain;
 `;
 
 export default MainPoint1Section;

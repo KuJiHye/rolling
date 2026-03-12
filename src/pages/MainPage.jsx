@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import MainPoint1Section from "../components/MainPoint1Section"; 
 import MainPoint2Section from "../components/MainPoint2Section"; 

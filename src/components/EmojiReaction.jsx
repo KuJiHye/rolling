@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import EmojiBadgeList from './EmojiBadgeList';
 import EmojiPicker from 'emoji-picker-react';
 import { useEmojiReaction } from '../hooks/useEmojiReaction';
@@ -23,7 +23,12 @@ const EmojiReaction = ({ recipientId }) => {
   };
 
   return (
-    <div>
+    <div style={{ 
+      position: 'relative', 
+      display: 'flex', 
+      alignItems: 'center', 
+      gap: '8px' }}>
+
       <EmojiBadgeList emojiData={topThree} />
 
       <button onClick={handleDropdownToggle} type="button">
@@ -31,7 +36,11 @@ const EmojiReaction = ({ recipientId }) => {
       </button>
 
       {isDropdownVisible && (
-        <div>
+        <div style={{ 
+          position: 'absolute', 
+          top: '100%', 
+          zIndex: 10 }}>
+
           {topEight.map((emoji) => (
             <div key={emoji.id}>
               {emoji.emoji} {emoji.count}
@@ -40,10 +49,15 @@ const EmojiReaction = ({ recipientId }) => {
         </div>
       )}
 
-      <div>
+      <div style={{ position: 'relative' }}>
         <button onClick={handlePickerToggle}>추가 +</button>
         {isPickerVisible && (
-          <div>
+          <div style={{ 
+            position: 'absolute',
+            top: '40px',
+            right: 0, 
+            zIndex: 1000
+          }}>
             <EmojiPicker onEmojiClick={handleEmojiSelect} />
           </div>
         )}

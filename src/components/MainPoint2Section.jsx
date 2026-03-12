@@ -1,34 +1,21 @@
-import React from 'react';
 import styled from 'styled-components';
+import POINT2_CARDS_IMAGE from '../assets/ExampleCard2.svg';
+import CURSOR_ICON from '../assets/CursorIcon.svg';
 
-const MainPoint2Section = ({ $isReverse = true }) => {
-  const handleSectionClick = () => {
-  };
-
+const MainPoint2Section = ({ isReverse = true }) => {
   return (
-    <StyledSectionContainer $isReverse={$isReverse} onClick={handleSectionClick}>
+    <StyledSectionContainer $isReverse={isReverse}>
       <StyledContentWrapper>
         <StyledBadge>Point. 02</StyledBadge>
-        <StyledTitle>
-          서로에게 이모지로 감정을<br />
-          표현해보세요
-        </StyledTitle>
-        <StyledDescription>롤링 페이퍼에 이모지를 추가할 수 있어요.</StyledDescription>
+        <StyledTextContainer> 
+          <StyledTitle>서로에게 이모지로 감정을 표현해보세요</StyledTitle>
+          <StyledDescription>롤링 페이퍼에 이모지를 추가할 수 있어요.</StyledDescription>
+        </StyledTextContainer>
       </StyledContentWrapper>
 
       <StyledImageArea>
-        <StyledEmojiPanel>
-          <StyledEmojiRow>
-            <StyledEmojiItem>👍 24</StyledEmojiItem>
-            <StyledEmojiItem>😍 12</StyledEmojiItem>
-            <StyledEmojiItem>🎉 24</StyledEmojiItem>
-          </StyledEmojiRow>
-          <StyledEmojiRow>
-            <StyledEmojiItem>😢 10</StyledEmojiItem>
-            <StyledEmojiItem>🥳 8</StyledEmojiItem>
-            <StyledEmojiItem>👏 10</StyledEmojiItem>
-          </StyledEmojiRow>
-        </StyledEmojiPanel>
+        <StyledMainCardsImage src={POINT2_CARDS_IMAGE} alt="이모지 기능 안내" />
+        <StyledCursorSecond src={CURSOR_ICON} alt="마우스 커서 2" />
       </StyledImageArea>
     </StyledSectionContainer>
   );
@@ -37,94 +24,87 @@ const MainPoint2Section = ({ $isReverse = true }) => {
 const StyledSectionContainer = styled.section`
   display: flex;
   flex-direction: ${({ $isReverse }) => ($isReverse ? 'row-reverse' : 'row')};
-  align-items: center;
-  justify-content: center; 
-  
-  max-width: 1200px; 
-  width: 100%;
-  margin: 0 auto;
-  padding: 60px 40px; 
-  background-color: var(--surface);
+  align-items: center; 
+  justify-content: ${({ $isReverse }) => ($isReverse ? 'flex-end' : 'flex-start')}; 
+  width: 1200px;
+  height: 324px;
   border-radius: 16px;
-  gap: 100px; 
+  background-color: var(--surface);
+  overflow: hidden; 
+`;
 
-  @media (max-width: 1200px) {
-    flex-direction: column;
-    padding: 40px 24px;
-    gap: 40px;
-    text-align: center;
-  }
+const StyledImageArea = styled.div`
+  position: relative; 
+  width: 720px;
+  height: 204px;
+  aspect-ratio: 720 / 204;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0; 
 `;
 
 const StyledContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
-  @media (max-width: 1200px) {
-    align-items: center;
-  }
+  width: 295px; 
+  height: 156px;
+  gap: 16px;
 `;
 
-const StyledImageArea = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const StyledCursorSecond = styled.img`
+  position: absolute;
+  top: 8%;   
+  right: 27%;
+  width: 32px; 
+  height: 32px;
+  z-index: 10;
+  pointer-events: none;
 `;
 
-const StyledEmojiPanel = styled.div`
-  background-color: var(--white);
-  border: 1px solid var(--gray-200);
-  border-radius: 12px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+const StyledMainCardsImage = styled.img`
+  width: 100%; 
+  max-width: 720px;
+  height: auto;
+  object-fit: contain;
 `;
 
-const StyledEmojiRow = styled.div`
-  display: flex;
-  gap: 8px;
-`;
-
-const StyledEmojiItem = styled.div`
-  background-color: var(--gray-600);
-  color: var(--white);
-  padding: 8px 16px;
-  border-radius: 50px;
-  font: var(--font-16-regular);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-`;
-
+/* --- 텍스트 요소 --- */
 const StyledBadge = styled.span`
-  display: inline-block;
-  width: fit-content;
+  width: 80px;
+  height: 32px;
   padding: 6px 12px;
   border-radius: 50px;
   background-color: var(--purple-600);
   color: var(--white);
   font: var(--font-14-bold); 
+  line-height: 20px;
+  letter-spacing: -0.05em;
+`;
+
+const StyledTextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `;
 
 const StyledTitle = styled.h2`
+  width: 100%;
+  height: 72px;
   font: var(--font-24-bold);
-  color: var(--black);
-  line-height: 1.5;
-  margin-top: 16px;
-  text-align: left;
-
-  @media (max-width: 1200px) {
-    text-align: center;
-  }
+  color: var(--gray-900);
+  line-height: 36px;
+  margin: 0;
 `;
 
 const StyledDescription = styled.p`
+  width: 100%;
+  height: 28px;
   font: var(--font-18-regular);
   color: var(--gray-500);
-  margin-top: 8px;
+  line-height: 28px;
+  margin: 0;
 `;
 
 export default MainPoint2Section;
