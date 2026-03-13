@@ -171,7 +171,7 @@ const StyledSection = styled.div`
   gap: 16px;
   display: flex;
 
-  @media ${({ theme }) => theme.tablet} {
+  @media ${({ theme }) => theme.pc} {
     width: 100%;
     padding: 0 24px;
     overflow: visible;
@@ -235,7 +235,7 @@ const StyledCardList = styled.ul`
   min-height: 280px;
   list-style: none;
 
-  @media ${({ theme }) => theme.tablet} {
+  @media ${({ theme }) => theme.pc} {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     margin: 0 -24px;
@@ -253,7 +253,7 @@ const StyledCardItem = styled.li`
   list-style: none;
   flex: 0 0 auto;
 
-  @media ${({ theme }) => theme.tablet} {
+  @media ${({ theme }) => theme.pc} {
     scroll-snap-align: start;
   }
 `;
@@ -264,7 +264,7 @@ const StyledCarouselWindow = styled.div`
   position: relative;
   width: 100%;
 
-  @media ${({ theme }) => theme.tablet} {
+  @media ${({ theme }) => theme.pc} {
     display: contents;
   }
 `;
@@ -291,7 +291,7 @@ const StyledLeftButton = styled.button`
 
   visibility: ${(props) => (props.$isHidden ? "hidden" : "visible")};
 
-  @media ${({ theme }) => theme.tablet} {
+  @media ${({ theme }) => theme.pc} {
     display: none;
   }
 `;
@@ -310,7 +310,7 @@ const StyledRightButton = styled.button`
 
   visibility: ${(props) => (props.$isHidden ? "hidden" : "visible")};
 
-  @media ${({ theme }) => theme.tablet} {
+  @media ${({ theme }) => theme.pc} {
     display: none;
   }
 `;

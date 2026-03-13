@@ -94,7 +94,7 @@ const StyledCardWrapper = styled.div`
           `}
   }
 
-  @media ${({ theme }) => theme.tablet} {
+  @media ${({ theme }) => theme.pc} {
     max-width: 100%; /* 그리드 한 칸을 꽉 채우도록 제한 해제 */
     height: 260px; /* 너비 변화에 맞춰 높이도 살짝 조정 */
     padding: 24px 20px;
