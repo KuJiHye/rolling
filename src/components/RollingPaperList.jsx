@@ -105,7 +105,7 @@ function RollingPaperList({ title, sort }) {
     }
   };
 
-  // 3. 렌더링 리스트 분기 처리: 태블릿 이하면 전부 렌더링, 데스크탑이면 4개만 렌더링
+  // 렌더링 리스트 분기 처리: 태블릿 이하면 전부 렌더링, 데스크탑이면 4개만 렌더링
   const renderedLists = isTablet
     ? allLists
     : allLists.slice(currentIndex, currentIndex + VIEW_COUNT);
@@ -145,7 +145,6 @@ function RollingPaperList({ title, sort }) {
               <RollingPaperCard card={card} />
             </StyledCardItem>
           ))}
-          {/* 4. 스크롤 끝단 감지를 위한 빈 div 추가 */}
           {isTablet && allLists.length < totalCount && (
             <StyledObserverTarget ref={observerRef} />
           )}

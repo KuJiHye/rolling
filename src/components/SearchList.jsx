@@ -180,7 +180,7 @@ const StyledCardGrid = styled.ul`
   display: grid;
   width: 100%;
   max-width: 1160px;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
   gap: 20px;
   list-style: none;
   padding: 0;
@@ -190,13 +190,13 @@ const StyledCardGrid = styled.ul`
 
   /* 태블릿: 2열로 변경 및 자유로운 너비 */
   @media ${({ theme }) => theme.tablet} {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 16px;
   }
 
   /* 모바일: 1열로 변경 및 자유로운 너비 */
   @media ${({ theme }) => theme.mobile} {
-    grid-template-columns: repeat(1, 208px);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 12px;
   }
 `;
@@ -204,9 +204,7 @@ const StyledCard = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
-  @media ${({ theme }) => theme.mobile} {
-    width: 208px;
-  }
+  width: 100%;
 `;
 
 const StyledInputContainer = styled.div`

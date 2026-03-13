@@ -57,7 +57,7 @@ const StyledCardWrapper = styled.div`
   align-items: flex-start;
   padding: 30px 24px 20px;
   cursor: pointer;
-  width: 275px;
+  min-width: 275px;
   height: 260px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 16px;
@@ -95,15 +95,15 @@ const StyledCardWrapper = styled.div`
   }
 
   @media ${({ theme }) => theme.tablet} {
-    max-width: 100%;
+    width: 100%; /* 고정 px 대신 100% 사용 */
+    max-width: 275px; /* 최대 크기만 제한 */
     height: 260px;
     padding: 24px 20px;
   }
 
   @media ${({ theme }) => theme.mobile} {
-    max-width: 100%;
     height: 232px;
-    width: 208px;
+    max-width: 208px;
     padding: 20px 16px;
   }
 `;
@@ -142,6 +142,9 @@ const StyledEmojiContent = styled.div`
       $isImage ? "rgba(255,255,255,0.5)" : "rgba(0, 0, 0, 0.12)"};
   width: 100%;
   padding-top: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const shapeStyles = {
