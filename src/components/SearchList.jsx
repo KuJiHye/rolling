@@ -141,6 +141,7 @@ const StyledSearchContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 16px;
+  width: 100%;
 
   @media ${({ theme }) => theme.tablet} {
     padding: 0 24px;
@@ -161,15 +162,14 @@ const StyledSearchHeader = styled.div`
   gap: 8px;
 
   @media ${({ theme }) => theme.tablet} {
-    width: 100%;
+    max-width: 566px;
     margin: 0 24px;
     position: sticky;
   }
   @media ${({ theme }) => theme.mobile} {
     grid-template-columns: repeat(2, 1fr);
-    width: 100%;
+    max-width: 275px;
     gap: 8px;
-    margin: 0 8px;
     flex-direction: column-reverse;
     align-items: flex-start;
     gap: 8px;
@@ -178,9 +178,8 @@ const StyledSearchHeader = styled.div`
 
 const StyledCardGrid = styled.ul`
   display: grid;
-  width: 100%;
   max-width: 1160px;
-  grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   list-style: none;
   padding: 0;
@@ -190,14 +189,16 @@ const StyledCardGrid = styled.ul`
 
   /* 태블릿: 2열로 변경 및 자유로운 너비 */
   @media ${({ theme }) => theme.tablet} {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
 
   /* 모바일: 1열로 변경 및 자유로운 너비 */
   @media ${({ theme }) => theme.mobile} {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(1, 1fr);
     gap: 12px;
+    width: 100%; /* 모바일에서도 100% 확인 */
+    padding: 0;
   }
 `;
 const StyledCard = styled.li`
@@ -268,11 +269,10 @@ const StyledFilterButton = styled.button`
       props.$isActive ? "var(--purple-700)" : "var(--gray-100)"};
   }
 
-  @media ${({ theme }) => theme.tablet} {
-  }
-
   @media ${({ theme }) => theme.mobile} {
-    font: var(--font-12-bold);
+    font: var(--font-12-regular);
+    width: 64px;
+    height: 40px;
   }
 `;
 
