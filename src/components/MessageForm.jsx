@@ -109,7 +109,7 @@ const StyledContainer = styled.div`
   @media ${({ theme }) => theme.mobile} {
     width: 100%;
     margin: 0;
-    padding: 50px 20px;
+    padding: 0 20px 50px 20px;
   }
 `;
 
