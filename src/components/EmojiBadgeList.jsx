@@ -21,23 +21,24 @@ const StyledBadgeListContainer = styled.div`
   display: flex;
   gap: 8px;
   align-items: center;
+
+  @media ${({ theme }) => theme.mobile} {
+    gap: 4px;
+  }
 `;
 
 const StyledEmojiBadge = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: fit-content;  
+  height: fit-content; 
   
   gap: 2px; 
+  padding: 8px 12px;   
   
-  min-width: 66px;   
-  height: 36px;     
-  padding: 8px 12px; 
-  
- 
   background: rgba(0, 0, 0, 0.54); 
   border-radius: 32px; 
-  
   color: var(--white);
   
   .emoji-icon {
@@ -52,6 +53,13 @@ const StyledEmojiBadge = styled.div`
     line-height: 20px;
     display: flex;
     align-items: center;
+  }
+
+  @media ${({ theme }) => theme.mobile} {
+    padding: 6px 8px; 
+    
+    .emoji-icon { font-size: 14px; }
+    .emoji-count { font: var(--font-14-regular); }
   }
 `;
 

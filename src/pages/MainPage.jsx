@@ -1,21 +1,32 @@
 import styled from "styled-components";
-import MainPoint1Section from "../components/MainPoint1Section"; 
-import MainPoint2Section from "../components/MainPoint2Section"; 
+import MainPointSection from "../components/MainPointSection"; 
 import ExploreButton from "../components/ExploreButton";
+import exampleCard1 from "../assets/ExampleCard.svg";
+import exampleCard2 from "../assets/ExampleCard2.svg";
 
 const MainPage = () => {
-  const handleExploreClick = () => {
-    console.log("구경하기 페이지로 이동");
-  };
-
   return (
     <StyledPageContainer>
-      <MainPoint1Section />
+      <MainPointSection 
+        point="01"
+        title="누구나 손쉽게, 온라인 롤링 페이퍼를 만들 수 있어요"
+        description="로그인 없이 자유롭게 만들어요."
+        image={exampleCard1}
+        alt="롤링페이퍼 예시 카드들"
+        isReverse={false}
+      />
 
-      <MainPoint2Section isReverse={true} />
+      <MainPointSection 
+        point="02"
+        title="서로에게 이모지로 감정을 표현해보세요"
+        description="롤링 페이퍼에 이모지를 추가할 수 있어요."
+        image={exampleCard2}
+        alt="이모지 기능 안내"
+        isReverse={true} 
+      />
 
       <StyledButtonWrapper>
-        <ExploreButton to="/list" onClick={handleExploreClick}>
+        <ExploreButton to="/list">
           구경해보기
         </ExploreButton>
       </StyledButtonWrapper>
@@ -26,16 +37,34 @@ const MainPage = () => {
 const StyledPageContainer = styled.main`
   display: flex;
   flex-direction: column;
-  gap: 30px; 
-  padding: 60px 0;
   align-items: center;
+  gap: 30px; 
+  width: 100%;
+  padding: 60px 0; 
+
+  @media ${({ theme }) => theme.tablet} {
+    padding: 48px 24px;
+  }
+
+  @media ${({ theme }) => theme.mobile} {
+    padding: 42px 20px 37px; 
+  }
 `;
 
 const StyledButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 48px;
   width: 100%;
+  margin-top: 48px;
+
+  @media ${({ theme }) => theme.tablet} {
+    padding: 0; 
+  }
+
+  @media ${({ theme }) => theme.mobile} {
+    margin-top: 24px;
+    padding: 0;
+  }
 `;
 
 export default MainPage;
