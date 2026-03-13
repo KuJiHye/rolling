@@ -32,14 +32,14 @@ const StyledButtonLink = styled(Link)`
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 
-  @media ${({ theme }) => theme.device.tablet} {
+  @media ${({ theme }) => theme.tablet} {
     min-width: unset;
     width: calc(100% - 48px); 
     margin: 24px auto; 
     max-width: 720px;
   }
 
-  @media ${({ theme }) => theme.device.mobile} {
+  @media ${({ theme }) => theme.mobile} {
     min-width: unset;
     width: calc(100% - 48px); 
     margin: 24px auto; 

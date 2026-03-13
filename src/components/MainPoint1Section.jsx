@@ -30,32 +30,24 @@ const StyledSectionContainer = styled.section`
   flex-direction: column; 
   align-items: center;
   width: 100%;
+  max-width: 1200px;
   background-color: var(--surface); 
   border-radius: 16px;
-  margin: 0 auto;
+  margin: 0 auto 48px auto;
   overflow: hidden;
-
-  @media ${({ theme }) => theme.device.desktop} {
+ 
+  @media ${({ theme }) => theme.pc} {
     flex-direction: ${({ $isReverse }) => ($isReverse ? 'row-reverse' : 'row')};
-    max-width: 1200px; 
-    height: 440px; 
     justify-content: space-between;
-    padding: 60px;
-    margin-bottom: 48px;
   }
 
-  @media ${({ theme }) => theme.device.tablet} {
-    width: calc(100% - 48px);
-    margin: 0 24px 24px 24px;
+  @media ${({ theme }) => theme.mainTablet} {
     padding: 40px;
-    height: auto;
   }
 
-  @media ${({ theme }) => theme.device.mobile} {
-    width: calc(100% - 48px);
-    margin: 0 24px 24px 24px;
+  @media ${({ theme }) => theme.mainMobile} {
     padding: 24px;
-    height: auto;
+    width: calc(100% - 48px); 
   }
 `;
 
@@ -65,19 +57,21 @@ const StyledContentWrapper = styled.div`
   gap: 16px;
   width: 100%;
   
-  @media (min-width: 1248px) {
-    width: 268px;
+  @media ${({ theme }) => theme.pc} {
     margin-left: ${({ $isReverse }) => ($isReverse ? '0' : '60px')};
     margin-right: ${({ $isReverse }) => ($isReverse ? '60px' : '0')};
+    width: 268px;
+    margin-left: 60px; 
+    margin-top: 60;
   }
 
-  @media ${({ theme }) => theme.device.tablet} {
+  @media ${({ theme }) => theme.mainTablet} {
     max-width: 474px;
     min-height: 120px;
-    padding: 40px 0 0 40px;
+    padding: 40px 0 0 40px; 
   }
-
-  @media ${({ theme }) => theme.device.mobile} {
+    
+  @media ${({ theme }) => theme.mainMobile} {
     padding: 24px 24px 0 24px;
     max-width: 100%;
   }
@@ -130,13 +124,17 @@ const StyledImageArea = styled.div`
 
 const StyledImageWrapper = styled.div`
   position: relative;
-  width: 640px; 
-  height: 162px;
+  width: 100%; 
+  height: auto;
   flex-shrink: 0;
+  aspect-ratio: 640 / 162;
 
-  @media ${({ theme }) => theme.device.mobile} {
-    width: 355px;
-    height: 90px;
+  @media ${({ theme }) => theme.mainTablet} {
+    width: 100%;
+  }
+
+  @media ${({ theme }) => theme.mainMobile} {
+    aspect-ratio: 320 / 120;
   }
 `;
 
@@ -144,6 +142,10 @@ const StyledMainCardsImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: contain;
+
+  @media ${({ theme }) => theme.mobile} {
+    object-fit: cover;
+  }
 `;
 
 const StyledCursorFirst = styled.img`
