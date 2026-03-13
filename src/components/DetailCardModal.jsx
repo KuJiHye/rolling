@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import useNoScroll from "../hooks/useNoScroll";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
 import DOMPurify from "dompurify";
@@ -16,14 +16,7 @@ import {
 function DetailCardModal({ card, onClose }) {
   const formatted = card.createdAt.slice(0, 10).replace(/-/g, ".");
 
-  // 모달 창이 띄워졌을 때 뒤에 화면 스크롤 방지
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, []);
+  useNoScroll();
 
   return createPortal(
     <StyledModalOverlay onClick={onClose}>

@@ -1,17 +1,11 @@
-import { useEffect } from "react";
+import useNoScroll from "../hooks/useNoScroll";
 import styled from "styled-components";
 import DetailButton from "./DetailButton";
 import AlertIcon from "../assets/alert-icon.svg";
 import { StyledModalOverlay } from "./DetailCardModal";
 
 function DetailConfirmModal({ message, onConfirm, onCancel }) {
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, []);
+  useNoScroll();
 
   return (
     <StyledModalOverlay onClick={onCancel}>
