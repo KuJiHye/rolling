@@ -116,6 +116,10 @@ const StyledBackground = styled.div`
           linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
           url(${$background.value});
   `}
+
+  @media ${({ theme }) => theme.mobile} {
+    min-height: calc(100vh - 166px);
+  }
 `;
 
 const StyledContainer = styled.div`

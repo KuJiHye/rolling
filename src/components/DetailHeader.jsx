@@ -17,7 +17,7 @@ function DetailHeader({ card }) {
 
         <EmojiReaction recipientId={card.id} />
 
-        <ShareDropdown postData={card.recipientData} />
+        <ShareDropdown />
       </StyledActions>
     </StyledContainer>
   );
@@ -30,19 +30,76 @@ export default DetailHeader;
 const StyledContainer = styled.div`
   display: flex;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1248px;
   margin: 0 auto;
-  padding: 13px 0;
+  padding: 13px 24px;
+
+  @media ${({ theme }) => theme.mobile} {
+    align-items: start;
+    flex-direction: column;
+    padding: 0;
+  }
 `;
 
 const StyledNameText = styled.h1`
   margin-right: auto;
   font: var(--font-28-bold);
   color: var(--gray-800);
+
+  @media ${({ theme }) => theme.mobile} {
+    width: 100%;
+    height: 52px;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--gray-200);
+    font: var(--font-18-bold);
+    line-height: 52px;
+  }
 `;
 
 const StyledActions = styled.div`
   display: flex;
+
+  & > div {
+    position: relative;
+  }
+
+  & > div::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 28px;
+    background: var(--gray-200);
+  }
+
+  & > div:nth-child(1) {
+    padding: 0 28px 0 0;
+  }
+
+  & > div:nth-child(2) {
+    padding: 0 13px 0 28px;
+  }
+
+  & > div:nth-child(3) {
+    padding: 0 0 0 13px;
+  }
+  & > div:nth-child(3)::after {
+    display: none;
+  }
+
+  @media ${({ theme }) => theme.mobile} {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 52px;
+    padding: 0 20px;
+
+    & > div:nth-child(2) {
+      padding: 0 13px 0 0;
+    }
+  }
 `;
 
 const StyledMessageCountWrapper = styled.div`
@@ -57,5 +114,9 @@ const StyledMessageCountWrapper = styled.div`
 
   & > span {
     font: var(--font-18-bold);
+  }
+
+  @media ${({ theme }) => theme.tablet} {
+    display: none;
   }
 `;

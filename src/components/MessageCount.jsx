@@ -33,7 +33,7 @@ const StyledAvatarList = styled.ul`
 const StyledAvatarListItem = styled.li`
   width: 28px;
   height: 28px;
-  border: 1.4px solid #E3E3E3;
+  border: 1.4px solid var(--white);
   border-radius: 50%;
   background-color: var(--white);
   font: var(--font-12-regular);
@@ -47,6 +47,7 @@ const StyledAvatarListItem = styled.li`
 
   &:nth-child(4) {
     margin-left: -13px;
+    border: 1.4px solid #E3E3E3;
     text-align: center;
     line-height: 26px;
   }
