@@ -94,9 +94,18 @@ const StyledCardWrapper = styled.div`
           `}
   }
 
+  @media ${({ theme }) => theme.tablet} {
+    max-width: 100%; /* 그리드 한 칸을 꽉 채우도록 제한 해제 */
+    height: 260px; /* 너비 변화에 맞춰 높이도 살짝 조정 */
+    padding: 24px 20px;
+  }
+
+  /* 모바일 환경 (그리드 2열 상황) */
   @media ${({ theme }) => theme.mobile} {
-    width: 208px;
+    max-width: 100%;
     height: 232px;
+    width: 208px;
+    padding: 20px 16px;
   }
 `;
 

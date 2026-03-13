@@ -99,7 +99,7 @@ function SearchList() {
           <StyledSearchIcon src={SearchIc} alt="검색 돋보기" />
           <StyledSearchInput
             type="text"
-            placeholder="이름을 입력하고 엔터를 누르세요"
+            placeholder="입력하고 엔터를 눌러주세요"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleSearch}
@@ -113,9 +113,9 @@ function SearchList() {
         <>
           <StyledCardGrid>
             {currentItems.map((card) => (
-              <li key={card.id}>
+              <StyledCard key={card.id}>
                 <RollingPaperCard card={card} />
-              </li>
+              </StyledCard>
             ))}
           </StyledCardGrid>
 
@@ -141,6 +141,15 @@ const StyledSearchContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 16px;
+
+  @media ${({ theme }) => theme.tablet} {
+    padding: 0 24px;
+  }
+
+  /* 모바일: 좌우 여백 12px */
+  @media ${({ theme }) => theme.mobile} {
+    padding: 0 12px;
+  }
 `;
 
 const StyledSearchHeader = styled.div`
@@ -150,15 +159,54 @@ const StyledSearchHeader = styled.div`
   align-items: center;
   width: 1160px;
   gap: 8px;
+
+  @media ${({ theme }) => theme.tablet} {
+    width: 100%;
+    margin: 0 24px;
+    position: sticky;
+  }
+  @media ${({ theme }) => theme.mobile} {
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    gap: 8px;
+    margin: 0 8px;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 8px;
+  }
 `;
 
 const StyledCardGrid = styled.ul`
   display: grid;
+  width: 100%;
+  max-width: 1160px;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   list-style: none;
   padding: 0;
   margin: 20px 0;
+  align-items: center;
+  justify-content: center;
+
+  /* 태블릿: 2열로 변경 및 자유로운 너비 */
+  @media ${({ theme }) => theme.tablet} {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  /* 모바일: 1열로 변경 및 자유로운 너비 */
+  @media ${({ theme }) => theme.mobile} {
+    grid-template-columns: repeat(1, 208px);
+    gap: 12px;
+  }
+`;
+const StyledCard = styled.li`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media ${({ theme }) => theme.mobile} {
+    width: 208px;
+  }
 `;
 
 const StyledInputContainer = styled.div`
@@ -179,6 +227,12 @@ const StyledSearchInput = styled.input`
 
   &:focus {
     outline: 1px solid var(--purple-600);
+  }
+
+  @media ${({ theme }) => theme.mobile} {
+    width: 100%;
+    height: 40px;
+    font: var(--font-14-regular);
   }
 `;
 
@@ -203,6 +257,7 @@ const StyledFilterButton = styled.button`
   border-radius: 28px;
   cursor: pointer;
   transition: all 0.2s ease;
+  font: var(--font-16-bold);
 
   background-color: ${(props) =>
     props.$isActive ? "var(--purple-600)" : "var(--white)"};
@@ -213,6 +268,13 @@ const StyledFilterButton = styled.button`
   &:hover {
     background-color: ${(props) =>
       props.$isActive ? "var(--purple-700)" : "var(--gray-100)"};
+  }
+
+  @media ${({ theme }) => theme.tablet} {
+  }
+
+  @media ${({ theme }) => theme.mobile} {
+    font: var(--font-12-bold);
   }
 `;
 
