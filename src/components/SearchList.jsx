@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { getRecipients } from "../api/index";
 import RollingPaperCard, { StyledCardWrapper } from "./RollingPaperCard";
 import Pagination from "./Pagination";
 import SearchIc from "../assets/ic_search.svg";
+import LoadingImg from "../assets/loading.png";
 
 function SearchList() {
   const [searchParams] = useSearchParams();
@@ -108,7 +109,10 @@ function SearchList() {
       </StyledSearchHeader>
 
       {isLoading ? (
-        <div>로딩 중...</div>
+        <StyledLoading>
+          <StyledLoadingImg src={LoadingImg} />
+          <StyledLoadingText>로딩 중...</StyledLoadingText>
+        </StyledLoading>
       ) : (
         <>
           <StyledCardGrid>
@@ -277,6 +281,33 @@ const StyledFilterButton = styled.button`
     width: 64px;
     height: 40px;
   }
+`;
+
+const StyledLoading = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+  gap: 12px;
+`;
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+const StyledLoadingImg = styled.img`
+  height: 24px;
+  animation: ${rotate} 1s linear infinite;
+`;
+
+const StyledLoadingText = styled.span`
+  font: var(--font-20-bold);
+  color
 `;
 
 export default SearchList;
