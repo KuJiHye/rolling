@@ -17,11 +17,9 @@ function RollingPaperList({ title, sort }) {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
-  // 1. 화면 크기 감지 상태 추가 (태블릿 기준 1024px)
   const [isTablet, setIsTablet] = useState(window.innerWidth <= 1024);
   const observerRef = useRef(null);
 
-  // 화면 크기 변경 감지 이벤트
   useEffect(() => {
     const handleResize = () => setIsTablet(window.innerWidth <= 1024);
     window.addEventListener("resize", handleResize);
@@ -58,9 +56,8 @@ function RollingPaperList({ title, sort }) {
     initialize();
   }, [loadMoreLists]);
 
-  // 2. Intersection Observer를 이용한 스크롤 끝단 감지
   useEffect(() => {
-    if (!isTablet) return; // 데스크탑 환경에서는 작동하지 않음
+    if (!isTablet) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -171,7 +168,7 @@ const StyledSection = styled.div`
   gap: 16px;
   display: flex;
 
-  @media ${({ theme }) => theme.pc} {
+  @media ${({ theme }) => theme.tablet} {
     width: 100%;
     padding: 0 24px;
     overflow: visible;
@@ -235,7 +232,7 @@ const StyledCardList = styled.ul`
   min-height: 280px;
   list-style: none;
 
-  @media ${({ theme }) => theme.pc} {
+  @media ${({ theme }) => theme.tablet} {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     margin: 0 -24px;
@@ -253,7 +250,7 @@ const StyledCardItem = styled.li`
   list-style: none;
   flex: 0 0 auto;
 
-  @media ${({ theme }) => theme.pc} {
+  @media ${({ theme }) => theme.tablet} {
     scroll-snap-align: start;
   }
 `;
@@ -264,7 +261,7 @@ const StyledCarouselWindow = styled.div`
   position: relative;
   width: 100%;
 
-  @media ${({ theme }) => theme.pc} {
+  @media ${({ theme }) => theme.tablet} {
     display: contents;
   }
 `;
@@ -291,7 +288,7 @@ const StyledLeftButton = styled.button`
 
   visibility: ${(props) => (props.$isHidden ? "hidden" : "visible")};
 
-  @media ${({ theme }) => theme.pc} {
+  @media ${({ theme }) => theme.tablet} {
     display: none;
   }
 `;
@@ -310,7 +307,7 @@ const StyledRightButton = styled.button`
 
   visibility: ${(props) => (props.$isHidden ? "hidden" : "visible")};
 
-  @media ${({ theme }) => theme.pc} {
+  @media ${({ theme }) => theme.tablet} {
     display: none;
   }
 `;
