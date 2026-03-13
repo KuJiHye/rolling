@@ -78,9 +78,12 @@ function DetailPage() {
         <StyledContainer>
           <StyledButtonGroup>
             {editMode && (
-              <DetailButton className="btn btn-gray" onClick={handleDeletePage}>
+              <StyledDetailButton
+                className="btn btn-gray"
+                onClick={handleDeletePage}
+              >
                 롤링페이퍼 삭제하기
-              </DetailButton>
+              </StyledDetailButton>
             )}
 
             <DetailButton className="btn btn-purple" onClick={handleEditToggle}>
@@ -102,7 +105,7 @@ export default DetailPage;
 /* ==================== styled ==================== */
 
 const StyledBackground = styled.div`
-  min-height: calc(100vh - 132.5px);
+  min-height: calc(100vh - 130px);
   background-size: cover;
   background-position: center;
 
@@ -116,9 +119,17 @@ const StyledBackground = styled.div`
 `;
 
 const StyledContainer = styled.div`
-  max-width: 1200px;
+  max-width: 1248px;
   margin: 0 auto;
-  padding: 60px 0 110px;
+  padding: 60px 24px 110px;
+
+  @media ${({ theme }) => theme.tablet} {
+    padding: 50px 24px 122px
+  }
+
+  @media ${({ theme }) => theme.mobile} {
+    padding: 30px 20px 122px;
+  }
 `;
 
 const StyledButtonGroup = styled.div`
@@ -126,4 +137,24 @@ const StyledButtonGroup = styled.div`
   justify-content: right;
   gap: 5px;
   margin: 0 0 12px;
+
+  @media ${({ theme }) => theme.tablet} {
+    position: fixed;
+    bottom: 24px;
+    left: 0;
+    display: block;
+    width: 100%;
+    padding: 0 24px;
+    margin: 0;
+  }
+
+  @media ${({ theme }) => theme.mobile} {
+    padding: 0 20px;
+  }
+`;
+
+const StyledDetailButton = styled(DetailButton)`
+  @media ${({ theme }) => theme.tablet} {
+    margin: 0 0 5px;
+  }
 `;

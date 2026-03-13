@@ -76,15 +76,23 @@ export const StyledModalOverlay = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 1000;
+
+  @media ${({ theme }) => theme.mobile} {
+    padding: 0 20px;
+  }
 `;
 
 const StyledModal = styled.div`
   width: 600px;
-  height: 476px;
   background-color: var(--white);
   padding: 40px;
   border-radius: 16px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08);
+
+  @media ${({ theme }) => theme.mobile} {
+    width: 100%;
+    padding: 24px;
+  }
 `;
 
 const StyledModalHeader = styled.div`
@@ -121,6 +129,11 @@ const StyledContent = styled(ContentWrapper)`
   }
   &::-webkit-scrollbar-thumb:hover {
     background: var(--gray-400);
+  }
+
+  @media ${({ theme }) => theme.mobile} {
+    height: 160px;
+    font: var(--font-15-regular);
   }
 `;
 

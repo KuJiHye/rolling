@@ -86,10 +86,18 @@ export const StyledAvatar = styled.img`
 
 export const StyledSenderText = styled.h4`
   font: var(--font-20-regular);
+
+  @media ${({ theme }) => theme.mobile} {
+    font: var(--font-18-regular);
+  }
 `;
 
 export const StyledSenderName = styled.span`
   font: var(--font-20-bold);
+
+  @media ${({ theme }) => theme.mobile} {
+    font: var(--font-18-bold);
+  }
 `;
 
 export const StyledRelationship = styled.p`
@@ -120,10 +128,14 @@ const StyledContent = styled(ContentWrapper)`
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   word-break: break-word;
-  font-size: var(--font-18);
+  font: var(--font-18-regular);
   color: var(--gray-600);
-  line-height: 28px;
   overflow: hidden;
+
+  @media ${({ theme }) => theme.mobile} {
+    -webkit-line-clamp: 2;
+    font: var(--font-15-regular);
+  }
 `;
 
 const StyledCreatedAt = styled.p`

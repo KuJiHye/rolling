@@ -18,6 +18,12 @@ const StyledButton = styled.button`
     border-radius: 6px;
     font: var(--font-16-regular);
     color: var(--white);
+
+    @media ${({ theme }) => theme.tablet} {
+      width: 100%;
+      padding: 10px 0px;
+      border-radius: 8px;
+    }
   }
 
   &.btn-gray {

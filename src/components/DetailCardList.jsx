@@ -100,7 +100,11 @@ function DetailCardList({ editMode }) {
       </StyledDetailCardList>
 
       {hasNext && (
-        <StyledDetailButton disabled={isLoading} className="btn btn-gray" onClick={handleMoreCard}>
+        <StyledDetailButton
+          disabled={isLoading}
+          className="btn btn-gray"
+          onClick={handleMoreCard}
+        >
           더보기
         </StyledDetailButton>
       )}
@@ -120,15 +124,35 @@ const StyledDetailCardList = styled.div`
   gap: 28px 24px;
 
   & > div {
-    width: 384px;
+    width: calc((100% - 48px) / 3);
     height: 280px;
     background-color: var(--white);
     border-radius: 16px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.08);
+  }
+
+  @media ${({ theme }) => theme.tablet} {
+    gap: 16px;
+
+    & > div {
+      width: calc((100% - 16px) / 2);
+      height: 284px;
+    }
+  }
+
+  @media ${({ theme }) => theme.mobile} {
+    & > div {
+      width: 100%;
+      height: 230px;
+    }
   }
 `;
 
 const StyledDetailButton = styled(DetailButton)`
   display: block;
   margin: 40px auto 0;
+
+  @media ${({ theme }) => theme.mobile} {
+    margin: 16px auto 0;
+  }
 `;
