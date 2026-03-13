@@ -4,6 +4,8 @@ import { useQuill } from "react-quilljs";
 import ContentWrapper from "./ContentWrapper";
 import StyledLabel from "./StyledLabel";
 import styled from "styled-components";
+import { fontMap } from "../constants/fontMap";
+
 const modules = {
   toolbar: [
     ["bold", "italic", "underline"],
@@ -11,13 +13,6 @@ const modules = {
     [{ list: "ordered" }, { list: "bullet" }],
     [{ background: [] }],
   ],
-};
-
-const fontMap = {
-  "Noto Sans": "Noto Sans KR",
-  Pretendard: "Pretendard",
-  나눔명조: "Nanum Myeongjo",
-  "나눔손글씨 손편지체": "Nanum Pen Script",
 };
 
 function TextEditor({ onChange, font }) {
@@ -54,24 +49,49 @@ function TextEditor({ onChange, font }) {
 
 const StyledContentWrapper = styled(ContentWrapper)`
   width: 720px;
-  border: 1px solid #cccccc;
+  border: 1px solid var(--gray-300);
   border-radius: 8px;
   overflow: hidden;
 
   .ql-toolbar {
     border: none;
-    border-bottom: 1px solid #cccccc;
-    background-color: #f9f9f9;
+    border-bottom: 1px solid var(--gray-300);
+    background-color: var(--gray-100);
   }
 
   .ql-container {
     border: none;
     height: 200px;
-    font-size: 16px;
+    font: var(--font-16-regular);
   }
 
   .ql-editor {
     height: 200px;
+  }
+  .ql-editor ol,
+  .ql-editor ul {
+    padding-left: 1.5em;
+    list-style-type: none;
+  }
+
+  .ql-editor li[data-list="bullet"] {
+    list-style-type: disc;
+  }
+
+  .ql-editor li[data-list="ordered"] {
+    list-style-type: decimal;
+  }
+  .ql-editor li > .ql-ui {
+    display: none;
+  }
+
+  .ql-editor li[data-list="bullet"],
+  .ql-editor li[data-list="ordered"] {
+    padding-left: 0.3em; /* 간격 줄이기 */
+  }
+
+  @media ${({ theme }) => theme.mobile} {
+    width: 100%;
   }
 `;
 

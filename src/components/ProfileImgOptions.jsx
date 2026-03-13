@@ -42,13 +42,16 @@ const StyledOptionsWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 94px;
+
+  @media ${({ theme }) => theme.mobile} {
+    height: 100%;
+    padding-left: 30px;
+  }
 `;
 
 const StyledDescription = styled.p`
-  color: #555555;
-  font-weight: 400;
-  font-family: Pretendard;
-  font-size: 16px;
+  color: var(--gray-500);
+  font: var(--font-16-regular);
   line-height: 26px;
 `;
 
@@ -58,6 +61,11 @@ const Img = styled.img`
   border-radius: 100px;
   border: 1px solid grey;
   margin-right: 5px;
+
+  @media ${({ theme }) => theme.mobile} {
+    width: 40px;
+    height: 40px;
+  }
 `;
 
 export default ProfileImgOptions;

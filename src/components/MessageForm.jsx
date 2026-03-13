@@ -54,7 +54,7 @@ function MessageForm() {
         makeToast,
       }}
     >
-      <Container>
+      <StyledContainer>
         <InputForm
           onChange={setSender}
           label="FROM"
@@ -90,17 +90,27 @@ function MessageForm() {
             setShowToastMessage={setShouldShowToastMessage}
           />
         )}
-      </Container>
+      </StyledContainer>
     </MyContext.Provider>
   );
 }
 
-const Container = styled.div`
+const StyledContainer = styled.div`
   width: 720px;
   margin: 47px auto;
   display: flex;
   flex-direction: column;
   gap: 50px;
+
+  @media ${({ theme }) => theme.tablet} {
+    margin: 24px auto;
+  }
+
+  @media ${({ theme }) => theme.mobile} {
+    width: 100%;
+    margin: 0;
+    padding: 50px 20px;
+  }
 `;
 
 export default MessageForm;

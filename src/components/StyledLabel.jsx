@@ -1,11 +1,9 @@
 import styled from "styled-components";
 
 const StyledLabel = styled.label`
-  color: #181818;
+  color: var(--gray-900);
   font-family: Pretendard;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
+  font: var(--font-24-bold);
   line-height: 36px;
   letter-spacing: -1%;
   display: block;

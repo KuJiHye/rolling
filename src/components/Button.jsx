@@ -11,8 +11,9 @@ function CreateMessageButton({ className, onClick, disabled }) {
 const Button = styled(CreateMessageButton)`
   width: 720px;
   height: 56px;
-  color: white;
-  background-color: ${({ disabled }) => (disabled ? "grey" : "#9935ff")};
+  color: var(--white);
+  background-color: ${({ disabled }) =>
+    disabled ? "var(--gray-300)" : "var(--purple-600)"};
   border-radius: 12px;
   border: none;
   cursor: pointer;
@@ -27,9 +28,12 @@ const Button = styled(CreateMessageButton)`
   }
 
   &:disabled {
-    background-color: #CCCCCC;
-     color: #999999;
+    background-color: #cccccc;
+    color: #999999;
     cursor: not-allowed;
+  }
+  @media ${({ theme }) => theme.mobile} {
+    width: 100%;
   }
 `;
 

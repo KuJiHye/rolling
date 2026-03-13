@@ -25,66 +25,88 @@ function Selection({ children, type, value, onChange }) {
     ];
   }
 
-  const handleChange = (e) => {
-    onChange(e.target.value);
-  };
-
   return (
     <div>
       <StyledLabel>{children}</StyledLabel>
-      <SelectWrapper>
-        <StyledSelect
+      <StyledSelectWrapper onBlur={() => setClicked(false)} tabIndex={0}>
+        <StyledSelectBox
+          $clicked={clicked}
           onClick={() => setClicked((prev) => !prev)}
-          onBlur={() => setClicked(false)}
-          value={value}
-          onChange={handleChange}
         >
-          {options.map((option) => {
-            return (
-              <StyledOption key={option.value} value={option.value}>
+          <span>{value}</span>
+          <ArrowIcon src={clicked ? SelectionUp : SelectionDown} />
+        </StyledSelectBox>
+
+        {clicked && (
+          <StyledOptionList>
+            {options.map((option) => (
+              <StyledOptionItem
+                key={option.value}
+                $selected={option.value === value}
+                onMouseDown={() => {
+                  onChange(option.value);
+                  setClicked(false);
+                }}
+              >
                 {option.label}
-              </StyledOption>
-            );
-          })}
-        </StyledSelect>
-        <ArrowIcon src={clicked ? SelectionUp : SelectionDown} />
-      </SelectWrapper>
+              </StyledOptionItem>
+            ))}
+          </StyledOptionList>
+        )}
+      </StyledSelectWrapper>
     </div>
   );
 }
-
-const StyledOption = styled.option`
-  border-radisu: 8px;
-  padding: 10px 1px;
-  color: #cccccc;
-`;
-
-const SelectWrapper = styled.div`
+const StyledSelectWrapper = styled.div`
   position: relative;
   width: 320px;
+  outline: none;
+  @media ${({ theme }) => theme.mobile} {
+    width: 100%;
+  }
+`;
+
+const StyledSelectBox = styled.div`
+  width: 100%;
+  height: 50px;
+  border-radius: 8px;
+  border: ${({ $clicked }) =>
+    $clicked ? "2px solid var(--gray-500)" : "1px solid var(--gray-300)"};
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 26px;
+  font: var(--font-16-regular);
+  color: var(--gray-900);
+  cursor: pointer;
 `;
 
 const ArrowIcon = styled.img`
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
   pointer-events: none;
 `;
 
-const StyledSelect = styled.select`
-  width: 320px;
-  height: 50px;
+const StyledOptionList = styled.ul`
+  top: 54px;
+  width: 100%;
+  border: 1px solid var(--gray-300);
   border-radius: 8px;
-  border: 1px solid #cccccc;
-  padding: 12px 16px;
-  justify-content: space-between;
-  font-size: 16px;
-  line-height: 26px;
-  font-weight: 400;
-  color: #555555;
+  background-color: white;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 10;
+  color: var(--gray-900);
+`;
+const StyledOptionItem = styled.li`
+  padding: 10px 16px;
+  font: var(--font-16-regular);
+  color: var(--gray-900)
   cursor: pointer;
-  appearance: none;
+
+  &:hover {
+    background-color: var(--gray-100);
+  }
 `;
 
 export default Selection;
