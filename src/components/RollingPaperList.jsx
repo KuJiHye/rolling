@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import RollingPaperCard from "./RollingPaperCard";
 import styled from "styled-components";
@@ -8,14 +8,25 @@ import ArrowLeft from "../assets/arrow_left.svg";
 import SearchIc from "../assets/ic_search.svg";
 
 function RollingPaperList({ title, sort }) {
-  const [allLists, setAllLists] = useState([]); // 전체 데이터를 담는 저장소
+  const [allLists, setAllLists] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [totalCount, setTotalCount] = useState(0); //총 리스트 갯수
-  const VIEW_COUNT = 4; // 화면에 보이는 개수
-  const FETCH_LIMIT = 100; // 한 번에 가져올 양
+  const [totalCount, setTotalCount] = useState(0);
+  const VIEW_COUNT = 4;
+  const FETCH_LIMIT = 100;
 
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+
+  // 1. 화면 크기 감지 상태 추가 (태블릿 기준 1024px)
+  const [isTablet, setIsTablet] = useState(window.innerWidth <= 1024);
+  const observerRef = useRef(null);
+
+  // 화면 크기 변경 감지 이벤트
+  useEffect(() => {
+    const handleResize = () => setIsTablet(window.innerWidth <= 1024);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const loadMoreLists = useCallback(
     async (offset, isReset = false) => {
@@ -47,6 +58,27 @@ function RollingPaperList({ title, sort }) {
     initialize();
   }, [loadMoreLists]);
 
+  // 2. Intersection Observer를 이용한 스크롤 끝단 감지
+  useEffect(() => {
+    if (!isTablet) return; // 데스크탑 환경에서는 작동하지 않음
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // 관찰 대상(스크롤 끝부분)이 화면에 보이고, 아직 불러올 데이터가 남았다면
+        if (entries[0].isIntersecting && allLists.length < totalCount) {
+          loadMoreLists(allLists.length, false);
+        }
+      },
+      { threshold: 0, rootMargin: "0px 3000px 0px 0px" },
+    );
+
+    if (observerRef.current) {
+      observer.observe(observerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [isTablet, allLists.length, totalCount, loadMoreLists]);
+
   // 버튼 클릭 시 이동 로직
   const handleNext = () => {
     const nextIndex = currentIndex + VIEW_COUNT;
@@ -76,7 +108,11 @@ function RollingPaperList({ title, sort }) {
     }
   };
 
-  const visibleLists = allLists.slice(currentIndex, currentIndex + VIEW_COUNT);
+  // 3. 렌더링 리스트 분기 처리: 태블릿 이하면 전부 렌더링, 데스크탑이면 4개만 렌더링
+  const renderedLists = isTablet
+    ? allLists
+    : allLists.slice(currentIndex, currentIndex + VIEW_COUNT);
+
   const isNoPrevData = currentIndex === 0;
   const isNoNextData = currentIndex >= totalCount - VIEW_COUNT;
 
@@ -105,13 +141,19 @@ function RollingPaperList({ title, sort }) {
             <img src={ArrowLeft} alt="왼쪽 버튼" />
           </span>
         </StyledLeftButton>
+
         <StyledCardList>
-          {visibleLists.map((card) => (
+          {renderedLists.map((card) => (
             <StyledCardItem key={card.id}>
               <RollingPaperCard card={card} />
             </StyledCardItem>
           ))}
+          {/* 4. 스크롤 끝단 감지를 위한 빈 div 추가 */}
+          {isTablet && allLists.length < totalCount && (
+            <StyledObserverTarget ref={observerRef} />
+          )}
         </StyledCardList>
+
         <StyledRightButton onClick={handleNext} $isHidden={isNoNextData}>
           <span>
             <img src={ArrowRight} alt="오른쪽 버튼" />
@@ -271,6 +313,12 @@ const StyledRightButton = styled.button`
   @media ${({ theme }) => theme.tablet} {
     display: none;
   }
+`;
+
+const StyledObserverTarget = styled.div`
+  min-width: 20px;
+  height: 100%;
+  flex-shrink: 0;
 `;
 
 export default RollingPaperList;
