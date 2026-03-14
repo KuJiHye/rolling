@@ -19,6 +19,17 @@ function SearchList() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const LIMIT = 12;
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // 50px 이상 스크롤되면 상태 변경 (원하는 높이로 조절 가능)
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // URL 키워드가 바뀌면 입력창과 페이지 초기화
   useEffect(() => {
@@ -81,8 +92,8 @@ function SearchList() {
 
   return (
     <StyledSearchContainer>
-      <StyledSearchHeader>
-        <StyledSortFilterBox>
+      <StyledSearchHeader $isScrolled={isScrolled}>
+        <StyledSortFilterBox $isScrolled={isScrolled}>
           <StyledFilterButton
             onClick={() => handleSortChange("")}
             $isActive={sortFromUrl === "latest"}
@@ -96,7 +107,7 @@ function SearchList() {
             인기순
           </StyledFilterButton>
         </StyledSortFilterBox>
-        <StyledInputContainer>
+        <StyledInputContainer $isScrolled={isScrolled}>
           <StyledSearchIcon src={SearchIc} alt="검색 돋보기" />
           <StyledSearchInput
             type="text"
@@ -170,7 +181,6 @@ const StyledSearchHeader = styled.div`
   @media ${({ theme }) => theme.tablet} {
     width: 566px;
     margin: 0 24px;
-    position: sticky;
   }
   @media ${({ theme }) => theme.mobile} {
     grid-template-columns: repeat(2, 1fr);
@@ -178,7 +188,11 @@ const StyledSearchHeader = styled.div`
     gap: 8px;
     flex-direction: column-reverse;
     align-items: flex-start;
-    gap: 8px;
+    position: sticky;
+    top: 62px;
+    z-index: 100;
+    padding: 10px 0;
+    transition: all 0.3s ease;
   }
 `;
 
@@ -193,17 +207,15 @@ const StyledCardGrid = styled.ul`
   align-items: center;
   justify-content: center;
 
-  /* 태블릿: 2열로 변경 및 자유로운 너비 */
   @media ${({ theme }) => theme.tablet} {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
 
-  /* 모바일: 1열로 변경 및 자유로운 너비 */
   @media ${({ theme }) => theme.mobile} {
     grid-template-columns: repeat(1, 1fr);
     gap: 12px;
-    width: 100%; /* 모바일에서도 100% 확인 */
+    width: 100%;
     padding: 0;
   }
 `;
@@ -220,6 +232,13 @@ const StyledInputContainer = styled.div`
   align-items: center;
   flex-grow: 1;
   width: 100%;
+  transition: opacity 0.3s ease;
+
+  opacity: ${(props) => (props.$isScrolled ? 0.7 : 1)};
+
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const StyledSearchInput = styled.input`
@@ -251,6 +270,12 @@ const StyledSearchIcon = styled.img`
 const StyledSortFilterBox = styled.div`
   display: flex;
   gap: 4px;
+
+  opacity: ${(props) => (props.$isScrolled ? 0.7 : 1)};
+
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const StyledFilterButton = styled.button`
