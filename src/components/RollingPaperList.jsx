@@ -17,11 +17,9 @@ function RollingPaperList({ title, sort }) {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
-  // 1. 화면 크기 감지 상태 추가 (태블릿 기준 1024px)
   const [isTablet, setIsTablet] = useState(window.innerWidth <= 1024);
   const observerRef = useRef(null);
 
-  // 화면 크기 변경 감지 이벤트
   useEffect(() => {
     const handleResize = () => setIsTablet(window.innerWidth <= 1024);
     window.addEventListener("resize", handleResize);
@@ -58,9 +56,8 @@ function RollingPaperList({ title, sort }) {
     initialize();
   }, [loadMoreLists]);
 
-  // 2. Intersection Observer를 이용한 스크롤 끝단 감지
   useEffect(() => {
-    if (!isTablet) return; // 데스크탑 환경에서는 작동하지 않음
+    if (!isTablet) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -108,7 +105,7 @@ function RollingPaperList({ title, sort }) {
     }
   };
 
-  // 3. 렌더링 리스트 분기 처리: 태블릿 이하면 전부 렌더링, 데스크탑이면 4개만 렌더링
+  // 렌더링 리스트 분기 처리: 태블릿 이하면 전부 렌더링, 데스크탑이면 4개만 렌더링
   const renderedLists = isTablet
     ? allLists
     : allLists.slice(currentIndex, currentIndex + VIEW_COUNT);
@@ -145,10 +142,9 @@ function RollingPaperList({ title, sort }) {
         <StyledCardList>
           {renderedLists.map((card) => (
             <StyledCardItem key={card.id}>
-              <RollingPaperCard card={card} />
+              <RollingPaperCard card={card} $variant="main" />
             </StyledCardItem>
           ))}
-          {/* 4. 스크롤 끝단 감지를 위한 빈 div 추가 */}
           {isTablet && allLists.length < totalCount && (
             <StyledObserverTarget ref={observerRef} />
           )}

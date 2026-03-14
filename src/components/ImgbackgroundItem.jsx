@@ -12,8 +12,9 @@ const StyledItem = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 168px;
-    height: 168px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
     border-radius: 16px;
     background-image: url(${props => props.$bgUrl});
     background-size: cover;
@@ -22,6 +23,7 @@ const StyledItem = styled.div`
 
     @media ${({ theme }) => theme.moblie} {
         width: 100%;
+        height: auto;
         aspect-ratio: 1 / 1;
     }
 `;

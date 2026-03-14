@@ -5,7 +5,7 @@ import EmojiBadgeList from "./EmojiBadgeList";
 import { useEmojiReaction } from "../hooks/useEmojiReaction";
 import { colorMatching } from "../constants/colorMatching";
 
-function RollingPaperCard({ card }) {
+function RollingPaperCard({ card, $variant }) {
   const navigate = useNavigate();
 
   const { emojis } = useEmojiReaction(card.id);
@@ -32,6 +32,7 @@ function RollingPaperCard({ card }) {
       onClick={handleCardClick}
       $colorName={card.backgroundColor}
       $background={background}
+      $variant={$variant}
     >
       <StyledCardContent>
         <StyledCardText>
@@ -49,7 +50,7 @@ function RollingPaperCard({ card }) {
   );
 }
 
-const StyledCardWrapper = styled.div`
+export const StyledCardWrapper = styled.div`
   position: relative;
   overflow: hidden;
   display: flex;
@@ -95,17 +96,26 @@ const StyledCardWrapper = styled.div`
   }
 
   @media ${({ theme }) => theme.tablet} {
-    max-width: 100%; /* 그리드 한 칸을 꽉 채우도록 제한 해제 */
-    height: 260px; /* 너비 변화에 맞춰 높이도 살짝 조정 */
-    padding: 24px 20px;
+    ${({ $variant }) =>
+      $variant === "main" &&
+      css`
+        width: 275px;
+        height: 260px;
+      `}
   }
 
-  /* 모바일 환경 (그리드 2열 상황) */
   @media ${({ theme }) => theme.mobile} {
-    max-width: 100%;
-    height: 232px;
-    width: 208px;
-    padding: 20px 16px;
+    ${({ $variant }) =>
+      $variant === "main" &&
+      css`
+        height: 232px;
+        width: 208px;
+      `}
+    ${({ $variant }) =>
+      $variant === "search" &&
+      css`
+        width: 100%;
+      `}
   }
 `;
 
@@ -143,6 +153,9 @@ const StyledEmojiContent = styled.div`
       $isImage ? "rgba(255,255,255,0.5)" : "rgba(0, 0, 0, 0.12)"};
   width: 100%;
   padding-top: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const shapeStyles = {

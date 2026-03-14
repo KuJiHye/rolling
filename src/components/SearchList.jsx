@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { getRecipients } from "../api/index";
-import RollingPaperCard from "./RollingPaperCard";
+import RollingPaperCard, { StyledCardWrapper } from "./RollingPaperCard";
 import Pagination from "./Pagination";
 import SearchIc from "../assets/ic_search.svg";
+import LoadingImg from "../assets/loading.png";
 
 function SearchList() {
   const [searchParams] = useSearchParams();
@@ -18,6 +19,17 @@ function SearchList() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const LIMIT = 12;
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // 50px 이상 스크롤되면 상태 변경 (원하는 높이로 조절 가능)
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // URL 키워드가 바뀌면 입력창과 페이지 초기화
   useEffect(() => {
@@ -80,8 +92,8 @@ function SearchList() {
 
   return (
     <StyledSearchContainer>
-      <StyledSearchHeader>
-        <StyledSortFilterBox>
+      <StyledSearchHeader $isScrolled={isScrolled}>
+        <StyledSortFilterBox $isScrolled={isScrolled}>
           <StyledFilterButton
             onClick={() => handleSortChange("")}
             $isActive={sortFromUrl === "latest"}
@@ -95,7 +107,7 @@ function SearchList() {
             인기순
           </StyledFilterButton>
         </StyledSortFilterBox>
-        <StyledInputContainer>
+        <StyledInputContainer $isScrolled={isScrolled}>
           <StyledSearchIcon src={SearchIc} alt="검색 돋보기" />
           <StyledSearchInput
             type="text"
@@ -108,13 +120,16 @@ function SearchList() {
       </StyledSearchHeader>
 
       {isLoading ? (
-        <div>로딩 중...</div>
+        <StyledLoading>
+          <StyledLoadingImg src={LoadingImg} />
+          <StyledLoadingText>로딩 중...</StyledLoadingText>
+        </StyledLoading>
       ) : (
         <>
           <StyledCardGrid>
             {currentItems.map((card) => (
               <StyledCard key={card.id}>
-                <RollingPaperCard card={card} />
+                <RollingPaperCard card={card} $variant="search" />
               </StyledCard>
             ))}
           </StyledCardGrid>
@@ -141,6 +156,8 @@ const StyledSearchContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 16px;
+  width: 100%;
+  padding: 0 24px;
 
   @media ${({ theme }) => theme.tablet} {
     padding: 0 24px;
@@ -148,7 +165,7 @@ const StyledSearchContainer = styled.div`
 
   /* 모바일: 좌우 여백 12px */
   @media ${({ theme }) => theme.mobile} {
-    padding: 0 12px;
+    padding: 0 20px;
   }
 `;
 
@@ -157,28 +174,30 @@ const StyledSearchHeader = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 1160px;
+  max-width: 1160px;
+  width: 100%;
   gap: 8px;
 
   @media ${({ theme }) => theme.tablet} {
-    width: 100%;
+    width: 566px;
     margin: 0 24px;
     position: sticky;
+    top: 62px;
+    z-index: 100;
+    padding: 10px 0;
+    transition: all 0.3s ease;
   }
   @media ${({ theme }) => theme.mobile} {
     grid-template-columns: repeat(2, 1fr);
     width: 100%;
     gap: 8px;
-    margin: 0 8px;
     flex-direction: column-reverse;
     align-items: flex-start;
-    gap: 8px;
   }
 `;
 
 const StyledCardGrid = styled.ul`
   display: grid;
-  width: 100%;
   max-width: 1160px;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
@@ -188,25 +207,23 @@ const StyledCardGrid = styled.ul`
   align-items: center;
   justify-content: center;
 
-  /* 태블릿: 2열로 변경 및 자유로운 너비 */
   @media ${({ theme }) => theme.tablet} {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
 
-  /* 모바일: 1열로 변경 및 자유로운 너비 */
   @media ${({ theme }) => theme.mobile} {
-    grid-template-columns: repeat(1, 208px);
+    grid-template-columns: repeat(1, 1fr);
     gap: 12px;
+    width: 100%;
+    padding: 0;
   }
 `;
 const StyledCard = styled.li`
   display: flex;
   align-items: center;
   justify-content: center;
-  @media ${({ theme }) => theme.mobile} {
-    width: 208px;
-  }
+  width: 100%;
 `;
 
 const StyledInputContainer = styled.div`
@@ -214,6 +231,14 @@ const StyledInputContainer = styled.div`
   display: flex;
   align-items: center;
   flex-grow: 1;
+  width: 100%;
+  transition: opacity 0.3s ease;
+
+  opacity: ${(props) => (props.$isScrolled ? 0.7 : 1)};
+
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const StyledSearchInput = styled.input`
@@ -245,6 +270,12 @@ const StyledSearchIcon = styled.img`
 const StyledSortFilterBox = styled.div`
   display: flex;
   gap: 4px;
+
+  opacity: ${(props) => (props.$isScrolled ? 0.7 : 1)};
+
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const StyledFilterButton = styled.button`
@@ -270,12 +301,38 @@ const StyledFilterButton = styled.button`
       props.$isActive ? "var(--purple-700)" : "var(--gray-100)"};
   }
 
-  @media ${({ theme }) => theme.tablet} {
-  }
-
   @media ${({ theme }) => theme.mobile} {
-    font: var(--font-12-bold);
+    font: var(--font-12-regular);
+    width: 64px;
+    height: 40px;
   }
+`;
+
+const StyledLoading = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+  gap: 12px;
+`;
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+const StyledLoadingImg = styled.img`
+  height: 24px;
+  animation: ${rotate} 1s linear infinite;
+`;
+
+const StyledLoadingText = styled.span`
+  font: var(--font-20-bold);
+  color
 `;
 
 export default SearchList;

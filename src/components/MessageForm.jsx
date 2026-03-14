@@ -1,17 +1,20 @@
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
+import styled from "styled-components";
 import Button from "./Button";
 import Selection from "./Selection";
 import TextEditor from "./TextEditor";
-import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
 import InputForm from "./InputForm";
 import ProfileImgContainer from "./ProfileImgContainer";
-import styled from "styled-components";
 import MyContext from "../components/MyContext";
 import ToastBox from "../components/ToastBox";
 
 function MessageForm() {
+  //현재 페이지의 id 값 저장
   const { id } = useParams();
+
+  //각각의 input 값들을 state에 저장
   const [sender, setSender] = useState("");
   const [profileImageURL, setProfileImageURL] = useState(
     "https://learn-codeit-kr-static.s3.ap-northeast-2.amazonaws.com/sprint-proj-image/default_avatar.png",
@@ -19,14 +22,22 @@ function MessageForm() {
   const [relationship, setRelationship] = useState("지인");
   const [content, setContent] = useState("");
   const [font, setFont] = useState("Noto Sans");
-  const navigate = useNavigate();
+
+  //토스트 메세지 state
   const [shouldShowToastMessage, setShouldShowToastMessage] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
-  //필수 입력값이 없으면 버튼 비활성화
+  const navigate = useNavigate();
+
+  //필수 입력값이 없으면 버튼 비활성화 -> 이름 또는 content 내용이 없는 경우
   const isDisabled = !sender.trim() || content === "<p><br></p>" || !content;
 
-  //POST 요청 함수 (버튼 클릭시 발생)
+  const makeToast = (message) => {
+    setShouldShowToastMessage(true);
+    setToastMessage(message);
+  };
+
+  //POST 요청 함수 (버튼 클릭시 발생), input 값들 저장
   const handleSubmit = async () => {
     if (isDisabled) return;
 
@@ -35,15 +46,10 @@ function MessageForm() {
         `https://rolling-api.vercel.app/23-5/recipients/${id}/messages/`,
         { sender, profileImageURL, relationship, content, font },
       );
-      navigate(`/post/${id}`);
+      navigate(`/post/${id}`); //요청 후 해당 id 페이지로 이동
     } catch {
       makeToast("메세지 작성에 실패하였습니다");
     }
-  };
-
-  const makeToast = (message) => {
-    setShouldShowToastMessage(true);
-    setToastMessage(message);
   };
 
   return (
@@ -109,7 +115,7 @@ const StyledContainer = styled.div`
   @media ${({ theme }) => theme.mobile} {
     width: 100%;
     margin: 0;
-    padding: 50px 20px;
+    padding: 0 20px 50px 20px;
   }
 `;
 

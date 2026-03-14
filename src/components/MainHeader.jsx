@@ -1,6 +1,7 @@
-import logo from '../assets/Logo.svg';
 import styled from 'styled-components';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import Logo from './Logo'; 
+import CreateButton from './CreateButton';
 
 const MainHeader = () => {
   const location = useLocation();
@@ -10,14 +11,8 @@ const MainHeader = () => {
   return (
     <StyledHeader>
       <StyledHeaderContent $isListPage={isListPage}>
-        <StyledLogo to="/">
-          <StyledLogoIcon src={logo} alt="Rolling Logo"/>
-        </StyledLogo>
-        {showCreateButton && (
-          <StyledCreateButton to="/post">
-            롤링 페이퍼 만들기
-          </StyledCreateButton>
-        )}
+        <Logo /> 
+        {showCreateButton && <CreateButton />}
       </StyledHeaderContent>
     </StyledHeader>
   );
@@ -25,7 +20,7 @@ const MainHeader = () => {
 
 const StyledHeader = styled.header`
   width: 100%;
-  height: 62px;
+  height: 64px; 
   background-color: var(--white);
   border-bottom: 1px solid #EDEDED;
   display: flex;
@@ -38,8 +33,7 @@ const StyledHeader = styled.header`
 
 const StyledHeaderContent = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-between; 
   align-items: center;
   width: 1248px; 
   height: 62px;
@@ -86,16 +80,11 @@ const StyledCreateButton = styled(Link)`
   color: var(--gray-900);
   text-decoration: none;
   
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    background-color: var(--gray-100);
-    border-color: var(--gray-400);
-  }
-
-  &:active {
-    background-color: var(--gray-200);
-  }
+  width: 100%;
+  max-width: 1200px; 
+  height: 100%;
+  padding: 0 24px;  
+  box-sizing: border-box;
 `;
+
 export default MainHeader;

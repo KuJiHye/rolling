@@ -71,6 +71,7 @@ const StyledShareButton = styled.button`
   border: 1px solid var(--gray-300);
   border-radius: 6px;
   cursor: pointer;
+  flex-shrink: 0;
 
   &:hover {
     background-color: var(--gray-100);
@@ -88,26 +89,36 @@ const StyledDropdownMenu = styled.div`
   right: 0;
   z-index: 20;
   
-  width: 140px; 
+  width: fit-content;  
+  height: fit-content; 
+  min-width: 140px;
+ 
   padding: 10px 1px; 
 
   background-color: var(--white);
-  border: 1px solid var(--gray-300);
-  border-radius: 8px;
+  border: 1px solid var(--gray-300); 
+  border-radius: 8px;             
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);
   
   display: flex;
   flex-direction: column;
   overflow: hidden;
+
+  @media ${({ theme }) => theme.mobile} {
+    right: 0;
+  }
 `;
 
 const StyledDropdownItem = styled.div`
   width: 100%; 
   
   button {
-    width: 100%;
-    padding: 12px 16px; 
+    width: 138px;
+    height: fit-content; 
     
+    padding: 12px 16px; 
+    gap: 10px;
+
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -118,22 +129,12 @@ const StyledDropdownItem = styled.div`
     
     font: var(--font-16-regular);
     color: var(--gray-900);
+    line-height: 26px;
     
     transition: background-color 0.2s;
 
     &:hover {
       background-color: var(--gray-100);
     }
-  }
-`;
-
-const StyledToastContent = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-
-  img {
-    width: 24px;
-    height: 24px;
   }
 `;

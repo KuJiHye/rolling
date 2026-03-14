@@ -14,36 +14,31 @@ const StyledButtonLink = styled(Link)`
   justify-content: center;
   align-items: center;
 
-  width: 280px;
-  min-width: 280px;
+  width: 280px; 
   height: 56px;
   padding: 14px 24px;
-  margin: 24px auto; 
+  box-sizing: border-box;
   
   background-color: var(--purple-600);
   border-radius: 12px;
-  
+
   font: var(--font-18-bold);
   color: var(--white);
-  line-height: 28px;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.01em; 
   text-decoration: none; 
   
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 
   @media ${({ theme }) => theme.tablet} {
-    min-width: unset;
-    width: calc(100% - 48px); 
-    margin: 24px auto; 
-    max-width: 720px;
+    width: 100%; 
+    max-width: 720px; 
   }
 
   @media ${({ theme }) => theme.mobile} {
-    min-width: unset;
-    width: calc(100% - 48px); 
-    margin: 24px auto; 
-    }
+    width: 100%;
+    max-width: 320px; 
+  }
 
   &:hover {
     background-color: var(--purple-700);

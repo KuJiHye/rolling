@@ -17,6 +17,7 @@ const ColorbackgroundItem = styled.div`
 
     @media ${({ theme }) => theme.moblie} {
         width: 100%;
+        height: auto;
         aspect-ratio: 1 / 1;
     }
 `

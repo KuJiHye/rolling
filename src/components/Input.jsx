@@ -6,11 +6,11 @@ function Input({ placeholder, value, onChange, onEnterPress }) {
   const { makeToast } = useContext(MyContext);
   const [isNull, setIsNull] = useState(false);
   const inputRef = useRef(null);
-  
+
   //컴포넌트가 마운트 될때 input에 focus
-  useEffect(()=>{
+  useEffect(() => {
     inputRef.current.focus();
-  },[]);
+  }, []);
 
   const handleChange = (e) => {
     const nextValue = e.target.value;
@@ -21,7 +21,7 @@ function Input({ placeholder, value, onChange, onEnterPress }) {
   const handleInputFocusout = (e) => {
     if (e.target.value === "") {
       setIsNull(true);
-      makeToast('성함을 입력해주세요')
+      makeToast("성함을 입력해주세요");
     } else {
       setIsNull(false);
     }
