@@ -17,7 +17,6 @@ function Pagination({ totalCount, limit, currentPage, onPageChange }) {
   const handlePageClick = (page) => {
     onPageChange(page);
 
-    // 모바일 너비(보통 768px 미만)일 때만 스크롤 실행
     if (window.innerWidth < 1024) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }

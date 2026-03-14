@@ -181,6 +181,11 @@ const StyledSearchHeader = styled.div`
   @media ${({ theme }) => theme.tablet} {
     width: 566px;
     margin: 0 24px;
+    position: sticky;
+    top: 62px;
+    z-index: 100;
+    padding: 10px 0;
+    transition: all 0.3s ease;
   }
   @media ${({ theme }) => theme.mobile} {
     grid-template-columns: repeat(2, 1fr);
@@ -188,11 +193,6 @@ const StyledSearchHeader = styled.div`
     gap: 8px;
     flex-direction: column-reverse;
     align-items: flex-start;
-    position: sticky;
-    top: 62px;
-    z-index: 100;
-    padding: 10px 0;
-    transition: all 0.3s ease;
   }
 `;
 
