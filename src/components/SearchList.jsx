@@ -234,7 +234,7 @@ const StyledInputContainer = styled.div`
   width: 100%;
   transition: opacity 0.3s ease;
 
-  opacity: ${(props) => (props.$isScrolled ? 0.7 : 1)};
+  opacity: ${(props) => (props.$isScrolled ? 0.4 : 1)};
 
   &:hover {
     opacity: 1;
@@ -270,11 +270,17 @@ const StyledSearchIcon = styled.img`
 const StyledSortFilterBox = styled.div`
   display: flex;
   gap: 4px;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
 
-  opacity: ${(props) => (props.$isScrolled ? 0.7 : 1)};
-
-  &:hover {
-    opacity: 1;
+  @media ${({ theme }) => theme.tablet} {
+    opacity: ${(props) => (props.$isScrolled ? 0 : 1)};
+    visibility: ${(props) => (props.$isScrolled ? "hidden" : "visible")};
+    transform: ${(props) =>
+      props.$isScrolled ? "translateY(-10px)" : "translateY(0)"};
+    overflow: hidden;
+    pointer-events: ${(props) => (props.$isScrolled ? "none" : "auto")};
   }
 `;
 
@@ -288,7 +294,8 @@ const StyledFilterButton = styled.button`
   border-radius: 28px;
   cursor: pointer;
   transition: all 0.2s ease;
-  font: var(--font-16-bold);
+  font: var(--font-16-regular);
+  color: var(--gray-200);
 
   background-color: ${(props) =>
     props.$isActive ? "var(--purple-600)" : "var(--white)"};
@@ -300,7 +307,9 @@ const StyledFilterButton = styled.button`
     background-color: ${(props) =>
       props.$isActive ? "var(--purple-700)" : "var(--gray-100)"};
   }
-
+  @media ${({ theme }) => theme.tablet} {
+    font: var(--font-14-regular);
+  }
   @media ${({ theme }) => theme.mobile} {
     font: var(--font-12-regular);
     width: 64px;
