@@ -163,7 +163,6 @@ const StyledSearchContainer = styled.div`
     padding: 0 24px;
   }
 
-  /* 모바일: 좌우 여백 12px */
   @media ${({ theme }) => theme.mobile} {
     padding: 0 20px;
   }
@@ -181,13 +180,13 @@ const StyledSearchHeader = styled.div`
   @media ${({ theme }) => theme.tablet} {
     width: 566px;
     margin: 0 24px;
-    position: sticky;
     top: 62px;
     z-index: 100;
     padding: 10px 0;
     transition: all 0.3s ease;
   }
   @media ${({ theme }) => theme.mobile} {
+    position: sticky;
     grid-template-columns: repeat(2, 1fr);
     width: 100%;
     gap: 8px;
@@ -274,7 +273,7 @@ const StyledSortFilterBox = styled.div`
   justify-content: center;
   transition: all 0.3s ease-in-out;
 
-  @media ${({ theme }) => theme.tablet} {
+  @media ${({ theme }) => theme.mobile} {
     opacity: ${(props) => (props.$isScrolled ? 0 : 1)};
     visibility: ${(props) => (props.$isScrolled ? "hidden" : "visible")};
     transform: ${(props) =>
