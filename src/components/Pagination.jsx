@@ -14,6 +14,15 @@ function Pagination({ totalCount, limit, currentPage, onPageChange }) {
     pages.push(i);
   }
 
+  const handlePageClick = (page) => {
+    onPageChange(page);
+
+    // 모바일 너비(보통 768px 미만)일 때만 스크롤 실행
+    if (window.innerWidth < 1024) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
     <PaginationNav>
       {currentGroup > 0 && (
@@ -26,7 +35,7 @@ function Pagination({ totalCount, limit, currentPage, onPageChange }) {
         <PageButton
           key={page}
           $active={page === currentPage}
-          onClick={() => onPageChange(page)}
+          onClick={() => handlePageClick(page)}
         >
           {page}
         </PageButton>
