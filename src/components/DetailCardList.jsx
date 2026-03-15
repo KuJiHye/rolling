@@ -6,7 +6,7 @@ import DetailCardListItem from "./DetailCardListItem";
 import DetailCardModal from "./DetailCardModal";
 import DetailButton from "./DetailButton";
 import useConfirm from "../hooks/useConfirm";
-import axios from "../api/axios";
+import { getDetailMessages, deleteMessages } from "../api/index";
 
 const LIMIT = 8; // 데이터를 8개씩 받아오기 위한 상수
 
@@ -19,12 +19,7 @@ function DetailCardList({ editMode }) {
   const { confirm, ConfirmComponent } = useConfirm();
 
   const loadCards = async () => {
-    const response = await axios.get(`recipients/${id}/messages/`, {
-      params: {
-        limit: LIMIT,
-      },
-    });
-    const { results, next } = response.data;
+    const { results, next } = await getDetailMessages(id, { limit: LIMIT });
 
     setCards(results);
     setHasNext(Boolean(next));
@@ -37,13 +32,10 @@ function DetailCardList({ editMode }) {
     setIsLoading(true);
 
     try {
-      const response = await axios.get(`recipients/${id}/messages/`, {
-        params: {
-          limit: LIMIT,
-          offset: cards.length,
-        },
+      data = await getDetailMessages(id, {
+        limit: LIMIT,
+        offset: cards.length,
       });
-      data = response.data;
     } catch (error) {
       console.error(error);
     } finally {
@@ -63,14 +55,14 @@ function DetailCardList({ editMode }) {
   }, [id]);
 
   // 카드 삭제
-  const handleDeleteCard = async (cardId) => {
+  const handleDeleteCard = async (id) => {
     const confirmDelete = await confirm("메세지를 정말 삭제하시겠습니까?");
 
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`messages/${cardId}/`);
-      setCards((prevCards) => prevCards.filter((card) => card.id !== cardId));
+      await deleteMessages(id);
+      setCards((prevCards) => prevCards.filter((card) => card.id !== id));
     } catch (error) {
       console.error(error);
     }
