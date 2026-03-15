@@ -6,7 +6,7 @@ import DetailButton from "../components/DetailButton";
 import DetailHeader from "../components/DetailHeader";
 import useConfirm from "../hooks/useConfirm";
 import { colorMatching } from "../constants/colorMatching";
-import axios from "../api/axios";
+import { getDetailRecipients, deleteRecipients } from "../api/index";
 
 function DetailPage() {
   const { id } = useParams();
@@ -23,8 +23,7 @@ function DetailPage() {
   useEffect(() => {
     const backgroundData = async () => {
       try {
-        const response = await axios.get(`recipients/${id}/`);
-        const data = response.data;
+        const data = await getDetailRecipients(id);
 
         setCards(data);
 
@@ -54,7 +53,7 @@ function DetailPage() {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`recipients/${id}/`);
+      await deleteRecipients(id);
       navigate("/list");
     } catch (error) {
       console.error(error);
