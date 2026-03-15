@@ -51,40 +51,4 @@ const StyledHeaderContent = styled.div`
   }
 `;
 
-const StyledLogo = styled(Link)`
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-`;
-
-const StyledLogoIcon = styled.img`
-  width: 106px;
-  height: 30px;
-`;
-
-const StyledCreateButton = styled(Link)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 151px;
-  height: 40px;
-  padding: 8px 16px;
-  background-color: var(--white);
-  border: 1px solid var(--gray-300);
-  border-radius: 6px;
-
-  line-height: 26px;
-  text-align: center;
-  letter-spacing: -0.01em;
-  font: var(--font-16-bold);
-  color: var(--gray-900);
-  text-decoration: none;
-  
-  width: 100%;
-  max-width: 1200px; 
-  height: 100%;
-  padding: 0 24px;  
-  box-sizing: border-box;
-`;
-
 export default MainHeader;
