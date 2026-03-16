@@ -147,16 +147,14 @@ function RollingPaperList({ title, sort }) {
 
         <StyledCardList>
           {isLoading
-            ? // 로딩 중일 때: 4개의 빈 스켈레톤 카드를 보여줌
-              Array(4)
+            ? Array(4)
                 .fill(0)
                 .map((_, i) => (
                   <StyledCardItem key={i}>
                     <RollingPaperCard isLoading={true} $variant="main" />
                   </StyledCardItem>
                 ))
-            : // 로딩 완료: 실제 받아온 데이터 출력
-              renderedLists.map((card) => (
+            : renderedLists.map((card) => (
                 <StyledCardItem key={card.id}>
                   <RollingPaperCard card={card} $variant="main" />
                 </StyledCardItem>
