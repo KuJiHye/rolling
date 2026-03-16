@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { getReactions, postReaction } from '../api/index';
+import { useState, useEffect } from "react";
+import { getReactions, postReaction } from "../api/axios";
 
 //이모지 데이터 관리 및 추가 로직을 담당하는 훅
-export const useEmojiReaction = (recipientId) => { 
+export const useEmojiReaction = (recipientId) => {
   const [emojis, setEmojis] = useState([]);
 
   const handleFetchEmoji = async () => {

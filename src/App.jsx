@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import MainHeader from "./components/MainHeader";
-import MainPage from "./pages/MainPage";
+import MainPage from "./pages/main/MainPage";
 import ListPage from "./pages/list/ListPage";
 import MessagePage from "./pages/message/MessagePage";
 import DetailPage from "./pages/detail/DetailPage";

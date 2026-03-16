@@ -6,7 +6,7 @@ import DetailButton from "./DetailButton";
 import DetailHeader from "./DetailHeader";
 import useConfirm from "../../hooks/useConfirm";
 import { colorMatching } from "../../constants/colorMatching";
-import { getDetailRecipients, deleteRecipients } from "../../api/index";
+import { getDetailRecipients, deleteRecipients } from "../../api/axios";
 
 function DetailPage() {
   const { id } = useParams();

@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
-import instance from "../../api/index";
+import instance from "../../api/axios";
 import styled from "styled-components";
 import Button from "../../components/Button";
 import Selection from "./Selection";
