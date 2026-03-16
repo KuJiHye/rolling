@@ -1,4 +1,4 @@
-import SearchList from "../components/SearchList";
+import SearchList from "./SearchList";
 import styled from "styled-components";
 
 function SearchPage() {

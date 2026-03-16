@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import DOMPurify from "dompurify";
 import DetailButton from "./DetailButton";
-import DeleteIcon from "../assets/deleted-icon.svg";
-import ContentWrapper from "./ContentWrapper";
-import { relationshipColors } from "../constants/relationshipColors";
-import { fontMap } from "../constants/fontMap";
+import DeleteIcon from "../../assets/deleted-icon.svg";
+import ContentWrapper from "../../components/ContentWrapper";
+import { relationshipColors } from "../../constants/relationshipColors";
+import { fontMap } from "../../constants/fontMap";
 
 function DetailCardListItem({ card, editMode, onDelete, onClick }) {
   const formatted = card.createdAt.slice(0, 10).replace(/-/g, "."); // 날짜 형식 변경

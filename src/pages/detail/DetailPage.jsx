@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import DetailCardList from "../components/DetailCardList";
-import DetailButton from "../components/DetailButton";
-import DetailHeader from "../components/DetailHeader";
-import useConfirm from "../hooks/useConfirm";
-import { colorMatching } from "../constants/colorMatching";
-import { getDetailRecipients, deleteRecipients } from "../api/index";
+import DetailCardList from "./DetailCardList";
+import DetailButton from "./DetailButton";
+import DetailHeader from "./DetailHeader";
+import useConfirm from "../../hooks/useConfirm";
+import { colorMatching } from "../../constants/colorMatching";
+import { getDetailRecipients, deleteRecipients } from "../../api/index";
 
 function DetailPage() {
   const { id } = useParams();

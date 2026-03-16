@@ -46,4 +46,20 @@ export const deleteMessages = async (id) => {
   return response.data;
 };
 
+
+//특정 수신자의 이모지 리액션 목록을 조회합니다.
+export const getReactions = async (recipientId) => {
+  const response = await instance.get(`recipients/${recipientId}/reactions/`);
+  return response.data?.results || [];
+};
+
+//특정 수신자에게 이모지 리액션을 추가합니다.
+export const postReaction = async (recipientId, emoji) => {
+  await instance.post(`recipients/${recipientId}/reactions/`, {
+    emoji,
+    type: "increase",
+  });
+};
+
 export default instance;
+

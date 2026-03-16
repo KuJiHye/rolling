@@ -1,5 +1,5 @@
 import { useState } from "react";
-import DetailConfirmModal from "../components/DetailConfirmModal";
+import DetailConfirmModal from "../pages/detail/DetailConfirmModal";
 
 function useConfirm() {
   const [confirmState, setConfirmState] = useState(null);

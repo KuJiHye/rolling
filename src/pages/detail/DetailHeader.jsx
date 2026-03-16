@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import MessageCount from "./MessageCount";
-import EmojiReaction from "./EmojiReaction";
-import ShareDropdown from "./ShareDropdown";
+import MessageCount from "../../components/MessageCount";
+import EmojiReaction from "../../components/EmojiReaction";
+import ShareDropdown from "../../components/ShareDropdown";
 
 function DetailHeader({ card }) {
   if (!card) return null;

@@ -1,10 +1,10 @@
-import useNoScroll from "../hooks/useNoScroll";
+import useNoScroll from "../../hooks/useNoScroll";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
 import DOMPurify from "dompurify";
 import DetailButton from "./DetailButton";
-import ContentWrapper from "./ContentWrapper";
-import { fontMap } from "../constants/fontMap";
+import ContentWrapper from "../../components/ContentWrapper";
+import { fontMap } from "../../constants/fontMap";
 import {
   StyledAvatar,
   StyledAvatarWrapper,

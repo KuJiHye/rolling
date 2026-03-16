@@ -5,8 +5,8 @@ import DetailCardListItemAdd from "./DetailCardListItemAdd";
 import DetailCardListItem from "./DetailCardListItem";
 import DetailCardModal from "./DetailCardModal";
 import DetailButton from "./DetailButton";
-import useConfirm from "../hooks/useConfirm";
-import { getDetailMessages, deleteMessages } from "../api/index";
+import useConfirm from "../../hooks/useConfirm";
+import { getDetailMessages, deleteMessages } from "../../api/index";
 
 const LIMIT = 8; // 데이터를 8개씩 받아오기 위한 상수
 

@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
-import MessageCount from "./MessageCount";
-import EmojiBadgeList from "./EmojiBadgeList";
-import { useEmojiReaction } from "../hooks/useEmojiReaction";
-import { colorMatching } from "../constants/colorMatching";
+import MessageCount from "../../components/MessageCount";
+import EmojiBadgeList from "../../components/EmojiBadgeList";
+import { useEmojiReaction } from "../../hooks/useEmojiReaction";
+import { colorMatching } from "../../constants/colorMatching";
 
 function RollingPaperCard({ card, $variant }) {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ function RollingPaperCard({ card, $variant }) {
       $background={background}
       $variant={$variant}
     >
-      <StyledCardContent>
+      <StyledCardContent $variant={$variant}>
         <StyledCardText>
           <StyledNameTitle $isImage={background.type === "image"}>
             {" "}
@@ -143,7 +143,16 @@ const StyledCardContent = styled.div`
   z-index: 1;
 
   @media ${({ theme }) => theme.mobile} {
-    gap: 33px;
+    ${({ $variant }) =>
+      $variant === "main" &&
+      css`
+        gap: 20px;
+      `}
+    ${({ $variant }) =>
+      $variant === "search" &&
+      css`
+        gap: 33px;
+      `}
   }
 `;
 
@@ -154,7 +163,7 @@ const StyledEmojiContent = styled.div`
   width: 100%;
   padding-top: 16px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 `;
 

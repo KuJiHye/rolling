@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import DetailButton from "./DetailButton";
-import AddIcon from "../assets/plus-icon.svg";
+import AddIcon from "../../assets/plus-icon.svg";
 
 function DetailCardListItemAdd({ id }) {
   const navigate = useNavigate();

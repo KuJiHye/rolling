@@ -25,7 +25,7 @@ function Pagination({ totalCount, limit, currentPage, onPageChange }) {
   return (
     <PaginationNav>
       {currentGroup > 0 && (
-        <PageButton onClick={() => onPageChange(startPage - 1)}>
+        <PageButton onClick={() => handlePageClick(startPage - 1)}>
           &lt;
         </PageButton>
       )}
@@ -40,7 +40,9 @@ function Pagination({ totalCount, limit, currentPage, onPageChange }) {
         </PageButton>
       ))}
       {endPage < totalPages && (
-        <PageButton onClick={() => onPageChange(endPage + 1)}>&gt;</PageButton>
+        <PageButton onClick={() => handlePageClick(endPage + 1)}>
+          &gt;
+        </PageButton>
       )}
     </PaginationNav>
   );

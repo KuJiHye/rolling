@@ -1,7 +1,7 @@
-import useNoScroll from "../hooks/useNoScroll";
+import useNoScroll from "../../hooks/useNoScroll";
 import styled from "styled-components";
 import DetailButton from "./DetailButton";
-import AlertIcon from "../assets/alert-icon.svg";
+import AlertIcon from "../../assets/alert-icon.svg";
 import { StyledModalOverlay } from "./DetailCardModal";
 
 function DetailConfirmModal({ message, onConfirm, onCancel }) {

@@ -2,10 +2,10 @@ import { useEffect, useState, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import RollingPaperCard from "./RollingPaperCard";
 import styled from "styled-components";
-import { getRecipients } from "../api/index";
-import ArrowRight from "../assets/arrow_right.svg";
-import ArrowLeft from "../assets/arrow_left.svg";
-import SearchIc from "../assets/ic_search.svg";
+import { getRecipients } from "../../api/index";
+import ArrowRight from "../../assets/arrow_right.svg";
+import ArrowLeft from "../../assets/arrow_left.svg";
+import SearchIc from "../../assets/ic_search.svg";
 
 function RollingPaperList({ title, sort }) {
   const [allLists, setAllLists] = useState([]);

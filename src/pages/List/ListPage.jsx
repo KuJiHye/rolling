@@ -1,5 +1,5 @@
-import ExploreButton from "../components/ExploreButton";
-import RollingPaperList from "../components/RollingPaperList";
+import ExploreButton from "../../components/ExploreButton";
+import RollingPaperList from "./RollingPaperList";
 import styled from "styled-components";
 
 const StyledMainContainer = styled.div`
