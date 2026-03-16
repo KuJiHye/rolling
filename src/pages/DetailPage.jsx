@@ -42,7 +42,7 @@ function DetailPage() {
         }
       } catch (error) {
         console.error(error);
-        navigate("/list", {replace: true});
+        navigate("*", {replace: true});
       }
     };
 
