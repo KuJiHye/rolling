@@ -138,3 +138,20 @@ const StyledDropdownItem = styled.div`
     }
   }
 `;
+
+const StyledToastContent = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px; 
+  
+  img {
+    width: 24px;
+    height: 24px;
+  }
+
+  span {
+    color: var(--white); 
+    font: var(--font-16-regular);
+    line-height: 26px;
+  }
+`;
