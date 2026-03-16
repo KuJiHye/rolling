@@ -1,10 +1,10 @@
 import "quill/dist/quill.snow.css";
 import { useEffect } from "react";
 import { useQuill } from "react-quilljs";
-import ContentWrapper from "./ContentWrapper";
+import ContentWrapper from "../../components/ContentWrapper";
 import StyledLabel from "./StyledLabel";
 import styled from "styled-components";
-import { fontMap } from "../constants/fontMap";
+import { fontMap } from "../../constants/fontMap";
 
 const modules = {
   toolbar: [
