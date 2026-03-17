@@ -1,16 +1,16 @@
-import { useState, useRef, useEffect } from 'react';
-import styled from 'styled-components';
-import EmojiBadgeList from './EmojiBadgeList';
-import EmojiPicker from 'emoji-picker-react';
-import { useEmojiReaction } from '../hooks/useEmojiReaction';
-import arrowIcon from '../assets/Arrow_down.svg';
-import addEmoji from '../assets/addEmoji.svg';
+import { useState, useRef, useEffect } from "react";
+import styled from "styled-components";
+import EmojiBadgeList from "./EmojiBadgeList";
+import EmojiPicker from "emoji-picker-react";
+import { useEmojiReaction } from "../hooks/useEmojiReaction";
+import arrowIcon from "../assets/Arrow_down.svg";
+import addEmoji from "../assets/addEmoji.svg";
 
 const EmojiReaction = ({ recipientId }) => {
   const { emojis, handleAddEmoji } = useEmojiReaction(recipientId);
   const [isPickerVisible, setIsPickerVisible] = useState(false);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  
+
   const pickerRef = useRef(null);
   const dropdownRef = useRef(null);
 
@@ -25,15 +25,23 @@ const EmojiReaction = ({ recipientId }) => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (isPickerVisible && pickerRef.current && !pickerRef.current.contains(event.target)) {
+      if (
+        isPickerVisible &&
+        pickerRef.current &&
+        !pickerRef.current.contains(event.target)
+      ) {
         setIsPickerVisible(false);
       }
-      if (isDropdownVisible && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      if (
+        isDropdownVisible &&
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
         setIsDropdownVisible(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isPickerVisible, isDropdownVisible]);
 
   return (
@@ -41,9 +49,9 @@ const EmojiReaction = ({ recipientId }) => {
       {sortedEmojis.length > 0 && (
         <StyledSection ref={dropdownRef}>
           <EmojiBadgeList emojiData={topThree} />
-          
-          <StyledMoreButton 
-            onClick={() => setIsDropdownVisible(prev => !prev)} 
+
+          <StyledMoreButton
+            onClick={() => setIsDropdownVisible((prev) => !prev)}
             type="button"
             aria-label="이모지 더보기"
           >
@@ -64,8 +72,8 @@ const EmojiReaction = ({ recipientId }) => {
       )}
 
       <StyledSection ref={pickerRef}>
-        <StyledAddButton 
-          onClick={() => setIsPickerVisible(prev => !prev)} 
+        <StyledAddButton
+          onClick={() => setIsPickerVisible((prev) => !prev)}
           type="button"
           aria-label="이모지 추가하기"
         >
@@ -75,9 +83,9 @@ const EmojiReaction = ({ recipientId }) => {
 
         {isPickerVisible && (
           <StyledPickerContainer>
-            <EmojiPicker 
-              onEmojiClick={handleEmojiSelect} 
-              width="100%" 
+            <EmojiPicker
+              onEmojiClick={handleEmojiSelect}
+              width="100%"
               height="393px"
             />
           </StyledPickerContainer>
@@ -98,7 +106,7 @@ const StyledContainer = styled.div`
 `;
 
 const StyledSection = styled.div`
-  position: relative; 
+  position: relative;
   display: flex;
   align-items: center;
 `;
@@ -109,12 +117,15 @@ const StyledMoreButton = styled.button`
   cursor: pointer;
   display: flex;
   padding: 6px;
-  img { width: 24px; height: 24px; }
+  img {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 const StyledDropdownList = styled.div`
   position: absolute;
-  top: calc(100% + 8px); 
+  top: calc(100% + 8px);
   right: 0;
   z-index: 100;
   padding: 24px;
@@ -124,22 +135,22 @@ const StyledDropdownList = styled.div`
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);
 
   display: grid;
-  grid-template-columns: repeat(4, 1fr); 
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px 8px;
 
-  max-height: 140px; 
+  max-height: 140px;
   overflow-y: auto;
   overflow-x: hidden;
   width: auto;
   min-width: max-content;
 
   @media ${({ theme }) => theme.mobile} {
-    left: 50%;
+    left: 90%;
     transform: translateX(-50%);
-    
-    width: fit-content; 
+
+    width: fit-content;
     max-width: 320px;
-    
+
     margin-top: -4px;
   }
 `;
@@ -152,8 +163,10 @@ const StyledDropdownEmoji = styled.div`
   background-color: rgba(0, 0, 0, 0.54);
   border-radius: 32px;
   color: var(--white);
-  
-  .emoji-count { font: var(--font-16-regular); }
+
+  .emoji-count {
+    font: var(--font-16-regular);
+  }
 `;
 
 const StyledAddButton = styled.button`
@@ -167,28 +180,32 @@ const StyledAddButton = styled.button`
   cursor: pointer;
 
   .button-text {
-    @media ${({ theme }) => theme.mobile} { display: none; }
+    @media ${({ theme }) => theme.mobile} {
+      display: none;
+    }
   }
-  @media ${({ theme }) => theme.mobile} { padding: 6px; }
+  @media ${({ theme }) => theme.mobile} {
+    padding: 6px;
+  }
 `;
 
 const StyledPickerContainer = styled.div`
   position: absolute;
   top: calc(100% + 8px);
-  right: 0; 
+  right: 0;
   z-index: 1000;
   width: 320px;
 
   @media ${({ theme }) => theme.mobile} {
-    position: fixed; 
+    position: fixed;
     top: 162px;
     left: 50%;
     height: auto;
     transform: translateX(-50%);
-    
+
     background-color: var(--white);
     box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.1);
-    
+
     display: flex;
     justify-content: center;
   }
