@@ -54,10 +54,6 @@ function DetailCardModal({ card, onClose }) {
   );
 }
 
-export default DetailCardModal;
-
-/* ==================== styled ==================== */
-
 export const StyledModalOverlay = styled.div`
   position: fixed;
   left: 0;
@@ -138,3 +134,5 @@ const StyledButtonGroup = styled.div`
 const StyledDetailButton = styled(DetailButton)`
   width: 120px;
 `;
+
+export default DetailCardModal;

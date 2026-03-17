@@ -23,10 +23,6 @@ function DetailHeader({ card }) {
   );
 }
 
-export default DetailHeader;
-
-/* ==================== styled ==================== */
-
 const StyledContainer = styled.div`
   display: flex;
   align-items: center;
@@ -120,3 +116,5 @@ const StyledMessageCountWrapper = styled.div`
     display: none;
   }
 `;
+
+export default DetailHeader;

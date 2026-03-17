@@ -11,18 +11,14 @@ function BackButton() {
 
   return (
     <>
-      <BackButtonStyle onClick={() => navigate(-1)}>
+      <StyledBackButton onClick={() => navigate(-1)}>
         <img src={BackIcon} alt="뒤로가기 버튼" />
-      </BackButtonStyle>
+      </StyledBackButton>
     </>
   );
 }
 
-export default BackButton;
-
-/* ==================== styled ==================== */
-
-const BackButtonStyle = styled.button`
+const StyledBackButton = styled.button`
   position: fixed;
   right: 20px;
   bottom: 20px;
@@ -50,3 +46,5 @@ const BackButtonStyle = styled.button`
   @media ${({ theme }) => theme.mobile} {
   }
 `;
+
+export default BackButton;

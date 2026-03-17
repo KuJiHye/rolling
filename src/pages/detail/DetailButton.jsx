@@ -8,10 +8,6 @@ function DetailButton({ children, className, onClick }) {
   );
 }
 
-export default DetailButton;
-
-/* ==================== styled ==================== */
-
 const StyledButton = styled.button`
   &.btn {
     padding: 7px 17px;
@@ -40,3 +36,5 @@ const StyledButton = styled.button`
     background-color: var(--purple-700);
   }
 `;
+
+export default DetailButton;
