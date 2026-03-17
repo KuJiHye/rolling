@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
-import { postMessage } from "../../api/axios";
+import { postNewMessage } from "../../api/axios";
 import styled from "styled-components";
 import Button from "../../components/Button";
 import Selection from "./Selection";
@@ -42,7 +42,7 @@ function MessageForm() {
     if (isDisabled) return;
 
     try {
-      await postMessage(id, {
+      await postNewMessage(id, {
         sender,
         profileImageURL,
         relationship,

@@ -6,7 +6,7 @@ const instance = axios.create({
 });
 
 //메세지 작성
-export const postMessage = async (id, messageData) => {
+export const postNewMessage = async (id, messageData) => {
   const response = await instance.post(
     `/23-5/recipients/${id}/messages/`,
     messageData,
