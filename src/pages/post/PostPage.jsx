@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import SubmitButton from "../../components/SubmitButton";
 import MyContext from "../../components/MyContext";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ToastBox from "../../components/ToastBox";
 import StyleInputForm from "../../components/InputForm";
 import StyledSelectBackground from "./SelectBackgound";
-import instance from '../../api/axios';
+import { loadBackgroundImg, submitNewRollingPaper } from '../../api/axios';
 
 function Post({ className }){
     const [receiverName, setReceiverName] = useState('');
@@ -21,13 +20,16 @@ function Post({ className }){
     const navigate = useNavigate();
 
     useEffect(()=>{
-        axios.get('https://rolling-api.vercel.app/background-images/')
-        .then( response => {setBgImgList(response.data.imageUrls)} )
-        .catch( err => {
-            makeToast('이미지를 가져오지 못했습니다. 새로고침을 해주세요.')
-        })
-    },[]);
-
+        const fetchImgs = async () => {
+            try{
+                const imgList = await loadBackgroundImg();
+                setBgImgList(imgList);
+            } catch(err) {
+                makeToast('이미지를 가져오지 못했습니다. 새로고침을 해주세요.')
+            }
+        }
+        fetchImgs();
+    },[])
 
     const handleSubmit = async () => {
         //데이터 구조
@@ -37,20 +39,13 @@ function Post({ className }){
             backgroundColor: userSelectedColor || 'beige',
             backgroundImageURL: backgroundMode === 'img' ? bgImgList[userSelectedImg] : null,
         };
-
-        //배경 .... backgroundMode가 img이면 이미지 URL 전달
+        
         try {
-            const response = await instance.post(
-                `/recipients/`,
-                postData
-            );
-
+            const response = await submitNewRollingPaper(postData);
             if (response.status === 201) {                
                 receiverName ? navigate(`/post/${response.data.id}`) : '';
-                makeToast('생성에 성공했습니다!!')
-                // 위에 코드는 상세 페이지에 구현해야 한다.
             } 
-        } catch (err) {
+        } catch(err){
             makeToast('생성에 실패했습니다. 다시 시도해주세요.');
         }
     }
