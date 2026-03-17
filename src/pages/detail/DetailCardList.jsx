@@ -107,10 +107,6 @@ function DetailCardList({ editMode, refreshRecipient }) {
   );
 }
 
-export default DetailCardList;
-
-/* ==================== styled ==================== */
-
 const StyledDetailCardList = styled.div`
   display: flex;
   flex-flow: wrap;
@@ -149,3 +145,5 @@ const StyledDetailButton = styled(DetailButton)`
     margin: 16px auto 0;
   }
 `;
+
+export default DetailCardList;

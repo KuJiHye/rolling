@@ -32,10 +32,6 @@ function DetailConfirmModal({ message, onConfirm, onCancel }) {
   );
 }
 
-export default DetailConfirmModal;
-
-/* ==================== styled ==================== */
-
 const StyledModal = styled.div`
   background-color: var(--white);
   padding: 40px;
@@ -63,3 +59,5 @@ const StyledButtonGroup = styled.div`
   gap: 5px;
   margin: 20px 0 0;
 `;
+
+export default DetailConfirmModal;

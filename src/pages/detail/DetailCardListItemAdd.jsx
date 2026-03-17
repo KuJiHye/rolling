@@ -19,10 +19,6 @@ function DetailCardListItemAdd({ id }) {
   );
 }
 
-export default DetailCardListItemAdd;
-
-/* ==================== styled ==================== */
-
 const AddButtonDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -34,3 +30,5 @@ const StyledDetailButton = styled(DetailButton)`
   height: 56px;
   border-radius: 50%;
 `;
+
+export default DetailCardListItemAdd;

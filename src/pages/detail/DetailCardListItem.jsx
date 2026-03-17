@@ -47,9 +47,6 @@ function DetailCardListItem({ card, editMode, onDelete, onClick }) {
   );
 }
 
-export default DetailCardListItem;
-
-/* ==================== styled ==================== */
 const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
@@ -143,3 +140,5 @@ const StyledCreatedAt = styled.p`
   font: var(--font-12-regular);
   color: var(--gray-400);
 `;
+
+export default DetailCardListItem;

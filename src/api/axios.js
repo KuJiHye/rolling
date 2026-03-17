@@ -30,7 +30,7 @@ export const deleteRecipients = async (id) => {
 };
 
 // 롤링페이퍼 상세페이지 메세지 데이터 불러오기
-export const getDetailMessages = async (id, { limit, offset }) => {
+export const getDetailMessages = async (id, { limit = 8, offset = 0 }) => {
   const response = await instance.get(`/recipients/${id}/messages/`, {
     params: {
       limit,

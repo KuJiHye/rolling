@@ -102,10 +102,6 @@ function DetailPage() {
   );
 }
 
-export default DetailPage;
-
-/* ==================== styled ==================== */
-
 const StyledBackground = styled.div`
   min-height: calc(100vh - 130px);
   background-size: cover;
@@ -164,3 +160,5 @@ const StyledDetailButton = styled(DetailButton)`
     margin: 0 0 5px;
   }
 `;
+
+export default DetailPage;
