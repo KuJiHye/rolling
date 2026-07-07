@@ -2,21 +2,17 @@ import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import MessageCount from "../../components/MessageCount";
 import EmojiBadgeList from "../../components/EmojiBadgeList";
-import { useEmojiReaction } from "../../hooks/useEmojiReaction";
 import { colorMatching } from "../../constants/colorMatching";
 import RollingPaperCardSkeleton from "./RollingPaperCardSkeleton";
 
 function RollingPaperCard({ card, $variant, isLoading }) {
   const navigate = useNavigate();
-  const { emojis } = useEmojiReaction(card?.id);
 
   if (isLoading || !card) {
     return <RollingPaperCardSkeleton $variant={$variant} />;
   }
 
-  const sortedEmojis = [...emojis].sort((a, b) => b.count - a.count);
-
-  const topThree = sortedEmojis.slice(0, 3);
+  const topThree = (card.topReactions ?? []).slice(0, 3);
 
   const handleCardClick = () => {
     navigate(`/post/${card.id}`);

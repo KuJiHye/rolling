@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useCallback, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import RollingPaperCard from "./RollingPaperCard";
 import styled from "styled-components";
@@ -7,20 +7,31 @@ import ArrowRight from "../../assets/arrow_right.svg";
 import ArrowLeft from "../../assets/arrow_left.svg";
 import SearchIc from "../../assets/ic_search.svg";
 
-function RollingPaperList({ title, sort }) {
-  const [allLists, setAllLists] = useState([]);
+export const FETCH_LIMIT = 12;
+
+function RollingPaperList({
+  title,
+  sort,
+  initialData = [],
+  initialCount = 0,
+  isReady = false,
+}) {
+  const [extraLists, setExtraLists] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [totalCount, setTotalCount] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
 
   const VIEW_COUNT = 4;
-  const FETCH_LIMIT = 100;
 
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
   const [isTablet, setIsTablet] = useState(window.innerWidth <= 1024);
   const observerRef = useRef(null);
+
+  const allLists = useMemo(
+    () => [...initialData, ...extraLists],
+    [initialData, extraLists],
+  );
+  const totalCount = initialCount;
 
   useEffect(() => {
     const handleResize = () => setIsTablet(window.innerWidth <= 1024);
@@ -29,38 +40,20 @@ function RollingPaperList({ title, sort }) {
   }, []);
 
   const loadMoreLists = useCallback(
-    async (offset, isReset = false) => {
+    async (offset) => {
       try {
-        if (offset === 0) setIsLoading(true);
-
         const data = await getRecipients({
           limit: FETCH_LIMIT,
-          offset: offset,
-          sort: sort,
+          offset,
+          sort,
         });
-
-        if (isReset) {
-          setAllLists(data.results);
-          setCurrentIndex(0);
-        } else {
-          setAllLists((prev) => [...prev, ...data.results]);
-        }
-        setTotalCount(data.count);
+        setExtraLists((prev) => [...prev, ...data.results]);
       } catch (error) {
         console.error("데이터 로딩 중 오류 발생:", error);
-      } finally {
-        setIsLoading(false);
       }
     },
     [sort],
   );
-
-  useEffect(() => {
-    const initialize = async () => {
-      await loadMoreLists(0, true);
-    };
-    initialize();
-  }, [loadMoreLists]);
 
   useEffect(() => {
     if (!isTablet) return;
@@ -69,7 +62,7 @@ function RollingPaperList({ title, sort }) {
       (entries) => {
         // 관찰 대상(스크롤 끝부분)이 화면에 보이고, 아직 불러올 데이터가 남았다면
         if (entries[0].isIntersecting && allLists.length < totalCount) {
-          loadMoreLists(allLists.length, false);
+          loadMoreLists(allLists.length);
         }
       },
       { threshold: 0, rootMargin: "0px 3000px 0px 0px" },
@@ -91,7 +84,7 @@ function RollingPaperList({ title, sort }) {
       nextIndex + PREFETCH_THRESHOLD > allLists.length &&
       allLists.length < totalCount
     ) {
-      loadMoreLists(allLists.length, false);
+      loadMoreLists(allLists.length);
     }
 
     if (nextIndex <= totalCount - VIEW_COUNT) {
@@ -146,7 +139,7 @@ function RollingPaperList({ title, sort }) {
         </StyledLeftButton>
 
         <StyledCardList>
-          {isLoading
+          {!isReady
             ? Array(4)
                 .fill(0)
                 .map((_, i) => (
