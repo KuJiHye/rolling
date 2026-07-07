@@ -26,6 +26,8 @@ function RollingPaperList({
 
   const [isTablet, setIsTablet] = useState(window.innerWidth <= 1024);
   const observerRef = useRef(null);
+  const scrollRef = useRef(null);
+  const isFetchingRef = useRef(false);
 
   const allLists = useMemo(
     () => [...initialData, ...extraLists],
@@ -41,6 +43,8 @@ function RollingPaperList({
 
   const loadMoreLists = useCallback(
     async (offset) => {
+      if (isFetchingRef.current) return;
+      isFetchingRef.current = true;
       try {
         const data = await getRecipients({
           limit: FETCH_LIMIT,
@@ -50,6 +54,8 @@ function RollingPaperList({
         setExtraLists((prev) => [...prev, ...data.results]);
       } catch (error) {
         console.error("데이터 로딩 중 오류 발생:", error);
+      } finally {
+        isFetchingRef.current = false;
       }
     },
     [sort],
@@ -60,12 +66,16 @@ function RollingPaperList({
 
     const observer = new IntersectionObserver(
       (entries) => {
-        // 관찰 대상(스크롤 끝부분)이 화면에 보이고, 아직 불러올 데이터가 남았다면
+        // 관찰 대상(스크롤 끝부분)이 컨테이너 우측 여백 안에 들어오면(끝 도달 전 프리페치)
         if (entries[0].isIntersecting && allLists.length < totalCount) {
           loadMoreLists(allLists.length);
         }
       },
-      { threshold: 0, rootMargin: "0px 3000px 0px 0px" },
+      {
+        root: scrollRef.current,
+        threshold: 0,
+        rootMargin: "0px 800px 0px 0px",
+      },
     );
 
     if (observerRef.current) {
@@ -75,18 +85,20 @@ function RollingPaperList({
     return () => observer.disconnect();
   }, [isTablet, allLists.length, totalCount, loadMoreLists]);
 
-  // 버튼 클릭 시 이동 로직
-  const handleNext = () => {
-    const nextIndex = currentIndex + VIEW_COUNT;
-    const PREFETCH_THRESHOLD = VIEW_COUNT * 3;
-
+  // 데스크톱: 현재 창이 로드 끝에 가까워지면 미리 이어 로드 (연타해도 자가 치유)
+  useEffect(() => {
+    if (isTablet) return;
     if (
-      nextIndex + PREFETCH_THRESHOLD > allLists.length &&
+      allLists.length < currentIndex + VIEW_COUNT * 3 &&
       allLists.length < totalCount
     ) {
       loadMoreLists(allLists.length);
     }
+  }, [isTablet, currentIndex, allLists.length, totalCount, loadMoreLists]);
 
+  // 버튼 클릭 시 이동 로직
+  const handleNext = () => {
+    const nextIndex = currentIndex + VIEW_COUNT;
     if (nextIndex <= totalCount - VIEW_COUNT) {
       setCurrentIndex(nextIndex);
     }
@@ -104,10 +116,11 @@ function RollingPaperList({
     }
   };
 
-  // 렌더링 리스트 분기 처리: 태블릿 이하면 전부 렌더링, 데스크탑이면 4개만 렌더링
+  // 렌더링 리스트 분기 처리: 태블릿 이하면 전부 렌더링, 데스크탑이면 항상 4칸 고정
+  // (아직 로드 안 된 칸은 undefined → RollingPaperCard가 스켈레톤으로 표시 → 깜빡임 방지)
   const renderedLists = isTablet
     ? allLists
-    : allLists.slice(currentIndex, currentIndex + VIEW_COUNT);
+    : Array.from({ length: VIEW_COUNT }, (_, i) => allLists[currentIndex + i]);
 
   const isNoPrevData = currentIndex === 0;
   const isNoNextData = currentIndex >= totalCount - VIEW_COUNT;
@@ -138,7 +151,7 @@ function RollingPaperList({
           </span>
         </StyledLeftButton>
 
-        <StyledCardList>
+        <StyledCardList ref={scrollRef}>
           {!isReady
             ? Array(4)
                 .fill(0)
@@ -147,8 +160,8 @@ function RollingPaperList({
                     <RollingPaperCard isLoading={true} $variant="main" />
                   </StyledCardItem>
                 ))
-            : renderedLists.map((card) => (
-                <StyledCardItem key={card.id}>
+            : renderedLists.map((card, i) => (
+                <StyledCardItem key={card?.id ?? `ph-${currentIndex + i}`}>
                   <RollingPaperCard card={card} $variant="main" />
                 </StyledCardItem>
               ))}
